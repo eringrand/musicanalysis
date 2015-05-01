@@ -21,9 +21,15 @@ plays
 160168 unique artist hashes
 17559530 rows
 
+>>> 17559530/float(359347*(186642+107373))*100
+0.01661993711166338
+
 # kaggle data
 kaggle_visible_evaluation.txt
 
 110000 unique user hashes
 163206 unique song hashes
 1450934 rows
+
+>>> 1450934/float(n*m)*100
+0.008082000104719857
