@@ -1,0 +1,41 @@
+% \documentclass[12pt]{emulateapj}
+ \documentclass[12pt,preprint]{aastex}
+\usepackage[margin= 1.0in]{geometry}    % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper} % or letter or a5paper or ... etc
+\usepackage{float}
+\usepackage{amssymb,amsmath}
+\usepackage[]{epsfig,graphicx}
+\usepackage{color}
+\usepackage{verbatim}
+\DeclareGraphicsRule{.tif}{png}{.jpg}{`convert Num1 `dirname Num1`/`basename Num1 .tif`.jpg}
+\newcommand{\units}[1]{\ensuremath{\, \mathrm{#1}}}
+\newcommand{\myemail}{egrand@astro.umd.edu}
+\usepackage{enumitem}
+\usepackage{natbib,twoopt}
+\newcommand{\degree}{\ensuremath{^\circ}}
+\citestyle{apj}
+\bibliographystyle{aa}
+\usepackage[maxfloats=25]{morefloats}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref}
+
+\begin{document}
+\title{Clustering of Last.fm Music Artists}
+
+ \author{Jordan Rosenblum, Justin Law \& Erin Grand}
+ \affil{Data Science Institute, Columbia University, New York, NY 10027}
+ 
+\date{\today}             
+
+\begin{abstract}
+This is the abstract. 
+\end{abstract}
+
+
+This is the body. 
+
+\href{http://www.dtic.upf.edu/~ocelma/MusicRecommendationDataset/}{Music Recommendation Dataset}
+
+Sparsity of $8.08199453451\times 10^{-5}$
+
+\end{document} 

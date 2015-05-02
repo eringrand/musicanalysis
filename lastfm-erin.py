@@ -63,3 +63,6 @@ count = len(count[0])
 print count
 print len(users)*len(artists)
 print float(count)/(len(users)*len(artists))
+
+
+
