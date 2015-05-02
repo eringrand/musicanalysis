@@ -17,6 +17,19 @@ artist_musicbrainz_id
 artistname
 plays
 
-8875 unique user hashes
-46554 unique artist hashes
+359349 unique user hashes
+160168 unique artist hashes
 17559530 rows
+
+>>> 17559530/float(359347*(186642+107373))
+0.00016619937111663383
+
+# kaggle data
+kaggle_visible_evaluation.txt
+
+110000 unique user hashes
+163206 unique song hashes
+1450934 rows
+
+>>> 1450934/float(n*m)
+8.082000104719857e-05
