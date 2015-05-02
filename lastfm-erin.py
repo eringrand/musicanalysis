@@ -1,8 +1,3 @@
-
-# coding: utf-8
-
-# In[15]:
-
 import numpy as np
 from collections import defaultdict
 from scipy import sparse
@@ -35,9 +30,6 @@ for line in data:
         artistdic[artisthash].append(userhash)
         
 
-
-# In[16]:
-
 n = len(users)
 m = len(artists)
 
@@ -56,10 +48,7 @@ i = 0
 for artist in artists:
     artist_dict[artist] = i
     i += 1
-
-
-# In[17]:
-
+    
 M = sparse.lil_matrix((n, m))
 
 for user, artistlist in userdic.items():
@@ -68,14 +57,9 @@ for user, artistlist in userdic.items():
         artistidx = artist_dict[a]
         plays = numplays[a, user]
         M[useridx, artistidx] = plays
-
-
-# In[18]:
-
-
-
-
-# In[ ]:
-
-
-
+    
+count = M.nonzero()
+count = len(count[0])
+print count
+print len(users)*len(artists)
+print float(count)/(len(users)*len(artists))
