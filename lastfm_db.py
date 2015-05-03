@@ -57,13 +57,23 @@ for i in range(len(data)):
 users = list(users) #user hashes
 songs = list(songs) #artist hashes
 
-i=0
+# make sure that all the songs in the triplet set are in the dictonary
+#i=0
+#for song in songs:
+#    if song not in song_to_track:
+#        i = i + 1
+
+# dictonary from trackID to songID for only the songs in triplets
+
+triplet_song_to_track = {}
+triplet_track_to_artist = {}
+triplet_track_to_title = {}
+
 for song in songs:
-    if song not in song_to_track.keys():
-        i = i + 1
-
-
-
+    track = song_to_track[song]
+    triplet_song_to_track[song] = track
+    triplet_track_to_artis = track_to_artist[track]
+    triplet_track_to_title = track_to_title[track]
 
 
 
