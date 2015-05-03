@@ -1,3 +1,6 @@
+## Will convert all python notebooks to .py files, so ignore notebooks 
+*.ipynb
+
 ## Ignore generated LaTeX files
 MSDgroupwriteup.aux
 MSDgroupwriteup.log
