@@ -7,15 +7,14 @@ import matplotlib.pyplot as plt
 
 # http://www.kaggle.com/c/msdchallenge/data
 eval = pd.read_csv("kaggle_visible_evaluation_triplets.txt",sep='\t',header = None, names = ['user_id','song_id','plays'])
-#eval.pivot(index='user_id',columns='song_id', values='plays')
 
 userhist = eval.groupby('user_id').sum()
 userhist = pd.DataFrame(userhist).reset_index()
-usersub = userhist[userhist['plays']>100]
+usersub = userhist[userhist['plays']>29]
 
 songhist = eval.groupby('song_id').sum()
 songhist = pd.DataFrame(songhist).reset_index()
-songsub = songhist[songhist['plays']>100]
+songsub = songhist[songhist['plays']>34]
 
 sub = eval[eval['song_id'].isin(songsub['song_id'])]
 sub = sub[sub['user_id'].isin(usersub['user_id'])]
@@ -63,6 +62,14 @@ con = sqlite.connect("track_metadata.db")
 with con:
     sql = "SELECT * FROM songs"
     track_metadata = psql.read_sql(sql, con)
+con.close()
+
+# http://labrosa.ee.columbia.edu/millionsong/sites/default/files/lastfm/lastfm_tags.db
+# tag values indicate popularity of the tags on last.fm as a whole
+con = sqlite.connect("lastfm_tags.db")
+with con:
+    sql = "SELECT tags.tag, tids.tid, tid_tag.val FROM tid_tag, tids, tags WHERE tags.ROWID=tid_tag.tag AND tid_tag.tid=tids.ROWID"
+    lastfm_tags = psql.read_sql(sql, con)
 con.close()
 
 import matplotlib
