@@ -1,13 +1,37 @@
 import numpy as np
 import sqlite3 as sqlite
 import pandas as pd
-import pandas.io.sql as psql.
+import pandas.io.sql as psql
 import matplotlib.pyplot as plt
 
 
 # http://www.kaggle.com/c/msdchallenge/data
 eval = pd.read_csv("kaggle_visible_evaluation_triplets.txt",sep='\t',header = None, names = ['user_id','song_id','plays'])
 #eval.pivot(index='user_id',columns='song_id', values='plays')
+
+userhist = eval.groupby('user_id').sum()
+userhist = pd.DataFrame(userhist).reset_index()
+usersub = userhist[userhist['plays']>100]
+
+songhist = eval.groupby('song_id').sum()
+songhist = pd.DataFrame(songhist).reset_index()
+songsub = songhist[songhist['plays']>100]
+
+sub = eval[eval['song_id'].isin(songsub['song_id'])]
+sub = sub[sub['user_id'].isin(usersub['user_id'])]
+
+len(set(sub['user_id']))
+len(set(sub['song_id']))
+
+sub.shape[0]/float(eval.shape[0])
+
+pivot = sub.pivot(index='user_id',columns='song_id', values='plays')
+user_index = pivot.index
+song_index = pivot.columns
+M = pivot.as_matrix()
+M = np.nan_to_num(M)
+M = np.asmatrix(M)
+M = M/np.max(M,axis=0)
 
 # http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/unique_tracks.txt
 unique_tracks = pd.read_csv("unique_tracks.txt",sep='<SEP>', header = None, names = ['track_id', 'song_id', 'arist_name', 'song_title'])
