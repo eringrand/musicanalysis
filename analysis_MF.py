@@ -2,27 +2,26 @@ import numpy as np
 import matplotlib.pyplot as plt
 from operator import itemgetter
 
-# Create M and M_test matrices here
+# Create Mtrain and Mtest matrices here
 
-M = np.zeros([0,0])
-M_test = np.zeros([0,0])
+Mtrain = np.zeros([0,0])
+Mtest = np.zeros([0,0])
 
-N1 = np.shape(M)[0]
-N2 = np.shape(M)[1]
-
-    
+N1 = np.shape(Mtrain)[0]
+N2 = np.shape(Mtrain)[1]
+  
 omega = []
     
 for i in xrange(0,N1):
     for j in xrange(0,N2):
-        if M[i][j] != 0:
+        if Mtrain[i][j] != 0:
             omega.append((i,j))
             
 omega_test = []
     
 for i in xrange(0,N1):
     for j in xrange(0,N2):
-        if M_test[i][j] != 0:
+        if Mtest[i][j] != 0:
             omega_test.append((i,j))
 
 
@@ -38,8 +37,11 @@ for (i,j) in omega:
         omegav[j].append(i)
     else:
         omegav[j] = [i]
-            
-var = 0.25
+
+# Calculate var
+
+           
+var = ???????
 d = 20
 I = np.identity(d)
 lamb = 10
@@ -73,7 +75,7 @@ for iter in xrange(0,100):
         if i in omegau.keys():
             for j in omegau[i]:
                 sum1 = sum1 + np.outer(v[j],np.transpose(v[j]))
-                sum2 = sum2 + np.dot(M[i][j],v[j])
+                sum2 = sum2 + np.dot(Mtrain[i][j],v[j])
             u[i] = np.dot(np.linalg.inv(t1 + sum1), sum2)
                
     for j in xrange(0, N2):
@@ -82,20 +84,20 @@ for iter in xrange(0,100):
         if j in omegav.keys():
             for i in omegav[j]:
                 sum1 = sum1 + np.outer(u[i],np.transpose(u[i]))
-                sum2 = sum2 + np.dot(M[i][j],u[i])
+                sum2 = sum2 + np.dot(Mtrain[i][j],u[i])
             v[j] = np.dot(np.linalg.inv(t1 + sum1), sum2)
     
     sum3 = 0        
     for (i,j) in omega_test:
         prediction = predict(u[i], v[j])
-        actual = M_test[i][j]
+        actual = Mtest[i][j]
         sum3 = sum3 + (prediction - actual)**2
     temp = (sum3/float(len(omega_test)))**0.5
     RMSE.append(temp)
     
     sum4 = 0
     for (i, j) in omega:
-        sum4 = sum4 + 0.5/var*np.power(M[i][j] - np.dot(u[i], v[j]),2)
+        sum4 = sum4 + 0.5/var*np.power(Mtrain[i][j] - np.dot(u[i], v[j]),2)
     sum4 = -sum4
     sum5 = 0
     for i in xrange(0, N1):
