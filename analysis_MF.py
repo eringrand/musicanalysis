@@ -4,26 +4,9 @@ from operator import itemgetter
 
 # Create Mtrain and Mtest matrices here
 
-Mtrain = np.zeros([0,0])
-Mtest = np.zeros([0,0])
-
 N1 = np.shape(Mtrain)[0]
 N2 = np.shape(Mtrain)[1]
   
-omega = []
-    
-for i in xrange(0,N1):
-    for j in xrange(0,N2):
-        if Mtrain[i][j] != 0:
-            omega.append((i,j))
-            
-omega_test = []
-    
-for i in xrange(0,N1):
-    for j in xrange(0,N2):
-        if Mtest[i][j] != 0:
-            omega_test.append((i,j))
-
 
 omegau = {}
 omegav = {}
@@ -38,10 +21,8 @@ for (i,j) in omega:
     else:
         omegav[j] = [i]
 
-# Calculate var
-
-           
-var = ???????
+# Calculate var          
+#var = ???????
 d = 20
 I = np.identity(d)
 lamb = 10

@@ -242,7 +242,7 @@ for iter in xrange(0,10):
 
 # In[24]:
 
-get_ipython().magic(u'matplotlib inline')
+#get_ipython().magic(u'matplotlib inline')
 
 # Part 1: RMSE and likelihood
 fig = plt.figure()         
