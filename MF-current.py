@@ -12,8 +12,6 @@ u = np.empty([N1,d])
 
 for j in xrange(0, N2):
     v[:,j] = np.random.multivariate_normal(mean,(1/float(lamb))*I)
-v = np.asmatrix(v)
-u = np.asmatrix(u)
 
 
 RMSE = []
@@ -42,17 +40,15 @@ def predict(u, v):
     # Performing matrix factorization
 for c in range(iter):
     for i in range(N1):
-        inner = (v[:,users1[i]] * v[:,users1[i]].T)
-        outer = np.asmatrix(Mtrain[i][users1[i]]) * v[:,users1[i]].T
-        u[i] = ((t1 + inner).I * outer.T).T
+        inner = np.dot(v[:,users1[i]], v[:,users1[i]].T)
+        outer = np.dot(Mtrain[i][users1[i]], v[:,users1[i]].T)
+        u[i] = np.dot((t1 + inner).I * outer.T).T
 
     for j in range(N2):
-        inner = (u[songs1[j]].T * u[songs1[j]])
-        outer = np.asmatrix(Mtrain[songs1[j],j]) * u[songs1[j]]
-        v[:,j] = ((t1 + inner).I * outer.T)
+        inner = np.dot(u[songs1[j]].T * u[songs1[j]])
+        outer = np.dot(Mtrain[songs1[j],j] * u[songs1[j]])
+        v[:,j] = np.dot((t1 + inner).I, outer.T)
 
-    u = np.asarray(u)
-    v = np.asarray(v)
     sum3 = 0        
     for (i,j) in omega_test:
         prediction = predict(u[i], v[:,j])
