@@ -70,3 +70,11 @@ for c in range(iter):
         sum6 = sum6 + 0.5*lamb*np.sum(v[:,j]**2)
     sum6 = -sum6
     loglik.append(sum4+sum5+sum6)
+    
+    
+    
+    
+    
+    
+    from sklearn.cluster import KMeans
+    kmeans_model = KMeans(n_clusters=10).fit_predict(u)
