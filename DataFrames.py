@@ -3,7 +3,7 @@ import sqlite3 as sqlite
 import pandas as pd
 import pandas.io.sql as psql
 import matplotlib.pyplot as plt
-
+import random
 
 # http://www.kaggle.com/c/msdchallenge/data
 eval = pd.read_csv("kaggle_visible_evaluation_triplets.txt",sep='\t',header = None, names = ['user_id','song_id','plays'])
@@ -24,13 +24,30 @@ len(set(sub['song_id']))
 
 sub.shape[0]/float(eval.shape[0])
 
-pivot = sub.pivot(index='user_id',columns='song_id', values='plays')
+sub_max = pd.DataFrame(sub.groupby('song_id').max()).reset_index()
+merged = pd.merge(sub,sub_max,on="song_id")
+merged['plays_x'] = merged['plays_x']/merged['plays_y']
+sub_norm = merged[['user_id_x', 'song_id', 'plays_x']]
+sub_norm.columns = ['user_id', 'song_id', 'plays']
+
+sample = random.sample(sub_norm.index, int(sub_norm.shape[0]*0.2))
+trainsub = sub_norm.copy()
+trainsub.ix[trainsub.index.isin(sample),'plays'] = 0
+
+testsub = sub_norm.copy()
+testsub.ix[~testsub.index.isin(sample),'plays'] = 0
+
+trainpivot = trainsub.pivot(index='user_id',columns='song_id', values='plays')
 user_index = pivot.index
 song_index = pivot.columns
-M = pivot.as_matrix()
-M = np.nan_to_num(M)
-M = np.asmatrix(M)
-M = M/np.max(M,axis=0)
+M_train = pivot.as_matrix()
+M_train = np.nan_to_num(M_train)
+
+testpivot = testsub.pivot(index='user_id',columns='song_id', values='plays')
+M_test = pivot.as_matrix()
+M_test = np.nan_to_num(M_test)
+
+
 
 # http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/unique_tracks.txt
 unique_tracks = pd.read_csv("unique_tracks.txt",sep='<SEP>', header = None, names = ['track_id', 'song_id', 'arist_name', 'song_title'])
@@ -71,6 +88,17 @@ with con:
     sql = "SELECT tags.tag, tids.tid, tid_tag.val FROM tid_tag, tids, tags WHERE tags.ROWID=tid_tag.tag AND tid_tag.tid=tids.ROWID"
     lastfm_tags = psql.read_sql(sql, con)
 con.close()
+
+# http://labrosa.ee.columbia.edu/millionsong/sites/default/files/lastfm/lastfm_similars.db
+# Similarity data from lastfm, the dest contains songs that consider the tid as similar while the src contains songs where tid considers as similar
+con = sqlite.connect("lastfm_similars.db")
+with con:
+    sql = "SELECT * FROM similars_dest"
+    lastfm_dest = psql.read_sql(sql, con)
+    sql = "SELECT * FROM similars_src"
+    lastfm_src = psql.read_sql(sql, con)
+con.close()
+
 
 import matplotlib
 matplotlib.style.use('ggplot')
