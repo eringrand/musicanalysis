@@ -8,6 +8,7 @@ from collections import defaultdict
 from scipy import sparse
 import matplotlib.pyplot as plt
 from operator import itemgetter
+from sklearn.cluster import KMeans
 
 f = open('kaggle_visible_evaluation_triplets.txt', 'r')
 data = f.read().split('\n')
@@ -66,7 +67,7 @@ print 100. - (float(len(p3))/len(data) * 100)
 #print (float(len(subsongs)) * len(subusers)) / ( len(songs) * len(users)) * 100
 
 
-# In[13]:
+# In[4]:
 
 for key, value in p3.items():
     song = key[0]
@@ -80,7 +81,7 @@ for key, value in p3.items():
     p3[song, user] = normplay
 
 
-# In[4]:
+# In[5]:
 
 allkeys = p3.keys()
 
@@ -92,7 +93,7 @@ trainingKEYS, testKEYS = allkeys[:trainingN], allkeys[trainingN:]
 print len(trainingKEYS), len(testKEYS)
 
 
-# In[5]:
+# In[6]:
 
 n = len(subusers)
 m = len(subsongs)
@@ -151,7 +152,7 @@ for key in testKEYS:
     Mtest[userindex, songindex] = float(plays)
 
 
-# In[6]:
+# In[7]:
 
 var = np.var(varcalc)
 print var
@@ -190,7 +191,7 @@ RMSE = []
 loglik=[]
 
 
-# In[10]:
+# In[15]:
 
 def predict(u, v):
     product = np.dot(u, v)
@@ -242,11 +243,6 @@ for c in range(iter):
     loglik.append(sum4+sum5+sum6)
 
 
-# In[134]:
-
-#print RMSE, loglik
-
-
 # In[13]:
 
 get_ipython().magic(u'matplotlib inline')
@@ -264,11 +260,6 @@ plt.subplot(1,2,2)
 plt.plot(loglik)
 plt.xlabel('Iteration')
 plt.ylabel('Log Joint Likelihood')
-
-
-# In[14]:
-
-RMSE
 
 
 # In[18]:
@@ -291,18 +282,12 @@ RMSE
 
 def kmeans(data, obs, clusters):    
     lik = []
-    
     c_old = np.zeros([obs]) - 1
-    
     mu = np.empty([clusters, np.shape(data)[1]])
-    
     temp = np.random.random_integers(0, np.shape(data)[0]-1, clusters)
-    
     for k in xrange(0, clusters):
         mu[k] = data[temp[k]]
-    
     #mu = np.random.uniform(-10, 10, (clusters, 2))
-    
     c = np.empty([obs])
     
     n = np.zeros([clusters])
@@ -350,56 +335,59 @@ def kmeans(data, obs, clusters):
 #plt.title('K='+ str(k))
 
 
-# In[78]:
+# In[44]:
 
-from scipy.cluster.vq import vq, kmeans, whiten
-normv = whiten(v.T)
-kmeans_model = KMeans(n_clusters=10).fit(v.T)
-discenter = kmeans_model.transform(v.T)
+# Cluster by songs, check for top songs
+for i in xrange(0,1):
+    kmeans_model = KMeans(n_clusters=10).fit_transform(v.T).T
+    
+    slist = []
+    for i in xrange(0,10):
+        sorted_array = np.argsort(kmeans_model[i])[::-1][0:10]
+        for k in xrange(0,10):
+            s = [key for key, value in song_dict.items() if value == sorted_array[k]][0]
+            print i, s
+            slist.append(s) 
+    #print len(slist)
+    print len(set(slist))
 
 
-# In[82]:
+# In[43]:
 
-centroid = kmeans_model.cluster_centers_
+# clustering on the users
+for i in xrange(0,1):
+    centroid = KMeans(n_clusters=10).fit(u).cluster_centers_
+    #print np.shape(kmeans_model)
+    
+    slist = []
+    for i in xrange(0,10):
+        score = {}
+        for j in xrange(0, N2):
+            score[j] = np.dot(centroid[i], v[:,j])
+        sorted_score = sorted(score.items(), key = itemgetter(1), reverse=True)
+        print sorted_score[0]
+        for k in xrange(0,10):
+            s = [key for key, value in song_dict.items() if value == sorted_score[k][0]][0]
+            #print i, s
+            slist.append(s)
+    #print '\n'  
+    #print len(slist)
+    print len(set(slist))
+
+
+# In[32]:
+
 np.savetxt("centroids", centroid)
-np.savetxt("intoKmeans", v.T)
+np.savetxt("VintoKmeans", v.T)
+np.savetxt("UintoKmeans", u)
 
 
-# In[83]:
-
-#print centroid
-#print np.shape(kmeans_model.T)
-
-slist = []
-for i in xrange(0,10):
-    sorted_array = np.argsort(discenter.T[i])[::-1][0:10]
-    for k in xrange(0,10):
-        # print sorted_array[k]
-        s = [key for key, value in song_dict.items() if value == sorted_array[k]][0]
-        slist.append(s)
-        
-print len(slist)
-print len(set(slist))
-
-
-# In[69]:
+# In[42]:
 
 
 
 
-# In[52]:
+# In[ ]:
 
-#slist = set()
 
-#for i in xrange(0,10):
-#    score = {}
-#    for j in xrange(0, N2):
-#        score[j] = np.dot(centroid[i], v[:,j])
-#    sorted_score = sorted(score.items(), key = itemgetter(1), reverse=True)
-#    print sorted_score[1]
-#    for k in xrange(0,10):
-#        #print movies[sorted_score[k][0]]
-#        #print songs in cluster center
-#        s = [key for key, value in song_dict.items() if value == sorted_score[k][0]]
-#        slist.add(s[0])
-#    #print '\n'
+
