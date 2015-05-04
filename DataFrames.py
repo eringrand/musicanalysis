@@ -40,17 +40,17 @@ testsub.ix[~testsub.index.isin(sample),'plays'] = 0
 trainpivot = trainsub.pivot(index='user_id',columns='song_id', values='plays')
 user_index = pivot.index
 song_index = pivot.columns
-M_train = pivot.as_matrix()
+M_train = trainpivot.as_matrix()
 M_train = np.nan_to_num(M_train)
 
 testpivot = testsub.pivot(index='user_id',columns='song_id', values='plays')
-M_test = pivot.as_matrix()
+M_test = testpivot.as_matrix()
 M_test = np.nan_to_num(M_test)
 
 
 
 # http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/unique_tracks.txt
-unique_tracks = pd.read_csv("unique_tracks.txt",sep='<SEP>', header = None, names = ['track_id', 'song_id', 'arist_name', 'song_title'])
+unique_tracks = pd.read_csv("unique_tracks.txt",sep='<SEP>', header = None, names = ['tid', 'sid', 'arist_name', 'song_title'])
 
 # http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/tracks_per_year.txt
 tracks_per_year = pd.read_csv("tracks_per_year.txt",sep='<SEP>', header = None, names =['year','track_id', 'song_title'])
@@ -129,7 +129,8 @@ plt.show()
 userplaycsum = userhist.sort('plays')
 userplaycsum['plays'] = userplaycsum['plays'].cumsum()
 userplaycsum['plays'] = userplaycsum['plays']/userplaycsum['plays'].max()
-userplaycsum.plot('user_id', 'plays')
+userplaycsum = userplaycsum.reset_index(drop=True).reset_index()
+userplaycsum.plot('index', 'plays')
 plt.show()
 
 # histogram of number of plays for songs
@@ -158,3 +159,20 @@ songplaycsum['plays'] = songplaycsum['plays'].cumsum()
 songplaycsum['plays'] = songplaycsum['plays']/songplaycsum['plays'].max()
 songplaycsum.plot('song_id', 'plays')
 plt.show()
+
+
+tags_100 = lastfm_tags[lastfm_tags['val']==100]
+
+centroid_songs = pd.read_csv("clustercenters.txt", sep=' ', header=None, names=['centroid','sid'])
+
+centroid_unique = pd.merge(unique_tracks, centroid_songs, on='sid')
+tag_centroid_unique = pd.merge(centroid_unique, tags_100, on='tid') 
+
+#f = open("unique_tracks.txt")
+#tid = []
+#sid = []
+
+#for line in f:
+#    temp = line
+#    tid.append(line.split('<SEP>'[0]))
+#    sid.append(line.split('<SEP>'[1]))
