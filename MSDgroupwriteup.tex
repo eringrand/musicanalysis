@@ -44,7 +44,7 @@ The goal of matrix factorization is to use collaborative methods to build a reco
 
 We then constructed training and testing matrices, of which both have $N_1$ users (rows denoted by $u_i$) and $N_2$ songs (columns denoted by $v_j$). Of course the matrices will be very sparse, containing zeros in all entries except for those in which a user (rows of matrix) has listened to a song (columns of matrix). The goal is to factor the training matrix into the product of two matrixes, $U$ and $V$. The matrix $U$ will be $N_1 \times d$ and the matrix $V$ will be $d \times N_2$. We want to learn a low-rank factorization (i.e. we choose $d$) so as to restrict the patterns we see in the rows and columns of our original matrix (e.g. we think a priori that if a user likes 1 top 100 song, the user may also like other top 100 songs). There is subjectivity in picking $d$ but $20$ is a common place to start. In the factorized matrices, the predicted rating will be $\hat{M}_{ij} = u_i^T v_j$ 
 
-Using a coordinate ascent algorithm over 100 iterations, each row ($u_i$) and column ($v_j$) of the training matrix is then updated (see equations \ref{eq1} and \ref{eq2}) in order to maximize the log joint likelihood (see equation \ref{eq3}). 
+Using a coordinate ascent algorithm over 100 iterations, each row ($u_i$) and column ($v_j$) of the training matrix is then updated (equations \ref{eq1} and \ref{eq2}) in order to maximize the log joint likelihood (equation \ref{eq3}). 
 
 \begin{equation}
 u_i = \left( \lambda\sigma^2 I + \sum_{j \in \Omega_{w_i}} v_j v_j^T \right)^{-1}\left(\sum_{j \in \Omega_{w_i}} M_{ij} v_{j} \right)
@@ -70,14 +70,14 @@ We keep track of the root mean square error (RMSE) versus the testing set (i.e. 
 
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
-   \includegraphics[width=2in]{h845BuzFO9CNgAAAABJRU5ErkJggg==.png} 
-   \caption{(how close our prediction is as compared to the actual normalized play count in the testing set }
+   \includegraphics[width=4in]{h845BuzFO9CNgAAAABJRU5ErkJggg==.png} 
+   \caption{how close our prediction is as compared to the actual normalized play count in the testing set }
    \label{fig:rmseplot}
 \end{figure}
 
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
-   \includegraphics[width=2in]{C9LAAAAABJRU5ErkJggg==.png} 
+   \includegraphics[width=4in]{C9LAAAAABJRU5ErkJggg==.png} 
    \caption{log joint likelihood of the training set as a function of iteration }
    \label{fig:likeplot}
 \end{figure}
