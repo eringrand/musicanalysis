@@ -18,9 +18,11 @@
 \usepackage[normalem]{ulem}
 \usepackage{hyperref}
 \usepackage{ amssymb }
+\newcommand{\TRANSPOSE}{\ensuremath{T}}
+
 
 \begin{document}
-\title{Clustering of Last.fm Music Artists}
+\title{Clustering of Last.fm Music}
 
  \author{Jordan Rosenblum, Justin Law \& Erin Grand}
  \affil{Data Science Institute, Columbia University, New York, NY 10027}
@@ -42,28 +44,28 @@ The goal of matrix factorization is to use collaborative methods to build a reco
 
 % Erin's part here on normalization.
 
-We then constructed training and testing matrices, of which both have $N_1$ users (rows denoted by $u_i$) and $N_2$ songs (columns denoted by $v_j$). Of course the matrices will be very sparse, containing zeros in all entries except for those in which a user (rows of matrix) has listened to a song (columns of matrix). The goal is to factor the training matrix into the product of two matrixes, $U$ and $V$. The matrix $U$ will be $N_1 \times d$ and the matrix $V$ will be $d \times N_2$. We want to learn a low-rank factorization (i.e. we choose $d$) so as to restrict the patterns we see in the rows and columns of our original matrix (e.g. we think a priori that if a user likes 1 top 100 song, the user may also like other top 100 songs). There is subjectivity in picking $d$ but $20$ is a common place to start. In the factorized matrices, the predicted rating will be $\hat{M}_{ij} = u_i^T v_j$ 
+We then constructed training and testing matrices, of which both have $N_1$ users (rows denoted by $u_i$) and $N_2$ songs (columns denoted by $v_j$). Of course the matrices will be very sparse, containing zeros in all entries except for those in which a user (rows of matrix) has listened to a song (columns of matrix). The goal is to factor the training matrix into the product of two matrixes, $U$ and $V$. The matrix $U$ will be $N_1 \times d$ and the matrix $V$ will be $d \times N_2$. We want to learn a low-rank factorization (i.e. we choose $d$) so as to restrict the patterns we see in the rows and columns of our original matrix (e.g. we think a priori that if a user likes 1 top 100 song, the user may also like other top 100 songs). There is subjectivity in picking $d$ but $20$ is a common place to start. In the factorized matrices, the predicted rating will be $\hat{M}_{ij} = u_i^\TRANSPOSE  v_j$ 
 
 Using a coordinate ascent algorithm over 100 iterations, each row ($u_i$) and column ($v_j$) of the training matrix is then updated (equations \ref{eq1} and \ref{eq2}) in order to maximize the log joint likelihood (equation \ref{eq3}). 
 
 \begin{equation}
-u_i = \left( \lambda\sigma^2 I + \sum_{j \in \Omega_{w_i}} v_j v_j^T \right)^{-1}\left(\sum_{j \in \Omega_{w_i}} M_{ij} v_{j} \right)
+u_i = \left( \lambda\sigma^2 I + \sum_{j \in \Omega_{u_i}} v_j v_j^\TRANSPOSE \right)^{-1}\left(\sum_{j \in \Omega_{u_i}} M_{ij} v_{j} \right)
 \label{eq1}
 \end{equation}
 
 
 \begin{equation}
-v_j = \left( \lambda\sigma^2 I + \sum_{i \in \Omega_{v_j}} u_i u_i^T \right)^{-1}\left(\sum_{j \in \Omega_{v_j}} M_{ij} u_{i} \right)
+v_j = \left( \lambda\sigma^2 I + \sum_{i \in \Omega_{v_j}} u_i u_i^\TRANSPOSE  \right)^{-1}\left(\sum_{j \in \Omega_{v_j}} M_{ij} u_{i} \right)
 \label{eq2}
 \end{equation}
 
 
 \begin{equation}
-\mathcal{L} = \sum_{(i,j) \in \Omega} \frac{1}{2\sigma^2} {|| M_{ij} - u_i^T v_j||}^2 - \sum_{i=1}^{N_1} \frac{\lambda}{2} ||u_i^2 || - \sum_{i=1}^{N_2} \frac{\lambda}{2} ||v_j^2 || + \text{constant}
+\mathcal{L} = \sum_{(i,j) \in \Omega} \frac{1}{2\sigma^2} {|| M_{ij} - u_i^\TRANSPOSE  v_j||}^2 - \sum_{i=1}^{N_1} \frac{\lambda}{2} ||u_i^2 || - \sum_{i=1}^{N_2} \frac{\lambda}{2} ||v_j^2 || + \text{constant}
 \label{eq3} 
 \end{equation}
 
-Note: We use a rank 20 matrix for factorization purposes, a $\lambda = 10$, and calculate the variance of the observations for our $\sigma^2$. Also, $\Omega$ is the set of all indices in the matrix which have an observation.
+\emph{Note}: We use a rank 20 matrix for factorization purposes, a $\lambda = 10$, and calculate the variance of the observations for our $\sigma^2$. Also, $\Omega$ is the set of all indices in the matrix which have an observation.
 
 We keep track of the root mean square error (RMSE) versus the testing set (i.e. how close our prediction is as compared to the actual normalized play count in the testing set) and the log joint likelihood of the training set as a function of iteration (see Figures \ref{fig:rmseplot} and \ref{fig:likeplot}).
 
@@ -82,6 +84,23 @@ We keep track of the root mean square error (RMSE) versus the testing set (i.e. 
    \label{fig:likeplot}
 \end{figure}
 
+
+
+\begin{figure}[ht]
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\includegraphics[width=\textwidth]{h845BuzFO9CNgAAAABJRU5ErkJggg==.png}
+\caption{default}
+\label{fig:figure1}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\includegraphics[width=\textwidth]{C9LAAAAABJRU5ErkJggg==.png}
+\caption{default}
+\label{fig:figure2}
+\end{minipage}
+\end{figure}
 
 \subsection{Kmeans Clustering}
 Next, we cluster each of the learned $u_i$ using k-means (describe more here later) so that the cluster centroids can be interpreted as listener/personality types.
