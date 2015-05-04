@@ -52,6 +52,9 @@ M_test = np.nan_to_num(M_test)
 # http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/unique_tracks.txt
 unique_tracks = pd.read_csv("unique_tracks.txt",sep='<SEP>', header = None, names = ['tid', 'sid', 'arist_name', 'song_title'])
 
+# http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/unique_artists.txt
+unique_artists = pd.read_csv("unique_artists.txt",sep='<SEP>',header = None, names = ['artist_id', 'artist_mbid', 'tid', 'artist_name'])
+
 # http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/tracks_per_year.txt
 tracks_per_year = pd.read_csv("tracks_per_year.txt",sep='<SEP>', header = None, names =['year','track_id', 'song_title'])
 
@@ -168,6 +171,12 @@ centroid_songs = pd.read_csv("clustercenters.txt", sep=' ', header=None, names=[
 centroid_unique = pd.merge(centroid_songs, unique_tracks, on='sid')
 tags_100_list = tags_100.groupby('tid')['tag'].apply(', '.join).reset_index()
 tag_centroid_unique = pd.merge(centroid_unique, tags_100_list, on='tid', how='left') 
+
+artist_data = pd.merge(unique_artists, artist_term.groupby('artist_id')['term'].apply(', '.join).reset_index(), on='artist_id')
+
+centroid_artist = pd.merge(centroid_unique, artist_data, on='tid')
+term_centroid_artist = pd.merge(centroid_unique, centroid_artist, on='tid', how='left')
+
 
 #f = open("unique_tracks.txt")
 #tid = []
