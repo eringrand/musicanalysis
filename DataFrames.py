@@ -5,7 +5,6 @@ import pandas.io.sql as psql
 import matplotlib.pyplot as plt
 import random
 
-
 # http://www.kaggle.com/c/msdchallenge/data
 eval = pd.read_csv("kaggle_visible_evaluation_triplets.txt",sep='\t',header = None, names = ['user_id','song_id','plays'])
 
@@ -43,6 +42,11 @@ user_index = pivot.index
 song_index = pivot.columns
 M_train = pivot.as_matrix()
 M_train = np.nan_to_num(M_train)
+
+testpivot = testsub.pivot(index='user_id',columns='song_id', values='plays')
+M_test = pivot.as_matrix()
+M_test = np.nan_to_num(M_test)
+
 
 
 # http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/unique_tracks.txt
@@ -84,6 +88,17 @@ with con:
     sql = "SELECT tags.tag, tids.tid, tid_tag.val FROM tid_tag, tids, tags WHERE tags.ROWID=tid_tag.tag AND tid_tag.tid=tids.ROWID"
     lastfm_tags = psql.read_sql(sql, con)
 con.close()
+
+# http://labrosa.ee.columbia.edu/millionsong/sites/default/files/lastfm/lastfm_similars.db
+# Similarity data from lastfm, the dest contains songs that consider the tid as similar while the src contains songs where tid considers as similar
+con = sqlite.connect("lastfm_similars.db")
+with con:
+    sql = "SELECT * FROM similars_dest"
+    lastfm_dest = psql.read_sql(sql, con)
+    sql = "SELECT * FROM similars_src"
+    lastfm_src = psql.read_sql(sql, con)
+con.close()
+
 
 import matplotlib
 matplotlib.style.use('ggplot')
