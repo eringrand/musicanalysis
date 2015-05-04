@@ -165,8 +165,9 @@ tags_100 = lastfm_tags[lastfm_tags['val']==100]
 
 centroid_songs = pd.read_csv("clustercenters.txt", sep=' ', header=None, names=['centroid','sid'])
 
-centroid_unique = pd.merge(unique_tracks, centroid_songs, on='sid')
-tag_centroid_unique = pd.merge(centroid_unique, tags_100, on='tid') 
+centroid_unique = pd.merge(centroid_songs, unique_tracks, on='sid')
+tags_100_list = tags_100.groupby('tid')['tag'].apply(', '.join).reset_index()
+tag_centroid_unique = pd.merge(centroid_unique, tags_100_list, on='tid', how='left') 
 
 #f = open("unique_tracks.txt")
 #tid = []
