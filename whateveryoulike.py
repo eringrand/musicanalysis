@@ -150,6 +150,12 @@ for key in testKEYS:
     songindex = song_dict[song]
     omega_test.append((userindex,songindex))
     Mtest[userindex, songindex] = float(plays)
+    i = userindex
+    j = songindex
+    if i in omegau_test:
+        omegau_test[i].append(j)
+    else:
+        omegau_test[i] = [j]
 
 
 # In[7]:
@@ -242,6 +248,52 @@ for c in range(iter):
     sum6 = -sum6
     loglik.append(sum4+sum5+sum6)
 
+
+def apk(actual, predicted, k=500):
+    """
+    Computes the average precision at k.
+
+    This function computes the average prescision at k between two lists of
+    items.
+
+    Parameters
+    ----------
+    actual : list
+             A list of elements that are to be predicted (order doesn't matter)
+    predicted : list
+                A list of predicted elements (order does matter)
+    k : int, optional
+        The maximum number of predicted elements
+
+    Returns
+    -------
+    score : double
+            The average precision at k over the input lists
+
+    """
+    if len(predicted)>k:
+        predicted = predicted[:k]
+
+    score = 0.0
+    num_hits = 0.0
+
+    for i,p in enumerate(predicted):
+        if p in actual and p not in predicted[:i]:
+            num_hits += 1.0
+            score += num_hits / (i+1.0)
+
+    if not actual:
+        return 1.0
+
+    return score / min(len(actual), k)
+
+predict_m = np.dot(u,v)
+apk_sum = 0
+
+for i in range(len(u)):
+    apk_sum += apk(omegau_test[i],np.argsort(M_train[i])[::1][:500])
+
+map = apk_sum/len(u)
 
 # In[13]:
 
