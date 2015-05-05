@@ -4,3 +4,6 @@
 
 # SUBSET BY LEN()
 # Naked KMEANS = 0.000236467603938
+# Items-based recommendation = 0.0134670053578
+# User-based recommendation = ?
+# See this paper: http://www-personal.umich.edu/~yjli/content/projectreport.pdf
