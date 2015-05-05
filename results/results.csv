@@ -1,0 +1,103 @@
+,tid,sid,artist_name_x,song_title_x,year,artist_name_y,song_title_y,centroid,plays,tag
+0,TRMGUWH128F146903A,SOBOUPA12A6D4F81F1,Alliance Ethnik,Sincerité Et Jalousie,,,,0,8972,drjazzmrfunkmusic
+1,TRMGUWH128F146903A,SOBOUPA12A6D4F81F1,Alliance Ethnik,Sincerité Et Jalousie,,,,5,8972,drjazzmrfunkmusic
+2,TRMHVYM128F93234B3,SOUBEXV12AB01804A4,Miley Cyrus,Don't Walk Away,2009.0,Miley Cyrus,Don't Walk Away,7,656,Miley Cyrus
+3,TRMNYZQ128F1459E10,SOBABRB12A6701DF4B,Shania Twain,Nah!,2002.0,Shania Twain,Nah!,4,2513,country
+4,TRMDUPQ128F428729B,SOZEBAZ12AF72A80C8,Thursday,Voices On A String (Album Version),2007.0,Thursday,Voices On A String (Album Version),2,2771,
+5,TRMOPBS128F4227B51,SOTLHUV12A6D4FC541,Uncle Kracker,Follow Me (Explicit LP Version),2000.0,Uncle Kracker,Follow Me (Explicit LP Version),1,1648,"country, uncle kracker"
+6,TRMOPBS128F4227B51,SOTLHUV12A6D4FC541,Uncle Kracker,Follow Me (Explicit LP Version),2000.0,Uncle Kracker,Follow Me (Explicit LP Version),2,1648,"country, uncle kracker"
+7,TRMOPBS128F4227B51,SOTLHUV12A6D4FC541,Uncle Kracker,Follow Me (Explicit LP Version),2000.0,Uncle Kracker,Follow Me (Explicit LP Version),4,1648,"country, uncle kracker"
+8,TRMOPBS128F4227B51,SOTLHUV12A6D4FC541,Uncle Kracker,Follow Me (Explicit LP Version),2000.0,Uncle Kracker,Follow Me (Explicit LP Version),8,1648,"country, uncle kracker"
+9,TRMYDQF128F4270F2F,SOQGSUC12A8C13B66D,Colossal,Brave The Elements,,,,8,2461,"chicago, math rock, Math-rock"
+10,TRGWVYH12903D019BA,SOIMTII12A6D4F662A,Jag Panzer,Reign Of The Tyrants,1984.0,Jag Panzer,Reign Of The Tyrants,3,1834,"metal, heavy metal, rock n roll"
+11,TRGWXUG128F148469F,SORWLJM12A6D4F9C0C,Buckcherry,Crazy Bitch (Album Version),2006.0,Buckcherry,Crazy Bitch (Album Version),2,1682,hard rock
+12,TRGWXUG128F148469F,SORWLJM12A6D4F9C0C,Buckcherry,Crazy Bitch (Album Version),2006.0,Buckcherry,Crazy Bitch (Album Version),8,1682,hard rock
+13,TRGXQES128F42BA5EB,SOAUWYT12A81C206F1,Björk,Undo,2001.0,Björk,Undo,1,33179,electronic
+14,TRGXQES128F42BA5EB,SOAUWYT12A81C206F1,Björk,Undo,2001.0,Björk,Undo,4,33179,electronic
+15,TRHGBSJ12903CC64A7,SONXUQR12AB0186C9F,Seine,So far so long,2007.0,Seine,So far so long,5,994,
+16,TRHHHKS128F92F98D5,SOXWYZP12AF72A42A6,Florence + The Machine,Cosmic Love,2009.0,Florence + The Machine,Cosmic Love,0,3547,indie
+17,TRHHKEH128F423AFD7,SOXQIUR12A8AE4654A,Damero feat. Nevis Peak,Gestern_Morgen,2007.0,Damero feat. Nevis Peak,Gestern_Morgen,6,645,
+18,TRHRTYE128F427EA7D,SOJSXJY12A8C13E32E,Clara Hill,Clara meets Slope - Hard To Say,2006.0,Clara Hill,Clara meets Slope - Hard To Say,0,3469,"electronic, chill"
+19,TRHRJVA128F92DCB42,SODWXJW12AAA8C5C29,Olivia Newton-John,Hochmah (Interlude),2006.0,Olivia Newton-John,Hochmah (Interlude),9,2469,
+20,TRHIVEJ128F14749AD,SOBFRNE12A6D4F7995,Dominique A,Le Courage Des Oiseaux,1991.0,Dominique A,Le Courage Des Oiseaux,3,5238,french
+21,TRHNCIR128F42334A5,SOBXHDL12A81C204C0,Kanye West,Stronger,2007.0,Kanye West,Stronger,9,2263,Hip-Hop
+22,TRUATNS128F423457D,SOBXHDL12A81C204C0,Kanye West,Stronger,2007.0,Kanye West,Stronger,9,2263,Hip-Hop
+23,TRHNBHR128F9350E67,SOVIZNF12AF72A710A,The Prodigy,The Big Gundown,2009.0,The Prodigy,The Big Gundown,6,1378,electronic
+24,TRHNKAU128F9300856,SOBRHVR12A8C133F35,Southside Spinners,Luvstruck,1999.0,Southside Spinners,Luvstruck,5,3002,trance
+25,TRHNKAU128F9300856,SOBRHVR12A8C133F35,Southside Spinners,Luvstruck,1999.0,Southside Spinners,Luvstruck,6,3002,trance
+26,TRHNKAU128F9300856,SOBRHVR12A8C133F35,Southside Spinners,Luvstruck,1999.0,Southside Spinners,Luvstruck,7,3002,trance
+27,TRHTCXG12903CC2F60,SOLLNTU12A6701CFDC,3 Doors Down,Kryptonite,1997.0,3 Doors Down,Kryptonite,7,3798,rock
+28,TRHKJNX12903CEFCDF,SOAXGDH12A8C13F8A1,Florence + The Machine,Dog Days Are Over (Radio Edit),,,,6,14279,
+29,TRCWHIO128F1488FB7,SOAFTRR12AF72A8D4D,Daft Punk,Harder Better Faster Stronger,2007.0,Daft Punk,Harder Better Faster Stronger,7,2189,electronic
+30,TRCXRWD128E0782C18,SOAZRJG12A6D4F8A30,Ella Fitzgerald,On Green Dolphin Street (Medley) (1999 Digital Remaster),1968.0,Ella Fitzgerald,On Green Dolphin Street (Medley) (1999 Digital Remaster),2,656,
+31,TRRWHBU128F1469802,SOGLWGG12A6D4F8046,Pandora's Box,The Want Ad,,,,9,1979,hard rock
+32,TRRGQKP128F1469E20,SOOFYTN12A6D4F9B35,Alliance Ethnik,Représente,1999.0,Alliance Ethnik,Représente,1,9685,"hip hop, Hip-Hop, Jazz Hop, Good Hip Hop, hip hop francais"
+33,TRRGQKP128F1469E20,SOOFYTN12A6D4F9B35,Alliance Ethnik,Représente,1999.0,Alliance Ethnik,Représente,2,9685,"hip hop, Hip-Hop, Jazz Hop, Good Hip Hop, hip hop francais"
+34,TRRGQKP128F1469E20,SOOFYTN12A6D4F9B35,Alliance Ethnik,Représente,1999.0,Alliance Ethnik,Représente,3,9685,"hip hop, Hip-Hop, Jazz Hop, Good Hip Hop, hip hop francais"
+35,TRRGQKP128F1469E20,SOOFYTN12A6D4F9B35,Alliance Ethnik,Représente,1999.0,Alliance Ethnik,Représente,8,9685,"hip hop, Hip-Hop, Jazz Hop, Good Hip Hop, hip hop francais"
+36,TRRFAYO128F9324F33,SOSDGUX12AB01802FE,Beyoncé,Sweet Dreams,2008.0,Beyoncé,Sweet Dreams,7,893,beyonce
+37,TRFGQNT128F146B854,SOVWBYM12A6D4F8A22,The Buggles,Video Killed The Radio Star,1979.0,The Buggles,Video Killed The Radio Star,5,3648,80s
+38,TRFGQNT128F146B854,SOVWBYM12A6D4F8A22,The Buggles,Video Killed The Radio Star,1979.0,The Buggles,Video Killed The Radio Star,7,3648,80s
+39,TRFGQNT128F146B854,SOVWBYM12A6D4F8A22,The Buggles,Video Killed The Radio Star,1979.0,The Buggles,Video Killed The Radio Star,8,3648,80s
+40,TRFHCVW128E078EB45,SOHFGKG12A6701C429,Sheryl Crow,Picture,,,,0,2039,country
+41,TRFQOSP128F427C2B2,SOPUCYA12A8C13A694,Five Iron Frenzy,Canada,,,,6,9921,
+42,TRFVHRN128F1486908,SODCNJX12A6D4F93CB,Natiruts,Jamaica Roots II(Agora E Sempre),,,,4,4084,"reggae, brazilian, Brasilia, Chapada, parque nacionais do brasil"
+43,TRFDCOC128F424C63A,SOVAJLY12A6D4FDC72,Jordan Francis/Roshon Bernard Fegan,Hasta La Vista,,,,6,1377,camp rock
+44,TRFDJKM128F92EE287,SOIOZHO12AB017FE5E,Philippe Rochard,Crumpshit,,,,1,2830,
+45,TRFDJKM128F92EE287,SOIOZHO12AB017FE5E,Philippe Rochard,Crumpshit,,,,4,2830,
+46,TRZNAHL128F9327D5A,SOUNJIO12AB0181339,Future Rock,Gears,,,,4,4159,electronically chillin
+47,TRZJNDO128EF343498,SOTCMDJ12A6D4F8528,Angels and Airwaves,The Gift,2006.0,Angels and Airwaves,The Gift,5,7969,alternative
+48,TRZXLXR128F421A7C8,SODEGIQ12A6D4FC6E3,Radney Foster,Sweet And Wild,2006.0,Radney Foster,Sweet And Wild,2,1558,
+49,TRIAFSN128F4261DAB,SOEOLGZ12A8C134706,Atomic Kitten,Eternal Flame (Single Version),2004.0,Atomic Kitten,Eternal Flame (Single Version),7,1291,pop
+50,TRILTSF128F933EB90,SOCBSZW12AB01891C1,Covenant,XRDS,,,,6,1274,"synthpop, futurepop"
+51,TRIEXMF128F92FDD60,SOWCKVR12A8C142411,Kings Of Leon,Use Somebody,2008.0,Kings Of Leon,Use Somebody,9,5463,rock
+52,TRTEHXL128F931687B,SOWCKVR12A8C142411,Kings Of Leon,Use Somebody,2008.0,Kings Of Leon,Use Somebody,9,5463,rock
+53,TRIXAZF128F421EE64,SOUFTBI12AB0183F65,Tub Ring,Invalid,2002.0,Tub Ring,Invalid,1,10794,"metal, experimental"
+54,TRIXAZF128F421EE64,SOUFTBI12AB0183F65,Tub Ring,Invalid,2002.0,Tub Ring,Invalid,5,10794,"metal, experimental"
+55,TRAIUAZ128F425D222,SOUNZHU12A8AE47481,Ron Carter,I CAN'T GET STARTED,,,,9,7052,jazz
+56,TRAEHHJ12903CF492F,SOBONKR12A58A7A7E0,Dwight Yoakam,You're The One,1990.0,Dwight Yoakam,You're The One,1,35432,country
+57,TRAEHHJ12903CF492F,SOBONKR12A58A7A7E0,Dwight Yoakam,You're The One,1990.0,Dwight Yoakam,You're The One,4,35432,country
+58,TRAEHHJ12903CF492F,SOBONKR12A58A7A7E0,Dwight Yoakam,You're The One,1990.0,Dwight Yoakam,You're The One,7,35432,country
+59,TRASTUE128F930D488,SOHTKMO12AB01843B0,Lonnie Gordon,Catch You Baby (Steve Pitron & Max Sanna Radio Edit),,,,9,10515,
+60,TRNPHAW12903CDFE22,SOUFWEW12AB0180EB7,Asia 2001,Epilogue,1996.0,Asia 2001,Epilogue,9,1411,
+61,TRNKWEN128F933577B,SOOSCPN12AB0186AF2,London After Midnight,Demon,1995.0,London After Midnight,Demon,5,1753,Gothic Rock
+62,TRPVPUL128F9336E50,SOKENKR12AB01828F7,Restiform Bodies,Interactive Halloween Bear,2008.0,Restiform Bodies,Interactive Halloween Bear,0,1762,"Hip-Hop, Awesome, underground, beat in my blood, relax-enjoy"
+63,TRTJNHZ12903C9E270,SOLGLUC12AB018A8FA,Die Mooskirchner,Frisch und g'sund,,,,1,5695,
+64,TRTJNHZ12903C9E270,SOLGLUC12AB018A8FA,Die Mooskirchner,Frisch und g'sund,,,,4,5695,
+65,TRTJNHZ12903C9E270,SOLGLUC12AB018A8FA,Die Mooskirchner,Frisch und g'sund,,,,5,5695,
+66,TRTJNHZ12903C9E270,SOLGLUC12AB018A8FA,Die Mooskirchner,Frisch und g'sund,,,,8,5695,
+67,TRLGMFJ128F4217DBE,SOEGIYH12A6D4FC0E3,Barry Tuckwell/Academy of St Martin-in-the-Fields/Sir Neville Marriner,Horn Concerto No. 4 in E flat K495: II. Romance (Andante cantabile),,,,4,17115,
+68,TREWPDP128E07896EE,SOMEUED12A6701DBEA,Black Eyed Peas,Pump It,2005.0,Black Eyed Peas,Pump It,0,2076,Hip-Hop
+69,TREBDEB12903CC0C56,SOSZJFV12AB01878CB,California Swag District,Teach Me How To Dougie,,,,9,4048,teach me how to duggie
+70,TRJRECT12903CBADA3,SOUDLVN12AAFF43658,Bill Withers,Make Love To Your Mind,1975.0,Bill Withers,Make Love To Your Mind,1,6651,soul
+71,TRJRECT12903CBADA3,SOUDLVN12AAFF43658,Bill Withers,Make Love To Your Mind,1975.0,Bill Withers,Make Love To Your Mind,5,6651,soul
+72,TRJZLIF12903CAA7A4,SOCHWPT12AB0184F15,Kix,Girl Money,,,,0,1752,hard rock
+73,TRJXYKD128F4287C73,SOZCBWK12A58A7DFA5,Slum Village,Let's Go (Produced by B.R. Gunna),,,,0,690,smooth
+74,TRSLDDC12903CC36E7,SOUSMXX12AB0185C24,Usher featuring will.i.am,OMG,2010.0,Usher featuring will.i.am,OMG,2,6778,pop
+75,TRSLDDC12903CC36E7,SOUSMXX12AB0185C24,Usher featuring will.i.am,OMG,2010.0,Usher featuring will.i.am,OMG,3,6778,pop
+76,TRSLDDC12903CC36E7,SOUSMXX12AB0185C24,Usher featuring will.i.am,OMG,2010.0,Usher featuring will.i.am,OMG,8,6778,pop
+77,TRVAWVL128F93508F9,SORJICW12A8C13640D,Pavement,Mercy:The Laundromat,1993.0,Pavement,Mercy:The Laundromat,0,5119,
+78,TRVAWVL128F93508F9,SORJICW12A8C13640D,Pavement,Mercy:The Laundromat,1993.0,Pavement,Mercy:The Laundromat,1,5119,
+79,TRVAWVL128F93508F9,SORJICW12A8C13640D,Pavement,Mercy:The Laundromat,1993.0,Pavement,Mercy:The Laundromat,4,5119,
+80,TRVAWVL128F93508F9,SORJICW12A8C13640D,Pavement,Mercy:The Laundromat,1993.0,Pavement,Mercy:The Laundromat,8,5119,
+81,TRVSHJE128F1475018,SONDKOF12A6D4F7D70,Alceu Valença,Recado Falado (Metrô Da Saudade),,,,9,3901,
+82,TRVSBTV12903CC6670,SOLFXKT12AB017E3E0,Charttraxx Karaoke,Fireflies,2009.0,Charttraxx Karaoke,Fireflies,3,8093,
+83,TRDMBIJ128F4290431,SOFRQTD12A81C233C0,Harmonia,Sehr kosmisch,,,,6,19454,krautrock
+84,TRDFZTB12903CF1CBD,SOPPROJ12AB0184E18,Kid Cudi / MGMT / Ratatat,Pursuit Of Happiness (nightmare),2010.0,Kid Cudi / MGMT / Ratatat,Pursuit Of Happiness (nightmare),0,4957,
+85,TRDUQXB128E078B02F,SOTVLHC12A6701EA31,Disturbed,Numb (Album Version),2000.0,Disturbed,Numb (Album Version),3,2188,Geilo
+86,TRDULYN128F4248762,SOMGVYU12A8C1314FF,J. Karjalainen & Mustat Lasit,Sinisten tähtien alla,,,,2,4723,
+87,TRDULYN128F4248762,SOMGVYU12A8C1314FF,J. Karjalainen & Mustat Lasit,Sinisten tähtien alla,,,,3,4723,
+88,TRDLLBG12903CCC780,SOPOUWP12AB0189D25,Lady & Bird,Chelsea Burns (Live In Reykjavik 2008),,,,6,667,
+89,TRDOIUT128F92E494D,SOTVLQY12A58A798C2,Edward Sharpe & The Magnetic Zeros,Home,2009.0,Edward Sharpe & The Magnetic Zeros,Home,3,3329,indie folk
+90,TRDKDVV128F42733CD,SOAOAHZ12A8C13AAF1,Enigma,Knocking On Forbidden Doors,1990.0,Enigma,Knocking On Forbidden Doors,2,1289,new age
+91,TROHFJK12903CC4BCE,SOPTLQL12AB018D56F,Travie McCoy,Billionaire [feat. Bruno Mars]  (Explicit Album Version),,,,3,4995,
+92,TROFBLA128F426A1B2,SOPTPWD12A6D4FBD4E,Line Renaud,Le Soir,,,,3,2176,
+93,TROAQBZ128F9326213,SONYKOW12AB01849C9,OneRepublic,Secrets,2009.0,OneRepublic,Secrets,9,12392,rock
+94,TRXFRRY128F42997E1,SOJYISZ12A8C135F5A,Shaggy / Samantha Cole,Luv Me_ Luv Me,,,,7,2035,
+95,TRXFRRY128F42997E1,SOJYISZ12A8C135F5A,Shaggy / Samantha Cole,Luv Me_ Luv Me,,,,8,2035,
+96,TRXKJKY128F14543EF,SOBMKJU12A6D4F7128,Cliff Richard & The Shadows,Nine Times Out Of Ten (1998 Digital Remaster),,,,2,1552,
+97,TRKJHNE128F42380FC,SOQQAAQ12A67ADE34D,My Chemical Romance,Welcome To The Black Parade (Album Version),2006.0,My Chemical Romance,Welcome To The Black Parade (Album Version),6,1395,rock
+98,TRYOXHI128F147B730,SOSJSSU12A6D4F8F41,Old 97's,Victoria (LP Version),2006.0,Old 97's,Victoria (LP Version),1,1748,jtag
+99,TRYOXHI128F147B730,SOSJSSU12A6D4F8F41,Old 97's,Victoria (LP Version),2006.0,Old 97's,Victoria (LP Version),5,1748,jtag
+100,TRYOXHI128F147B730,SOSJSSU12A6D4F8F41,Old 97's,Victoria (LP Version),2006.0,Old 97's,Victoria (LP Version),7,1748,jtag
+101,TRYOXHI128F147B730,SOSJSSU12A6D4F8F41,Old 97's,Victoria (LP Version),2006.0,Old 97's,Victoria (LP Version),8,1748,jtag
