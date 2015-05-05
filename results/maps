@@ -1,0 +1,6 @@
+# SUBSET BY SUM()
+# MF: Normalized by user, d = 20, iter = 15, map = 0.0074621106428
+# MF: Binary, var = 0.0856755528949, d = 20, iter = 15, map = 0.0118978943545 
+
+# SUBSET BY LEN()
+# Naked KMEANS = 0.000236467603938
