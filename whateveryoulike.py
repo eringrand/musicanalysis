@@ -291,7 +291,7 @@ predict_m = np.dot(u,v)
 apk_sum = 0
 
 for i in range(len(u)):
-    apk_sum += apk(omegau_test[i],np.argsort(M_train[i])[::1][:500])
+    apk_sum += apk(omegau_test[i],np.argsort(predict_m[i])[::1][:500])
 
 map = apk_sum/len(u)
 
