@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[18]:
+# In[32]:
 
 def norm(data_dict, norm_dict, typeofnorm, high=1.0, low=0.0):
 # Normilization of User Playcount
@@ -33,7 +33,7 @@ def norm(data_dict, norm_dict, typeofnorm, high=1.0, low=0.0):
     return data_dict
 
 
-# In[11]:
+# In[33]:
 
 def apk(actual, predicted, k=500):
     """
@@ -74,7 +74,7 @@ def apk(actual, predicted, k=500):
     return score / min(len(actual), k)
 
 
-# In[12]:
+# In[34]:
 
 def MF(Mtrain, Mtest, var, omega, omega_test, omegau, omegau_test, d=20, iter=15):
     
@@ -171,7 +171,7 @@ def MF(Mtrain, Mtest, var, omega, omega_test, omegau, omegau_test, d=20, iter=15
     return map
 
 
-# In[13]:
+# In[35]:
 
 def rawkmeans(Mtrain, omegau, ncl=10):
     kmeans_setup = KMeans(n_clusters=ncl)
@@ -249,7 +249,7 @@ def rawkmeans(Mtrain, omegau, ncl=10):
     return map
 
 
-# In[23]:
+# In[36]:
 
 def fromthetop(data, typeofnorm, alg, d=20, iter=15, ncl=10):
     users = set()
@@ -378,15 +378,14 @@ def fromthetop(data, typeofnorm, alg, d=20, iter=15, ncl=10):
         else: 
             var = np.var(varcalc)
 
-        
     if alg == "MF":
         print "Running MF Algorithm with d ="+str(d)+" with "+str(iter)+" iteration."
-        map = MF(Mtrain, Mtest, var, omega, omega_test, omegau, omegau_test)
+        mapval = MF(Mtrain, Mtest, var, omega, omega_test, omegau, omegau_test) 
             
     if alg == "Kmeans":
-        map = rawkmeans(Mtrain, omegau, ncl)
+        mapval = rawkmeans(Mtrain, omegau, ncl)
         
-    return map
+    return mapval
 
 
 # In[6]:
@@ -403,22 +402,22 @@ f = open('kaggle_visible_evaluation_triplets.txt', 'r')
 data = f.read().split('\n')
 
 
-# In[ ]:
+# In[37]:
 
 map_user_MF = fromthetop(data, "user", "MF")
 
 
-# In[ ]:
+# In[38]:
 
 map_song_MF = fromthetop(data, "song", "MF")
 
 
-# In[ ]:
+# In[39]:
 
 map_binary_MF = fromthetop(data, "binary", "MF")
 
 
-# In[ ]:
+# In[40]:
 
 print map_user_MF
 print map_song_MF
@@ -427,6 +426,8 @@ print map_binary_MF
 
 # In[ ]:
 
+# NMF using J's code
+# TFIDF
 
 
 
