@@ -18,3 +18,5 @@ NMF(Mtrain, 30, rank = 25) maps = 0.00758657279673
 MF: Binary, var = 0.08, d = 15, map = 0.00987264456481
 Naked KMeans, ncl = 10, map = 0.0001
 Baseline = 0.012 (plays) 0.013 (count) 
+Song-based recommendation = 0.0503182651161
+User-based recommendation = 0.0383330982801
