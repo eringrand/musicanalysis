@@ -1,0 +1,6 @@
+The Million Song Dataset Challenge
+https://www.ee.columbia.edu/~dpwe/pubs/McFeeBEL12-MSDC.pdf
+Million Song Dataset Recommendation Project Report
+www-personal.umich.edu/~yjli/content/projectreport.pdf
+codebook-based scalable music tagging with poisson matrix factorization
+http://www.columbia.edu/~jwp2128/Papers/LiangPaisleyEllis2014.pdf
