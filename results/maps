@@ -6,7 +6,7 @@ MF: Binary, var = 0.0856755528949, d = 20, iter = 15, map = 0.0118978943545
 Baseline = 0.011 (plays) 0.013 (count) 
 Naked KMEANS = 0.000236467603938
 Song-based recommendation = 0.0503182651161
-User-based recommendation = 0.0139798230161
+User-based recommendation = 0.0383330982801
 # See this paper: http://www-personal.umich.edu/~yjli/content/projectreport.pdf
 MF, Norm user, d=20, iter=15 map = 0.00472476189971
 MF, Norm songs, d=20, iter=15 map = 0.00116815607043
