@@ -443,3 +443,4 @@ np.savetxt("UintoKmeans", u)
 
 
 
+[x for x in recommend[user1] if x[0] not in user_to_song[user1]][0:500]
