@@ -1,0 +1,10 @@
+>>> print MF(M_train_rownorm, M_test, 0.1, omega, omega_test, omegau_train, omegau_test)
+0.0110271692053
+>>> print MF(M_train_colnorm, M_test, 0.1, omega, omega_test, omegau_train, omegau_test)
+0.000306664676613
+>>> print MF(M_train_binary, M_test, 0.1, omega, omega_test, omegau_train, omegau_test)
+0.0102975014438
+>>> print MF(M_train_tfidf, M_test, 0.1, omega, omega_test, omegau_train, omegau_test)
+0.000832214193276
+>>> print MF(M_train, M_test, 0.1, omega, omega_test, omegau_train, omegau_test)
+0.00138711175297
