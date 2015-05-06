@@ -1,0 +1,29 @@
+>>> MF(M_train,M_test,0.25,omega,omega_test,omegau_test)
+0.01878916063302659
+>>> MF(M_train,M_test,0.25,omega,omega_test,omegau_test,d=20,iter=40)
+0.01341902580467428
+>>> MF(M_train,M_test,0.25,omega,omega_test,omegau_test,d=20)
+0.01933158669127907
+>>> MF(M_train,M_test,1.0,omega,omega_test,omegau_test,d=20)
+0.013629705779161913
+>>> MF(M_train,M_test,0.1,omega,omega_test,omegau_test,d=20)
+0.027809236794648546
+>>> MF(M_train,M_test,0.01,omega,omega_test,omegau_test,d=20)
+0.03707304827223253
+>>> MF(M_train,M_test,0.001,omega,omega_test,omegau_test,d=20)
+0.01959354980143755
+>>> MF(M_train,M_test,0.005,omega,omega_test,omegau_test,d=20)
+0.033574648800233906
+>>> MF(M_train,M_test,0.075,omega,omega_test,omegau_test,d=20)
+0.03059879727058268
+>>> MF(M_train,M_test,0.0875,omega,omega_test,omegau_test,d=20)
+0.028353611617670468
+>>> plt.show()
+>>> MF(M_train,M_test,0.001,omega,omega_test,omegau_test,d=50)
+0.13137843748030778
+>>> MF(M_train,M_test,0.001,omega,omega_test,omegau_test,d=15)
+0.0030740687606981465
+>>> MF(M_train,M_test,0.001,omega,omega_test,omegau_test,d=100)
+0.20647058830538031
+>>> MF(M_train,M_test,0.001,omega,omega_test,omegau_test,d=200)
+0.2661273514284617
