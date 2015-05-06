@@ -37,8 +37,12 @@ This is the abstract.
 
 \section{Introduction}
 
-\section{Data Munging}
 
+\section{Data Munging}
+\subsection{Data}
+\subsubsection{Data Statistics}
+\subsubsection{Problems and Solutions}
+\subsection{Normalization}
 
 \section{Algorithms}
 
@@ -73,19 +77,19 @@ v_j = \left( \lambda\sigma^2 I + \sum_{i \in \Omega_{v_j}} u_i u_i^\TRANSPOSE  \
 We keep track of the root mean square error (RMSE) versus the testing set (i.e. how close our prediction is as compared to the actual normalized play count in the testing set) and the log joint likelihood of the training set as a function of iteration (see Figures \ref{fig:rmseplot} and \ref{fig:likeplot}).
 
 
-\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
-   \centering
-   \includegraphics[width=4in]{h845BuzFO9CNgAAAABJRU5ErkJggg==.png} 
-   \caption{how close our prediction is as compared to the actual normalized play count in the testing set }
-   \label{fig:rmseplot}
-\end{figure}
-
-\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
-   \centering
-   \includegraphics[width=4in]{C9LAAAAABJRU5ErkJggg==.png} 
-   \caption{log joint likelihood of the training set as a function of iteration }
-   \label{fig:likeplot}
-\end{figure}
+%\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+%   \centering
+%   \includegraphics[width=4in]{h845BuzFO9CNgAAAABJRU5ErkJggg==.png} 
+%   \caption{how close our prediction is as compared to the actual normalized play count in the testing set }
+%   \label{fig:rmseplot}
+%\end{figure}
+%
+%\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+%   \centering
+%   \includegraphics[width=4in]{C9LAAAAABJRU5ErkJggg==.png} 
+%   \caption{log joint likelihood of the training set as a function of iteration }
+%   \label{fig:likeplot}
+%\end{figure}
 
 
 %
@@ -108,16 +112,23 @@ We keep track of the root mean square error (RMSE) versus the testing set (i.e. 
 \subsection{Naked Kmeans }
 Next, we cluster each of the learned $u_i$ using k-means (describe more here later) so that the cluster centroids can be interpreted as listener/personality types.
 
+\subsection{Non-Negative Matrix Factorization}
+
+\subsection{User Based and Item Based Recommendation}
+
+\subsection{Artist Based Recommendation}
+
+\section{Results}
+\subsection{Matrix Factorization}
+
+\subsection{Naked Kmeans }
+Next, we cluster each of the learned $u_i$ using k-means (describe more here later) so that the cluster centroids can be interpreted as listener/personality types.
 
 \subsection{Non-Negative Matrix Factorization}
 
-\subsection{User based and Item based}
+\subsection{User Based and Item Based Recommendation}
 
-\subsection{Using Tags}
-
-
-\section{Results}
-
+\subsection{Artist Based Recommendation}
 
 
 \section{Notes}
