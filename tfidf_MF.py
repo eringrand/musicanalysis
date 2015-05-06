@@ -215,6 +215,7 @@ def MF(Mtrain, Mtest, var, omega, omega_test, omegau_test, d=20, iter=15):
 
     return map
 
+print MF(M_train, M_test, 0.01, omega, omega_test, omegau_test)
 #np.savetxt("M_train.txt",M_train)
 #np.savetxt("M_test.txt",M_test)
 #np.savetxt("omega.txt",omega)

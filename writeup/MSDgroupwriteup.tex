@@ -39,6 +39,9 @@ This is the abstract.
 
 \section{Data Munging}
 
+
+\section{Algorithms}
+
 \subsection{Matrix Factorization}
 The goal of matrix factorization is to use collaborative methods to build a recommendation system for users based on user ratings of objects (in this case songs). This will allow us to recommend certain songs to users based on their listening history and without the need for using content based approaches. Since our data set contains number of plays for a given user and song (rather than rating), we normalized plays for every song on a scale between 0 and 1 and used this as a proxy for rating. 
 
@@ -102,8 +105,20 @@ We keep track of the root mean square error (RMSE) versus the testing set (i.e. 
 %\end{minipage}
 %\end{figure}
 
-\subsection{Kmeans Clustering}
+\subsection{Naked Kmeans }
 Next, we cluster each of the learned $u_i$ using k-means (describe more here later) so that the cluster centroids can be interpreted as listener/personality types.
+
+
+\subsection{Non-Negative Matrix Factorization}
+
+\subsection{User based and Item based}
+
+\subsection{Using Tags}
+
+
+\section{Results}
+
+
 
 \section{Notes}
 
