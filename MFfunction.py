@@ -89,12 +89,11 @@ def MF(Mtrain, Mtest, var, omega, omega_test, omegau, omegau_test, d=20, iter=15
 
     recommend = {}
     rec = {}
-    for i in omegau_test:
-        if i in omegau:
-            recommend[i] = np.argsort(predict_m[i])[::-1]
-            rec[i] = [x for x in recommend[i] if x not in omegau[i]][0:500]
-            apk_sum += apk(omegau_test[i], rec[i])
-            counter += 1
+    for i in list(set(omegau_test).intersection(omegau)):
+        recommend[i] = np.argsort(predict_m[i])[::-1]
+        rec[i] = [x for x in recommend[i] if x not in omegau[i]][0:500]
+        apk_sum += apk(omegau_test[i], rec[i])
+        counter += 1
 
     mapval = apk_sum/counter
 
