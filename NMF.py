@@ -43,3 +43,14 @@ for col in range(rank):
         #index of song is j
         print index_to_song_dict[j] + ' ' + str(W_norm[:,col][j])
     print '\n'
+    
+    
+    
+    
+# Loop over all users the below code 
+rec_user = {}
+for user in users:
+    H_column = H[:,user]
+    col = np.argmax(H_column)
+    W_column = W[:,col]
+    rec_user[user] = np.argsort(W_column)[::-1][0:500]
