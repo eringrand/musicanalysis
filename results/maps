@@ -12,4 +12,4 @@ MF, Norm user, d=20, iter=15 map = 0.00472476189971
 MF, Norm songs, d=20, iter=15 map = 0.00116815607043
 MF, Norm binary, d=20, iter=15 var = 0.08, map = 0.00836514439703
 NMF(Mtrain, 30, rank = 10) maps= 0.00672023777805
-NMF(Mtrain, 30, rank = 25) maps = 
+NMF(Mtrain, 30, rank = 25) maps = 0.00758657279673
