@@ -8,8 +8,8 @@ Naked KMEANS = 0.000236467603938
 Items-based recommendation = 0.0134670053578
 User-based recommendation = 0.0139798230161
 # See this paper: http://www-personal.umich.edu/~yjli/content/projectreport.pdf
-Norm user, d=20, iter=15 map = 0.00472476189971
-Norm songs, d=20, iter=15 map = 0.00116815607043
-Norm binary, d=20, iter=15 var = 0.08, map = 0.00836514439703
-MNF(Mtrain, 30, rank = 10) maps= 0.00672023777805
-MNF(Mtrain, 30, rank = 25) maps = 
+MF, Norm user, d=20, iter=15 map = 0.00472476189971
+MF, Norm songs, d=20, iter=15 map = 0.00116815607043
+MF, Norm binary, d=20, iter=15 var = 0.08, map = 0.00836514439703
+NMF(Mtrain, 30, rank = 10) maps= 0.00672023777805
+NMF(Mtrain, 30, rank = 25) maps = 
