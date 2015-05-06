@@ -5,30 +5,64 @@ import pandas.io.sql as psql
 import matplotlib.pyplot as plt
 import random
 
+import matplotlib
+matplotlib.style.use('ggplot')
+
+
+# 34 user plays, 29 song plays
+# 98 user plays, 52 song plays
+# 27 user songcounts, 22 song usercounts
+
+
 # http://www.kaggle.com/c/msdchallenge/data
-eval = pd.read_csv("kaggle_visible_evaluation_triplets.txt",sep='\t',header = None, names = ['user_id','song_id','plays'])
+f = open("kaggle_visible_evaluation_triplets.txt", 'rb')
+eval = pd.read_csv(f,sep='\t',header = None, names = ['user_id','sid','plays'])
 
-userhist = eval.groupby('user_id').sum()
+#userhist = eval.groupby('user_id').sum()
+#userhist = pd.DataFrame(userhist).reset_index()
+#usersub = userhist[userhist['plays']>98]
+
+#songhist = eval.groupby('sid').sum()
+#songhist = pd.DataFrame(songhist).reset_index()
+#songsub = songhist[songhist['plays']>52]
+
+#sub = eval[eval['sid'].isin(songsub['sid'])]
+#sub = sub[sub['user_id'].isin(usersub['user_id'])]
+
+#len(set(sub['user_id']))
+#len(set(sub['sid']))
+
+#sub.shape[0]/float(eval.shape[0])
+
+#sub.shape[0]/float(len(set(sub['user_id']))*len(set(sub['sid'])))
+
+# for number of songs instead of plays
+
+userhist = eval.groupby('user_id').count()
 userhist = pd.DataFrame(userhist).reset_index()
-usersub = userhist[userhist['plays']>29]
+usersub = userhist[userhist['plays']>27]
 
-songhist = eval.groupby('song_id').sum()
+songhist = eval.groupby('sid').count()
 songhist = pd.DataFrame(songhist).reset_index()
-songsub = songhist[songhist['plays']>34]
+songsub = songhist[songhist['plays']>22]
 
-sub = eval[eval['song_id'].isin(songsub['song_id'])]
+sub = eval[eval['sid'].isin(songsub['sid'])]
 sub = sub[sub['user_id'].isin(usersub['user_id'])]
 
 len(set(sub['user_id']))
-len(set(sub['song_id']))
+len(set(sub['sid']))
 
 sub.shape[0]/float(eval.shape[0])
 
-sub_max = pd.DataFrame(sub.groupby('song_id').max()).reset_index()
-merged = pd.merge(sub,sub_max,on="song_id")
+sub.shape[0]/float(len(set(sub['user_id']))*len(set(sub['sid'])))
+
+##
+
+sub_max = pd.DataFrame(sub.groupby('sid').max()).reset_index()
+merged = pd.merge(sub,sub_max,on="sid")
 merged['plays_x'] = merged['plays_x']/merged['plays_y']
-sub_norm = merged[['user_id_x', 'song_id', 'plays_x']]
-sub_norm.columns = ['user_id', 'song_id', 'plays']
+sub_norm = merged[['user_id_x', 'sid', 'plays_x']]
+sub_norm.columns = ['user_id', 'sid', 'plays']
 
 sample = random.sample(sub_norm.index, int(sub_norm.shape[0]*0.2))
 trainsub = sub_norm.copy()
@@ -37,29 +71,33 @@ trainsub.ix[trainsub.index.isin(sample),'plays'] = 0
 testsub = sub_norm.copy()
 testsub.ix[~testsub.index.isin(sample),'plays'] = 0
 
-trainpivot = trainsub.pivot(index='user_id',columns='song_id', values='plays')
-user_index = pivot.index
-song_index = pivot.columns
+trainpivot = trainsub.pivot(index='user_id',columns='sid', values='plays')
+user_index = trainpivot.index
+song_index = trainpivot.columns
 M_train = trainpivot.as_matrix()
 M_train = np.nan_to_num(M_train)
 
-testpivot = testsub.pivot(index='user_id',columns='song_id', values='plays')
+testpivot = testsub.pivot(index='user_id',columns='sid', values='plays')
 M_test = testpivot.as_matrix()
 M_test = np.nan_to_num(M_test)
 
 
 
 # http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/unique_tracks.txt
-unique_tracks = pd.read_csv("unique_tracks.txt",sep='<SEP>', header = None, names = ['tid', 'sid', 'arist_name', 'song_title'])
+f = open("unique_tracks.txt", 'rb')
+unique_tracks = pd.read_csv(f,sep='<SEP>', header = None, names = ['tid', 'sid', 'artist_name', 'song_title'])
 
 # http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/unique_artists.txt
-unique_artists = pd.read_csv("unique_artists.txt",sep='<SEP>',header = None, names = ['artist_id', 'artist_mbid', 'tid', 'artist_name'])
+f = open("unique_artists.txt", 'rb')
+unique_artists = pd.read_csv(f,sep='<SEP>',header = None, names = ['artist_id', 'artist_mbid', 'tid', 'artist_name'])
 
 # http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/tracks_per_year.txt
-tracks_per_year = pd.read_csv("tracks_per_year.txt",sep='<SEP>', header = None, names =['year','track_id', 'song_title'])
+f = open("tracks_per_year.txt", 'rb')
+tracks_per_year = pd.read_csv(f,sep='<SEP>', header = None, names =['year','tid', 'artist_name', 'song_title'])
 
 # http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/artist_location.txt
-artist_location = pd.read_csv("artist_location.txt",sep='<SEP>', header = None, names = ['artist_id', 'latitude', 'longitude', 'artist_name', 'location'])
+f = open("unique_location.txt", 'rb')
+artist_location = pd.read_csv(f,sep='<SEP>', header = None, names = ['artist_id', 'latitude', 'longitude', 'artist_name', 'location'])
 
 # http://www.ee.columbia.edu/~thierry/artist_similarity.db
 con = sqlite.connect("artist_similarity.db")
@@ -102,17 +140,78 @@ with con:
     lastfm_src = psql.read_sql(sql, con)
 con.close()
 
+# histogram of number of song counts for users
+usercount = eval.groupby('user_id').count()
+usercount = pd.DataFrame(usercount).reset_index()
+uservalues = usercount['plays'].values
+#uservalues = np.log10(uservalues)
+plt.hist(uservalues,50)
+plt.title("Histogram of number of songs played for each user")
+plt.xlabel("Number of songs")
+plt.ylabel("Count")
+plt.show()
 
-import matplotlib
-matplotlib.style.use('ggplot')
+#
+usercsum = usercount.groupby('plays').count().cumsum()
+usercsum = pd.DataFrame(usercsum).reset_index()
+usercsum.plot('plays','user_id')
+plt.show()
 
-import matplotlib.pyplot as plt
+usercsumlog = usercsum
+#usercsumlog['plays'] = np.log10(usercsumlog['plays'])
+usercsumlog['user_id'] = usercsumlog['user_id']/usercsum['user_id'].max()
+usercsumlog.plot('plays','user_id')
+plt.show()
+
+# histogram of number of user counts for songs
+songcount = eval.groupby('sid').count()
+songcount = pd.DataFrame(songcount).reset_index()
+songvalues = songcount['plays'].values
+songvalues = np.log10(songvalues)
+plt.hist(songvalues,50)
+plt.title("histogram of number of plays for each songs in log10")
+plt.xlabel("Number of user counts")
+plt.ylabel("Count")
+plt.show()
+
+# cumulative sum of plays for artists
+songcsum = songcount.groupby('plays').count().cumsum()
+songcsum = pd.DataFrame(songcsum).reset_index()
+songcsum.plot('plays','sid')
+plt.show()
+
+# cumulative sum for plays for artists in log
+songcsumlog = songcsum
+songcsumlog['plays'] = np.log10(songcsumlog['plays'])
+songcsumlog['sid'] = songcsumlog['sid']/songcsum['sid'].max()
+songcsumlog.plot('plays','sid')
+plt.show()
+
+###
+
+
+# cumulative sum for song counts vs users
+userplaycsum = userhist.sort('plays')
+userplaycsum['plays'] = userplaycsum['plays'].cumsum()
+#userplaycsum['plays'] = userplaycsum['plays']/userplaycsum['plays'].max()
+userplaycsum = userplaycsum.reset_index(drop=True).reset_index()
+userplaycsum.plot('index', 'plays')
+plt.legend().set_visible(False)
+plt.title("Cumulative sum of plays for users")
+plt.ylabel("Perecentage of plays")
+plt.xlabel("Amount of users sorted with increasing amount of plays")
+plt.show()
+
 
 # histogram of number of plays for users
 userhist = eval.groupby('user_id').sum()
 userhist = pd.DataFrame(userhist).reset_index()
 uservalues = userhist['plays'].values
+uservalues = np.log10(uservalues)
 plt.hist(uservalues,50)
+plt.title("Histogram of number of plays for each user in log10")
+plt.xlabel("Number of plays in log10")
+plt.ylabel("Count")
 plt.show()
 
 # cumulative sum of plays for users
@@ -134,55 +233,45 @@ userplaycsum['plays'] = userplaycsum['plays'].cumsum()
 userplaycsum['plays'] = userplaycsum['plays']/userplaycsum['plays'].max()
 userplaycsum = userplaycsum.reset_index(drop=True).reset_index()
 userplaycsum.plot('index', 'plays')
+plt.legend().set_visible(False)
+plt.title("Cumulative sum of plays for users")
+plt.ylabel("Perecentage of plays")
+plt.xlabel("Amount of users sorted with increasing amount of plays")
+#plt.vlines(60000,0,1,linestyles='dotted')
 plt.show()
 
 # histogram of number of plays for songs
-songhist = eval.groupby('song_id').sum()
+songhist = eval.groupby('sid').sum()
 songhist = pd.DataFrame(songhist).reset_index()
 songvalues = songhist['plays'].values
+#songvalues = np.log10(songvalues)
 plt.hist(songvalues,50)
+plt.title("Histogram of number of plays for each songs in log10")
+plt.xlabel("Number of plays in log10")
+plt.ylabel("Count")
 plt.show()
 
 # cumulative sum of plays for artists
 songcsum = songhist.groupby('plays').count().cumsum()
 songcsum = pd.DataFrame(songcsum).reset_index()
-songcsum.plot('plays','song_id')
+songcsum.plot('plays','sid')
 plt.show()
 
 # cumulative sum for plays for artists in log
 songcsumlog = songcsum
 songcsumlog['plays'] = np.log10(songcsumlog['plays'])
-songcsumlog['song_id'] = songcsumlog['song_id']/songcsum['song_id'].max()
-songcsumlog.plot('plays','song_id')
+songcsumlog['sid'] = songcsumlog['sid']/songcsum['sid'].max()
+songcsumlog.plot('plays','sid')
 plt.show()
 
 # cumulative sum for plays vs songs
 songplaycsum = songhist.sort('plays')
 songplaycsum['plays'] = songplaycsum['plays'].cumsum()
 songplaycsum['plays'] = songplaycsum['plays']/songplaycsum['plays'].max()
-songplaycsum.plot('song_id', 'plays')
+songplaycsum = songplaycsum.reset_index(drop=True).reset_index()
+songplaycsum.plot('index', 'plays')
+plt.legend().set_visible(False)
+plt.title("Cumulative sum of plays for songs")
+plt.ylabel("Perecentage of plays")
+plt.xlabel("Amount of songs sorted with increasing amount of plays")
 plt.show()
-
-
-tags_100 = lastfm_tags[lastfm_tags['val']==100]
-
-centroid_songs = pd.read_csv("clustercenters.txt", sep=' ', header=None, names=['centroid','sid'])
-
-centroid_unique = pd.merge(centroid_songs, unique_tracks, on='sid')
-tags_100_list = tags_100.groupby('tid')['tag'].apply(', '.join).reset_index()
-tag_centroid_unique = pd.merge(centroid_unique, tags_100_list, on='tid', how='left') 
-
-artist_data = pd.merge(unique_artists, artist_term.groupby('artist_id')['term'].apply(', '.join).reset_index(), on='artist_id')
-
-centroid_artist = pd.merge(centroid_unique, artist_data, on='tid')
-term_centroid_artist = pd.merge(centroid_unique, centroid_artist, on='tid', how='left')
-
-
-#f = open("unique_tracks.txt")
-#tid = []
-#sid = []
-
-#for line in f:
-#    temp = line
-#    tid.append(line.split('<SEP>'[0]))
-#    sid.append(line.split('<SEP>'[1]))
