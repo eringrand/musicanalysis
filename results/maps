@@ -3,7 +3,7 @@ MF: Normalized by user, d = 20, iter = 15, map = 0.0074621106428
 MF: Binary, var = 0.0856755528949, d = 20, iter = 15, map = 0.0118978943545 
 
 # SUBSET BY LEN(), down to 10%
-Baseline = 0.020 (plays) 0.022 (count)
+Baseline = 0.011 (plays) 0.013 (count) 
 Naked KMEANS = 0.000236467603938
 Items-based recommendation = 0.0134670053578
 User-based recommendation = 0.0139798230161
