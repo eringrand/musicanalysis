@@ -54,3 +54,11 @@ for user in users:
     col = np.argmax(H_column)
     W_column = W[:,col]
     rec_user[user] = np.argsort(W_column)[::-1][0:500]
+    
+    
+    
+    
+rec_user = {}
+for user in users:
+    song_ranks = np.dot(W, H[:,user])
+    rec_user[user] = np.argsort(song_ranks)[::-1][0:500]
