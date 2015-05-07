@@ -158,23 +158,6 @@ plt.xlabel("Number of Songs Played")
 plt.ylabel("Count")
 plt.show()
 
-#
-usercsum = usercount.groupby('plays').count().cumsum()
-usercsum = pd.DataFrame(usercsum).reset_index()
-#formatter = FuncFormatter(to_percent)
-#plt.gca().yaxis.set_major_formatter(formatter)
-#plt.show()
-
-usercsumlog = usercsum
-usercsumlog['plays'] = np.log10(usercsumlog['plays'])
-usercsumlog['user_id'] = usercsumlog['user_id']/usercsum['user_id'].max()
-usercsumlog.plot('plays','user_id')
-plt.title("CDF")
-plt.xlabel("Number of Songs Played (log scale)")
-plt.ylabel("Percentage of Users")
-formatter = FuncFormatter(to_percent)
-plt.gca().yaxis.set_major_formatter(formatter)
-plt.show()
 
 # histogram of number of user counts for songs
 songcount = eval.groupby('sid').count()
@@ -182,24 +165,41 @@ songcount = pd.DataFrame(songcount).reset_index()
 songvalues = songcount['plays'].values
 songvalues = np.log10(songvalues)
 plt.hist(songvalues,50)
-plt.title("histogram of number of plays for each songs")
-plt.xlabel("Number of user counts")
+plt.title("Number of Songs with a Given Number of Users")
+plt.xlabel("Number of Users")
 plt.ylabel("Count")
 plt.show()
 
-# cumulative sum for song counts vs users
-userplaycsum = userhist.sort('plays')
-userplaycsum['plays'] = userplaycsum['plays'].cumsum()
-userplaycsum['plays'] = userplaycsum['plays']/userplaycsum['plays'].max()
-userplaycsum = userplaycsum.reset_index(drop=True).reset_index()
-userplaycsum.plot('index', 'plays')
-plt.legend().set_visible(False)
-plt.title("Cumulative sum of plays for users")
-plt.ylabel("Perecentage of plays")
-plt.xlabel("Amount of users sorted with increasing amount of plays")
+
+#
+usercsum = usercount.groupby('plays').count().cumsum()
+usercsum = pd.DataFrame(usercsum).reset_index()
+usercsumlog = usercsum
+usercsumlog['plays'] = np.log10(usercsumlog['plays'])
+usercsumlog['user_id'] = usercsumlog['user_id']/usercsum['user_id'].max()
+usercsumlog.plot('plays','user_id')
+plt.title("Cumulative Sum of Songs Played by Users")
+plt.xlabel("Number of Songs Played (log scale)")
+plt.ylabel("Percentage of Users")
 formatter = FuncFormatter(to_percent)
 plt.gca().yaxis.set_major_formatter(formatter)
 plt.show()
+
+
+songcsum = songcount.groupby('plays').count().cumsum()
+songcsum = pd.DataFrame(songcsum).reset_index()
+songcsumlog = songcsum
+songcsumlog['plays'] = np.log10(songcsumlog['plays'])
+songcsumlog['sid'] = songcsumlog['sid']/songcsum['sid'].max()
+songcsumlog.plot('plays','sid')
+plt.title("Cumulative Sum of Users")
+plt.xlabel("Number of Users (log scale)")
+plt.ylabel("Percentage of Songs")
+formatter = FuncFormatter(to_percent)
+plt.gca().yaxis.set_major_formatter(formatter)
+plt.show()
+
+
 
 #cumulative sum of plays for artists
 #songcsum = songcount.groupby('plays').count().cumsum()
@@ -224,19 +224,6 @@ plt.show()
 #plt.title("Histogram of number of plays for each user in log10")
 #plt.xlabel("Number of plays in log10")
 #plt.ylabel("Count")
-#plt.show()
-
-# cumulative sum of plays for users
-#usercsum = userhist.groupby('plays').count().cumsum()
-#usercsum = pd.DataFrame(usercsum).reset_index()
-#usercsum.plot('plays','user_id')
-#plt.show()
-
-# cumulative sum for plays for users in log
-#usercsumlog = usercsum
-#usercsumlog['plays'] = np.log10(usercsumlog['plays'])
-#usercsumlog['user_id'] = usercsumlog['user_id']/usercsum['user_id'].max()
-#usercsumlog.plot('plays','user_id')
 #plt.show()
 
 # cumulative sum for plays vs users
