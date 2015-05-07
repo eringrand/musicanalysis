@@ -83,7 +83,7 @@ score for each method.  The mean average precision (MAP) algorithm came directly
 
 The MAP scores were computed by calculating the precision between a list of recommendations for a user and that user's test set. The MAP score is then the average precision value over all the users in the test set. 
 
-The benchmark we used to compare our MAP scores against was recommending the top 500 most popular songs to every user. This naive method resulted in a MAP score of 0.013 (top 500 songs based on counts) or 0.012 (top 500 songs based on plays).
+We used two different baseline benchmarks to compare our MAP scores against. THe first was to simply recommend the top 500 most popular songs to every user. This naive method resulted in a MAP score of 0.013 (top 500 songs based on number of users who listened to the song) or 0.012 (top 500 songs based on number of plays the song had). The second method was to first recommend a user the most popular songs of artists the user already had played (but different songs from that artist). If this did not result in enough recommendations, we would then recommend the overall most popular songs as well at the end(similar to baseline method 1). Although this method is conservative in that it does not go beyond the tastes the user has already listened to, it resulted in a significant improvement in the MAP score to 0.045.
 
 
 
@@ -169,7 +169,7 @@ Then, for each user, we looked at each song in the dataset and found all other u
 
 $$w_i = \sum_{v \epsilon V} sim(u, v)$$
 
-The sum is a proxy for how likely the user is to like that particular song. We went through that process for all songs and recommended the user the top 500 songs which had the highest scores. This method led to a MAP value of 0.0383.
+The sum is a proxy for how likely the user is to like that particular song. We went through that process for all songs and recommended the user the top 500 songs which had the highest scores. This method led to a MAP value of 0.0377.
 
 \subsubsection{Item-Based Collaborative Filtering}
 
@@ -183,7 +183,7 @@ Then, for each user, we found all the songs listened to. Next, we got the most s
 
 $$w_b = \sum_{a \epsilon A} sim(a, b)$$
 
-Lastly, we sorted the songs by scores and recommended the user the top 500 songs which had the highest scores. This method led to a MAP value of 0.0503.
+Lastly, we sorted the songs by scores and recommended the user the top 500 songs which had the highest scores. This method led to a MAP value of 0.0479.
 
 
 %\subsection{Artist Based Recommendation}
