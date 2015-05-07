@@ -30,22 +30,22 @@
 \date{\today}             
 
 \begin{abstract}
-This is the abstract. 
+We attempt to build a recommendation system for a subset of the Million Song Dataset. We explore various algorithms including matrix factorization, user-based collaborative filtering, and item-based collaborative filtering. In each case we recommend the top 500 songs that our algorithm returns to each user and compare against the testing set of what the user actually listened to. Matrix factorization gives the worst results, only slightly above the popularity baseline, while artist-based popularity and user-based and item-based collaborative filtering methods yield better results.
 \end{abstract}
 
 \tableofcontents
 
 \section{Introduction}
-In the online world, recommendation systems are used in shopping, entertainment and even dating. 
+In the online world, recommendation systems are becoming increasingly important in various industries including in retail, entertainment, and even dating. 
 Because of their popularity and usefulness, there are numerous incentives to implement a good recommendation system. 
-In the music industry, companies use recommendation systems to provide a better music streaming radio service to their listeners. 
+In the music industry, companies use recommendation systems to provide a better service to their listeners. 
 With the music industry shifting away from a more traditional distribution model of physical CDs or records, 
 having an efficient and well performing recommendation system is very important. 
 
-In building a recommendation system, there are many problems to tackle. This is why some methods take more information about the user and the song into account.
+In building a recommendation system, we had to take into account various trade-offs in the type of models we chose to fit. For example, some methods take more information about the user and the song into account (i.e. content-based) while others use a collaborative filtering approach without taking into account user or song characteristics such as age, genre, location, etc.
 There is no set similarity measure between two songs, as evident by the fact that songs by the same artist are often very different. As such, there are many different types of algorithms to explore. 
 
-For our project, we chose to explore various song recommendation systems algorithms such as matrix factorization, non-negative matrix factorization as well as user based and item based similarity measures.  
+For our project, we explored various song recommendation systems algorithms such as popularity recommendations, artist based recommensations, matrix factorization, and user and item based similarity measures.  
 % memory based collaborative filtering
 
 \subsection{Data}
@@ -54,7 +54,7 @@ The main source of data for this project was the Million Song Data Set (MSD)  \c
 The sample data set had $110000$ users, $163206$ songs, and the number of play counts for each user and song pair.
 The scale of the data was too large to explore on our computers, so we subset the data down to a size easily handled by an average laptop. 
 
-We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a datset which was 10\% the size of the original. Despite subsetting the data, we are still dealing with a matrix of $8130$ users by $11861$ songs, so our algorithms will take a fair amount of time to run.
+We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a datset which was 10\% the size of the original. Despite subsetting the data, we are still dealing with a matrix of $8130$ users by $11861$ songs, so some of our algorithms will take a fair amount of time to run.
 
 \subsubsection{Data Statistics}
 
@@ -75,14 +75,14 @@ std = 53.31547\\
 
 
 \subsection{Data Analysis}
-In order to perform the analysis, we had to fill in training and testing matrices which contained play counts for user and song pairs. We did a random selection of data elements to split between the training (80\%) and testing (20\%) sets. 
+In order to perform the analysis, we had to fill in training and testing matrices which contained play counts for user and song pairs. We did a random selection of data elements to split between the training (80\%) and testing (20\%) sets. Next, we implemented various algorithms on the dataset in order to recommend songs to users, including matrix factorization, user-based collaborative filtering, and item-based collaborative filtering.
 
 \subsection{Testing}
 We tested our algorithms against each other using a mean average precision 
 score for each method.  The mean average precision (MAP) calculation came directly from the Kaggle MSD challenge \citep{kaggleMSD}. The score was used to rank the competition entries.
 
-The MAP@500 scores were computed by calculating the precision between a list of recommendations for a user and that user's test set. Specifically, we calculate the average precision at each element in the list of recommended items (i.e. percentage of correct items among first k recommendations) and sum these up for the first 500 recommendations (i.e. try for each $k \epsilon {1, ..., 500}$).
-We then averaged the score over all users. Intuitively, the score looks at the percentage of recommendations that were in-line with the test set of songs actually listened to but also takes order into account. So it is preferable to recommend the songs in the user's test set earlier in the list of 500. Basically, the MAP score is similar to AUC of the ROC curve discussed in class except it takes ordering of the recommendations into account.
+Specifically, we used MAP@500 scores which take into account the first 500 recommendations given to each user. Generally, the score looks at the precision between a list of recommendations for a user and that user's test set. This was done by calculating the average precision at each element in the list of recommended items (i.e. percentage of correct items among first k recommendations) and averaging these for the first 500 recommendations (i.e. for each $k \epsilon {1, ..., 500}$, calculate the precision and average them together).
+We then averaged the score over all users. Intuitively, the score looks at the percentage of recommendations that were in-line with the test set of songs actually listened to but also takes order into account. So it is preferable to recommend the songs in the user's test set earlier in the list of 500. The MAP score is similar to the AUC of the ROC curve discussed in class except it takes ordering of the recommendations into account, which is an important factor to consider in a recommendation system.
 
 We used two different baseline benchmarks to compare our MAP scores against. The first was to simply recommend the top 500 most popular songs to every user. This naive method resulted in a MAP score of 0.0138 (top 500 songs based on number of users who listened to the song) or 0.0126 (top 500 songs based on number of plays the song had). The second method was to first recommend a user the most popular songs of artists the user already had already played (but different songs from that artist). If this did not result in enough recommendations, we would then recommend the overall most popular songs as well at the end (similar to baseline method 1). Although this method is conservative in that it does not go beyond the tastes the user already has in the training set, it resulted in a significant improvement in the MAP score to 0.0448.
 
@@ -155,11 +155,9 @@ We keep track of the root mean square error (RMSE) versus the testing set (i.e. 
 
 \subsection{User Based and Item Based Collaborative Filtering}
 %\subsubsection{Intro to Memory-Based Collaborative Filtering}
-
 A simpler set of methods for determining which songs to recommend to individual users is by using user- or item/song- based similarity (both also considered collaborative filtering). These only consider whether or not a user listened to a song and does not take into account the play count. Similarity scores between users (i.e. user-based) and songs (i.e. item-based) were calculated using cosine similarity. Intuitively, they work by recommending users songs that other similar users like (user-based) or by recommending songs which are similar to the songs the user has already listened to (item-based).
 
 \subsubsection{User-Based Collaborative Filtering}
-
 For user-based recommendation, we first calculated the similarity score between every pair of users, $u$ and $v$, using the equation below:
 
 \begin{equation}
@@ -173,7 +171,6 @@ $$w_i = \sum_{v \epsilon V} sim(u, v)$$
 The sum is a proxy for how likely the user is to like that particular song. We went through that process for all songs and recommended the user the top 500 songs which had the highest scores. This method led to a MAP value of 0.0377.
 
 \subsubsection{Item-Based Collaborative Filtering}
-
 For item-based recommendation, which turned out to be our best algorithm in terms of a MAP value, we first calculated the similarity score between every pair of songs, $i$ and $j$, using the equation below and saved the most similar songs to each song in the process:
 
 \begin{equation}
@@ -192,7 +189,29 @@ Lastly, we sorted the songs by scores and recommended the user the top 500 songs
 
 
 \section{Conclusion}
+After comparing the various algorithms, the simpler models gave us the best results. Our most complicated model, matrix factorization, gave us results barely above the popularity baseline. On the other hand, simply recommending users songs by artists they have already listened to (the artist-based baseline) resulted in a significantly better recommendation system. Our song-based collaborative filtering technique produced the best results despite being a relatively simple algorithm as compared to matrix factorization. Our final results for each technique employed are summarized in the table below. 
 
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{lc}
+
+\hline
+\bf{Algorithm} &  \bf{MAP score}\\ \hline
+Artist Based  Baseline  & 0.0448    \\ 
+%\hline
+Top 500 Songs by Count  Baseline &  0.0138  \\ 
+%\hline
+Top 500 Songs by Plays  Baseline &  0.0126  \\ 
+%\hline
+User Based  CF  &  0.0377 \\ 
+%\hline
+Item Based  CF  &  0.0479 \\ 
+%\hline
+Matrix Factorization  &   0.0143  \\ 
+%\hline
+\end{tabular}
+\end{center}
+\end{table}
 
 
 \section{Notes}
