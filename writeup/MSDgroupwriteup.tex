@@ -51,7 +51,7 @@ For our project, we chose to explore various song recommendation systems algorit
 \subsection{Data}
 The main source of data for this project was the Million Song Data Set (MSD)  \citep{Bertin-Mahieux2011}. We used the sample data set from the Kaggle competition which contains tuples of user id, song id, and play count.  
 
-The sample data set had  $163206$ songs  $110000$ users, and the number of play counts 
+The sample data set had $110000$ users, $163206$ songs, and the number of play counts for each user and song pair.
 The scale of the data was too large to explore on our computers, so we subset the data down to a size easily handled by an average laptop. 
 
 We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a datset which was 10\% the size of the original. Despite subsetting the data, we are still dealing with a matrix of $8130$ users by $11861$ songs, so our algorithms will take a fair amount of time to run.
@@ -75,7 +75,7 @@ std = 53.31547\\
 
 
 \subsection{Data Analysis}
-In order to perform the analysis, we had to fill in a matrix which contained play counts for user and song pairs. We then did a random selection by data element to split between the training (80\%) and testing (20\%) sets. 
+In order to perform the analysis, we had to fill in training and testing matrices which contained play counts for user and song pairs. We did a random selection of data elements to split between the training (80\%) and testing (20\%) sets. 
 
 \subsection{Testing}
 We tested our algorithms against each other using a mean average precision 
@@ -83,7 +83,7 @@ score for each method.  The mean average precision (MAP) algorithm came directly
 
 The MAP scores were computed by calculating the precision between a list of recommendations for a user and that user's test set. The MAP score is then the average precision value over all the users in the test set. 
 
-The bench mark we used to recommend to the top 500 songs to every user. 
+The benchmark we used to compare our MAP scores against was recommending the top 500 most popular songs to every user. This naive method resulted in a MAP score of 0.013 (top 500 songs based on counts) or 0.012 (top 500 songs based on plays).
 
 
 
