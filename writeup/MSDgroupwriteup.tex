@@ -123,7 +123,7 @@ From the experiments, it was found that the rank $d$ did not contribute signific
  
 Regardless, the best result achieved for PMF in the end was 0.0143 which was only slightly above the popularity baseline. Based on literature review, we have found that this is better or in line with what other people have achieved with using PMF on play counts. Nevertheless, this indicates that PMF is not suitable for the MSD dataset and this can be attributed to the implicit feedback issue or simply to the fact that the dataset is too sparse. However, it is still possible to apply matrix factorization techniques to this dataset through using metadata and this has been demonstrated to be viable by \citep{liangcodebook} which achieved MAP values exceeding 0.1.  
 
-
+\citep{hu2008collaborative}
 
 
 
@@ -197,8 +197,8 @@ Lastly, we sorted the songs by scores and recommended the user the top 500 songs
 
 
 
-\section{Conclusion}
-After comparing the various algorithms, the simpler models gave us the best results. Our most complicated model, matrix factorization, gave us results barely above the popularity baseline. On the other hand, simply recommending users songs by artists they have already listened to (the artist-based baseline) resulted in a significantly better recommendation system. Our song-based collaborative filtering technique produced the best results despite being a relatively simple algorithm as compared to matrix factorization. Our final results for each technique employed are summarized in the table below. 
+\section{Results}
+After comparing the various algorithms, the simpler models gave us the best results. Our most complicated model, matrix factorization, gave us results barely above the popularity baseline. On the other hand, simply recommending users songs by artists they have already listened to (the artist-based popularity baseline) resulted in a significantly better recommendation system. Our song-based collaborative filtering technique produced the best results despite being a relatively simple algorithm as compared to matrix factorization. Our final results for each technique employed are summarized in the table below. 
 
 \begin{table}[h]
 \begin{center}
@@ -222,6 +222,8 @@ Matrix Factorization  &   0.0143  \\
 \end{center}
 \end{table}
 
+\section{Conclusion}
+Apart from the algorithms discussed above, we also explored building a recommendation system based on K-Means Clustering (by both user and song) and Non-Negative Matrix Factorization (NMF). In the end, both of these methods yielded worse results as compared to Probabalistic Matrix Factorization so we decided not to explore them further. Next steps include incorporating tags and metadata present in the dataset (e.g. year, genre, audio metadata). It would also be useful to expand the size of the subset and distribute the workload to multiple machines so that more data could be analyzed.
 
 %To Reference a paper: 
 
