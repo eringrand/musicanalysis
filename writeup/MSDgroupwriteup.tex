@@ -91,14 +91,17 @@ We used two different baseline benchmarks \citep{McFee:2012:MSD:2187980.2188222}
 Matrix factorization is a type of collaborative filtering algorithm that can be used to build a recommendation system for users based on user feedback of objects (in this case songs). This allows us to recommend songs to users based on their listening history without the need for content based approaches. 
 Training and testing matrices were constructed, of which both have $N_1$ users (rows denoted by $u_i$) and $N_2$ songs (columns denoted by $v_j$). As users have only listened to a fraction of all the songs available, the matrices are sparse, containing zeros in all entries except for those in which a user (a user representing a single row) has listened to. The goal of matrix factorization is to factor the training matrix into the product of two matrices $U$ and $V$.  The matrix $U$ is $N_1 \times d$ and the matrix $V$ is $d \times N_2$. Another goal of matrix factorization is typically to learn a low-rank factorization of the original matrix while restricting the patterns that are generated in the product of the factorized matrices (e.g. if a user likes a song in a specific group of songs, the user may also like other songs in that group of songs). The choice of $d$ can be subjective but $20$ is a common value to start with. In the factorized matrices, the predicted rating will be $\hat{M}_{ij} = u_i^\TRANSPOSE  v_j$
 Using a coordinate ascent algorithm over 100 iterations, each row ($u_i$) and column ($v_j$) of the training matrix is then updated (equations \ref{eq1} and \ref{eq2}) in order to maximize the log joint likelihood (equation \ref{eq3}).
+
 \begin{equation}
 u_i = \left( \lambda\sigma^2 I + \sum_{j \in \Omega_{u_i}} v_j v_j^\TRANSPOSE \right)^{-1}\left(\sum_{j \in \Omega_{u_i}} M_{ij} v_{j} \right)
 \label{eq1}
 \end{equation}
+
 \begin{equation}
 v_j = \left( \lambda\sigma^2 I + \sum_{i \in \Omega_{v_j}} u_i u_i^\TRANSPOSE  \right)^{-1}\left(\sum_{i \in \Omega_{v_j}} M_{ij} u_{i} \right)
 \label{eq2}
 \end{equation}
+
 \begin{equation}
 \mathcal{L} = \sum_{(i,j) \in \Omega} \frac{1}{2\sigma^2} {|| M_{ij} - u_i^\TRANSPOSE  v_j||}^2 - \sum_{i=1}^{N_1} \frac{\lambda}{2} ||u_i^2 || - \sum_{i=1}^{N_2} \frac{\lambda}{2} ||v_j^2 || + \text{constant}
 \label{eq3} 
