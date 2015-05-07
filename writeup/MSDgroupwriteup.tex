@@ -160,7 +160,7 @@ Regardless, the best result achieved for PMF in the end was 0.0143, which was on
 
 \subsection{User Based and Item Based Collaborative Filtering}
 %\subsubsection{Intro to Memory-Based Collaborative Filtering}
-A simpler set of methods for determining which songs to recommend to individual users is by using user- or item/song- based similarity (both also considered collaborative filtering). These only consider whether or not a user listened to a song and does not take into account the play count. Similarity scores between users (i.e. user-based) and songs (i.e. item-based) were calculated using cosine similarity \citep{aiolli2013preliminary} and \citep{li2012million}. Intuitively, they work by recommending users songs that other similar users like (user-based) or by recommending songs which are similar to the songs the user has already listened to (item-based). The downside to this method is the computational complexity. Given the quadratic runtime of these algorithms, they are more difficult to scale to a larger dataset. As for storage requirements, we will have to store all pairs of similarity scores for users in the case of user-based and songs in the case of item-based. The details are described below.
+A simpler set of methods for determining which songs to recommend to individual users is by using user- or item/song- based similarity (both also considered collaborative filtering). These only consider whether or not a user listened to a song and does not take into account the play count. Similarity scores between users (i.e. user-based) and songs (i.e. item-based) were calculated using cosine similarity \citep{aiolli2013preliminary, li2012million}. Intuitively, they work by recommending users songs that other similar users like (user-based) or by recommending songs which are similar to the songs the user has already listened to (item-based). The downside to this method is the computational complexity. Given the quadratic runtime of these algorithms, they are more difficult to scale to a larger dataset. As for storage requirements, we will have to store all pairs of similarity scores for users in the case of user-based and songs in the case of item-based. The details are described below.
 
 \subsubsection{User-Based Collaborative Filtering}
 For user-based recommendation, we first calculated the similarity score between every pair of users, $u$ and $v$, using the equation below:
@@ -169,7 +169,7 @@ For user-based recommendation, we first calculated the similarity score between 
 sim(u,v) = \frac{\text{\# common items}(u, v)}{{\text{\# items}(u)}^{1/2} \times {\text{\# items}(v)}^{1/2}}
 \end{equation}
 
-Then, for each user, we looked at each song in the dataset and found all other users who have listened to that song. Next, we added up the similarity score of each of those users, v, with the original user, u, and got the weight for a particular song, $i$:  
+Then, for each user, we looked at each song in the dataset and found all other users who have listened to that song. Next, we added up the similarity score of each of those users, $v$, with the original user, $u$, and got the weight for a particular song, $i$:  
 
 $$w_i = \sum_{v \in V} sim(u, v)$$
 
@@ -182,7 +182,7 @@ For item-based recommendation, which turned out to be our best algorithm in term
 sim(i,j) = \frac{\text{\# common users}(i, j)}{{\text{\# items}(i)}^{1/2} \times {\text{\# items}(j)}^{1/2}}
 \end{equation}
 
-Then, for each user, we found all the songs listened to. Next, we got the most similar songs to each of those songs listened to by the user. If the same similar songs came up multiple times, we added the weights together. In other words, for each song, b, that was found to be similar to one of the songs a that the user listened to, we calculated the score for that song, $b$:
+Then, for each user, we found all the songs listened to. Next, we got the most similar songs to each of those songs listened to by the user. If the same similar songs came up multiple times, we added the weights together. In other words, for each song, $b$, that was found to be similar to one of the songs, $a$, that the user listened to, we calculated the score for that song, $b$:
 
 $$w_b = \sum_{a \in A} sim(a, b)$$
 
@@ -213,7 +213,7 @@ Top 500 Songs by Plays  Baseline &  0.0126  \\
 \end{table}
 
 \section{Conclusion}
-Apart from the algorithms discussed above, we also explored building a recommendation system based on K-Means Clustering (by both user and song) and Non-Negative Matrix Factorization (NMF). In the end, both of these methods yielded worse results as compared to Probabalistic Matrix Factorization so we decided not to explore them further. Next steps include incorporating tags and metadata present in the dataset (e.g. year, genre, audio metadata). It would also be useful to expand the size of the subset and distribute the workload to multiple machines so that more data could be analyzed.
+Apart from the algorithms discussed above, we also explored building a recommendation system based on K-Means Clustering (by both user and song) and Non-Negative Matrix Factorization (NMF). In the end, both of these methods yielded worse results as compared to Probabalistic Matrix Factorization so we decided not to explore them further. Next steps include incorporating tags and metadata present in the dataset (e.g. year, genre, and audio metadata). It would also be useful to expand the size of the subset and distribute the workload to multiple machines so that more data could be analyzed.
 
 %To Reference a paper: 
 
