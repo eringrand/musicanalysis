@@ -22,7 +22,7 @@
 
 
 \begin{document}
-\title{Clustering of Last.fm Music}
+\title{Music Recommendation System Using the Million Song Dataset}
 
  \author{Jordan Rosenblum, Justin Law \& Erin Grand}
  \affil{Data Science Institute, Columbia University, New York, NY 10027}
@@ -48,15 +48,15 @@ There is no set similarity measure between two songs, as evident by the fact tha
 For our project, we explored various song recommendation systems algorithms such as popularity recommendations, artist based recommendations, matrix factorization, and user and item based similarity measures.  
 % memory based collaborative filtering
 
-\subsection{Data}
+\subsection{Data and Statistics}
 The main source of data for this project was the Million Song Data Set (MSD)  \citep{Bertin-Mahieux2011}. We used the sample data set from the Kaggle competition which contains tuples of user id, song id, and play count.  
 
 The sample data set had $110000$ users, $163206$ songs, and the number of play counts for each user and song pair.
 The scale of the data was too large to explore on our computers, so we subset the data down to a size easily handled by an average laptop. 
 
-We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a dataset which was 10\% the size of the original. Despite subsetting the data, we are still dealing with a matrix of $8130$ users by $11861$ songs, so some of our algorithms will take a fair amount of time to run.
+We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a dataset which was 10\% the size of the original. The sparsity of the data was .0016, meaning that we only had play counts for 0.16\% of the user, song pairs (i.e. not all users listen to all songs). Despite subsetting the data, though, we are still dealing with a matrix of $8130$ users by $11861$ songs, so some of our algorithms will take a fair amount of time to run.
 
-\subsubsection{Data Statistics}
+
 
 - Sparsity .0016086
 - 
