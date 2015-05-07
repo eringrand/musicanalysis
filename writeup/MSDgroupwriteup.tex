@@ -155,35 +155,36 @@ We keep track of the root mean square error (RMSE) versus the testing set (i.e. 
 %\subsection{Naked Kmeans }
 %\subsection{Non-Negative Matrix Factorization}
 
-\subsection{User Based and Item Based Recommendation}
-Intro to Memory-Based Collaborative Filtering
+\subsection{User Based and Item Based Collaborative Filtering}
+%\subsubsection{Intro to Memory-Based Collaborative Filtering}
 
 A simpler set of methods for determining which songs to recommend to individual users is by using user- or item/song- based similarity (both also considered collaborative filtering). These only consider whether or not a user listened to a song and does not take into account the play count. Similarity scores between users (i.e. user-based) and songs (i.e. item-based) were calculated using cosine similarity. Intuitively, they work by recommending users songs that other similar users like (user-based) or by recommending songs which are similar to the songs the user has already listened to (item-based).
 
-User-Based Collaborative Filtering
+\subsubsection{User-Based Collaborative Filtering}
 
-For user-based recommendation, we first calculated the similarity score between every pair of users, u and v, using the equation below:
+For user-based recommendation, we first calculated the similarity score between every pair of users, $u$ and $v$, using the equation below:
 
-Inline image 1
 \begin{equation}
-sim(u,v) = \frac{\# common items}{{\# items(u)}^{1/2} {\# items (v)}^{1/2}}
+sim(u,v) = \frac{\text{\# common items}(u, v)}{{\text{\# items}(u)}^{1/2} \times {\text{\# items}(v)}^{1/2}}
 \end{equation}
 
-Then, for each user, we looked at each song in the dataset and found all other users who have listened to that song. Next, we added up the similarity score of each of those users, v, with the original user, u, and got the weight for a particular song, i:  
+Then, for each user, we looked at each song in the dataset and found all other users who have listened to that song. Next, we added up the similarity score of each of those users, v, with the original user, u, and got the weight for a particular song, $i$:  
 
-$w_i = \sum_{v \epsilon V} sim(u, v)$
+$$w_i = \sum_{v \epsilon V} sim(u, v)$$
 
-That sum is a proxy for how likely the user is to like that particular song. We went through that process for all songs and then recommended the user the top 500 songs which had the highest scores. This method led to a MAP value of 0.0383.
+The sum is a proxy for how likely the user is to like that particular song. We went through that process for all songs and recommended the user the top 500 songs which had the highest scores. This method led to a MAP value of 0.0383.
 
-Item-Based Collaborative Filtering
+\subsubsection{Item-Based Collaborative Filtering}
 
-For item-based recommendation, which turned out to be our best algorithm in terms of a MAP value, we first calculated the similarity score between every pair of songs, i and j, using the equation below and saved the most similar songs to each song in the process:
+For item-based recommendation, which turned out to be our best algorithm in terms of a MAP value, we first calculated the similarity score between every pair of songs, $i$ and $j$, using the equation below and saved the most similar songs to each song in the process:
 
-Inline image 2
+\begin{equation}
+sim(i,j) = \frac{\text{\# common users}(i, j)}{{\text{\# items}(i)}^{1/2} \times {\text{\# items}(j)}^{1/2}}
+\end{equation}
 
-Then, for each user, we found all the songs listened to. Next, we got the most similar songs to each of those songs listened to by the user. If the same similar songs came up multiple times, we added the weights together. In other words, for each song, b, that was found to be similar to one of the songs a that the user listened to, we calculated the score for that song, b:
+Then, for each user, we found all the songs listened to. Next, we got the most similar songs to each of those songs listened to by the user. If the same similar songs came up multiple times, we added the weights together. In other words, for each song, b, that was found to be similar to one of the songs a that the user listened to, we calculated the score for that song, $b$:
 
-$w_b = \sum_{a \epsilon A} sim(a, b)$
+$$w_b = \sum_{a \epsilon A} sim(a, b)$$
 
 Lastly, we sorted the songs by scores and recommended the user the top 500 songs which had the highest scores. This method led to a MAP value of 0.0503.
 
