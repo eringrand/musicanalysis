@@ -37,31 +37,28 @@ This is the abstract.
 
 \section{Introduction}
 In the online world, recommendation systems are used in shopping, entertainment and even dating. 
-Because of their popularity and usefulness, there are lots of incentives to implement a good recommendation system, but a lack of large datasets to learn the best algorithms from. 
+Because of their popularity and usefulness, there are numerous incentives to implement a good recommendation system. 
 In the music industry, companies use recommendation systems to provide a better music streaming radio service to their listeners. 
 With the music industry shifting away from a more traditional distribution model of physical CDs or records, 
 having an efficient and well performing recommendation system is very important. 
 
-In building a recommendation system, there are many problems to tackle. This is way some methods that take more information about the user and the song into account.
+In building a recommendation system, there are many problems to tackle. This is why some methods take more information about the user and the song into account.
 There is no set similarity measure between two songs, as evident by the fact that songs by the same artist are often very different. As such, there are many different types of algorithms to explore. 
 
 For our project, we chose to explore various song recommendation systems algorithms such as matrix factorization, non-negative matrix factorization as well as user based and item based similarity measures.  
 % memory based collaborative filtering
 
 \subsection{Data}
-The main source of data for this project was the Million Song Data Set (MSD)  \citep{Bertin-Mahieux2011}. We used the sample data set from the Kaggle competition as well as metadata from MSD.  
+The main source of data for this project was the Million Song Data Set (MSD)  \citep{Bertin-Mahieux2011}. We used the sample data set from the Kaggle competition which contains tuples of user id, song id, and play count.  
 
-The full data set had  $163206$ songs  $110000$ users, and the number of play counts 
-The scale of the data was too big for our computers to explore, so we subset the data down to a size easily handled by an average laptop. 
+The sample data set had  $163206$ songs  $110000$ users, and the number of play counts 
+The scale of the data was too large to explore on our computers, so we subset the data down to a size easily handled by an average laptop. 
 
-We choose to subset the data to popular songs and the most active users. We chose a subset of 10\% the size of the original matrix.   % Because?  
-
-len(value) > 27 users
-len(value) > 22 songs
+We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a datset which was 10\% the size of the original. Despite subsetting the data, we are still dealking with a matrix of $8130$ users by $11861$, so our algorithms will take a fair amount of time to run.
 
 \subsubsection{Data Statistics}
 
-- Sparsity 
+- Sparsity .0016086
 - 
 
 SONG PLAY COUNT  \\
@@ -78,7 +75,7 @@ std = 53.31547\\
 
 
 \subsection{Data Analysis}
-We did a random selection by data element to split between test and train. 
+In order to perform the analysis, we had to fill in a matrix which contained play counts for user and song pairs. We then did a random selection by data element to split between the training (80\%) and testing (20\%) sets. 
 
 \subsection{Testing}
 We tested our algorithms against each other using a mean average precision 
