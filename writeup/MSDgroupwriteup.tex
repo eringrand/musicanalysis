@@ -57,10 +57,6 @@ The scale of the data was too large to explore on our computers, so we subset th
 We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a dataset which was 10\% the size of the original. The sparsity of the data was .0016, meaning that we only had play counts for 0.16\% of the user, song pairs (i.e. not all users listen to all songs). Despite subsetting the data, though, we are still dealing with a matrix of $8130$ users by $11861$ songs, so some of our algorithms will take a fair amount of time to run.
 
 
-
-- Sparsity .0016086
-- 
-
 SONG PLAY COUNT  \\
 mean = 28 \\
 max = 35432 \\
@@ -79,7 +75,7 @@ In order to perform the analysis, we had to fill in training and testing matrice
 
 \subsection{Testing}
 We tested our algorithms against each other using a mean average precision 
-score for each method.  The mean average precision (MAP) calculation came directly from the Kaggle MSD challenge \citep{kaggleMSD}. The score was used to rank the competition entries.
+score for each method.  The mean average precision (MAP) calculation came directly from the Kaggle MSD challenge \citep{McFee:2012:MSD:2187980.2188222}. The score was used to rank the competition entries.
 
 Specifically, we used MAP@500 scores which take into account the first 500 recommendations given to each user. Generally, the score looks at the precision between a list of recommendations for a user and that user's test set. This was done by calculating the average precision at each element in the list of recommended items (i.e. percentage of correct items among first $k$ recommendations) and averaging these for the first 500 recommendations (i.e. for each $k \in \{1, ..., 500\}$, calculate the precision and average them together).
 We then averaged the score over all users. Intuitively, the score looks at the percentage of recommendations that were in-line with the test set of songs actually listened to but also takes order into account. So it is preferable to recommend the songs in the user's test set earlier in the list of 500. The MAP score is similar to the AUC of the ROC curve discussed in class except it takes ordering of the recommendations into account, which is an important factor to consider in a recommendation system.
