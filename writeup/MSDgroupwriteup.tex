@@ -54,7 +54,7 @@ The main source of data for this project was the Million Song Data Set (MSD)  \c
 The sample data set had $110000$ users, $163206$ songs, and the number of play counts for each user and song pair.
 The scale of the data was too large to explore on our computers, so we subset the data down to a size easily handled by an average laptop. 
 
-We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a datset which was 10\% the size of the original. Despite subsetting the data, we are still dealing with a matrix of $8130$ users by $11861$ songs, so our algorithms will take a fair amount of time to run.
+We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a datset which was 10\% the size of the original. Despite subsetting the data, we are still dealing with a matrix of $8130$ users by $11861$ songs, so some of our algorithms will take a fair amount of time to run.
 
 \subsubsection{Data Statistics}
 
@@ -189,7 +189,7 @@ Lastly, we sorted the songs by scores and recommended the user the top 500 songs
 
 
 \section{Conclusion}
-After comparing the various algorithms, the simpler models gave us the best results. Our most complicated model, matrix factorization, gave us results even below the popularity baseline. On the other hand simply recommending users songs by artists they have already listened to (the artist based baseline) resulted in a significantly better recommendation system. Lastly, our song-based collaborative filtering technique produced the best results despite being a relatively simple algorithm as compared to matrix factorization. Our final results for each technique employed are summarized in the table below. 
+After comparing the various algorithms, the simpler models gave us the best results. Our most complicated model, matrix factorization, gave us results barely above the popularity baseline. On the other hand, simply recommending users songs by artists they have already listened to (the artist-based baseline) resulted in a significantly better recommendation system. Our song-based collaborative filtering technique produced the best results despite being a relatively simple algorithm as compared to matrix factorization. Our final results for each technique employed are summarized in the table below. 
 
 \begin{table}[h]
 \begin{center}
