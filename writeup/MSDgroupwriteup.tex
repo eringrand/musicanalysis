@@ -175,7 +175,7 @@ sim(u,v) = \frac{\text{\# common items}(u, v)}{{\text{\# items}(u)}^{1/2} \times
 
 Then, for each user, we looked at each song in the dataset and found all other users who have listened to that song. Next, we added up the similarity score of each of those users, v, with the original user, u, and got the weight for a particular song, $i$:  
 
-$$w_i = \sum_{v \epsilon V} sim(u, v)$$
+$$w_i = \sum_{v \in V} sim(u, v)$$
 
 The sum is a proxy for how likely the user is to like that particular song. We went through that process for all songs and recommended the user the top 500 songs which had the highest scores. This method led to a MAP value of 0.0377.
 
@@ -188,7 +188,7 @@ sim(i,j) = \frac{\text{\# common users}(i, j)}{{\text{\# items}(i)}^{1/2} \times
 
 Then, for each user, we found all the songs listened to. Next, we got the most similar songs to each of those songs listened to by the user. If the same similar songs came up multiple times, we added the weights together. In other words, for each song, b, that was found to be similar to one of the songs a that the user listened to, we calculated the score for that song, $b$:
 
-$$w_b = \sum_{a \epsilon A} sim(a, b)$$
+$$w_b = \sum_{a \in A} sim(a, b)$$
 
 Lastly, we sorted the songs by scores and recommended the user the top 500 songs which had the highest scores. This method led to a MAP value of 0.0479.
 
