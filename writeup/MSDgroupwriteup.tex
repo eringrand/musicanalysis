@@ -1,4 +1,4 @@
-\documentclass[12pt,preprint]{aastex}
+\documentclass[11pt,preprint]{aastex}
  %\documentclass[12pt]{emulateapj}
 \usepackage[margin= 1.0in]{geometry}    % See geometry.pdf to learn the layout options. There are lots.
 \geometry{letterpaper} % or letter or a5paper or ... etc
@@ -52,9 +52,60 @@ For our project, we explored various song recommendation systems algorithms such
 The main source of data for this project was the Million Song Data Set (MSD)  \citep{Bertin-Mahieux2011}. We used the sample data set from the Kaggle competition which contains tuples of user id, song id, and play count.  
 
 The sample data set had $110000$ users, $163206$ songs, and the number of play counts for each user and song pair.
+
+
+
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{lc}
+\hline
+count &  1450933 \\
+\hline
+mean  &     3.187149 \\
+std      &    7.051664 \\
+min      &    1.0 \\
+max     &   923.0 \\
+\end{tabular}
+\end{center}
+\end{table}
+
 The scale of the data was too large to explore on our computers, so we subset the data down to a size easily handled by an average laptop. 
 
+
 We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a dataset which was 10\% the size of the original. The sparsity of the data was .0016, meaning that we only had play counts for 0.16\% of the user, song pairs (i.e. not all users listen to all songs). Despite subsetting the data, though, we are still dealing with a matrix of $8130$ users by $11861$ songs, so some of our algorithms will take a fair amount of time to run.
+
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=4in]{../plots/final/cumsum-songs.png} 
+   \caption{ }
+   \label{fig:t}
+\end{figure}
+
+
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=4in]{../plots/final/cumsum-users.png} 
+   \caption{ }
+   \label{fig:t}
+\end{figure}
+
+
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=4in]{../plots/final/hist-song.png} 
+   \caption{ }
+   \label{fig:t}
+\end{figure}
+
+
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=4in]{../plots/final/hist_user_song_count.png} 
+   \caption{ }
+   \label{fig:t}
+\end{figure}
+
 
 \subsection{Data Analysis}
 In order to perform the analysis, we had to fill in training and testing matrices which contained play counts for user and song pairs. We did a random selection of data elements to split between the training (80\%) and testing (20\%) sets. Next, we implemented various algorithms on the dataset in order to recommend songs to users, including matrix factorization, user-based collaborative filtering, and item-based collaborative filtering.
@@ -107,19 +158,13 @@ Regardless, the best result achieved for PMF in the end was 0.0143, which was on
 
 \citep{hu2008collaborative}
 
-%\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
-%   \centering
-%   \includegraphics[width=4in]{h845BuzFO9CNgAAAABJRU5ErkJggg==.png} 
-%   \caption{how close our prediction is as compared to the actual normalized play count in the testing set }
-%   \label{fig:rmseplot}
-%\end{figure}
-%
-%\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
-%   \centering
-%   \includegraphics[width=4in]{C9LAAAAABJRU5ErkJggg==.png} 
-%   \caption{log joint likelihood of the training set as a function of iteration }
-%   \label{fig:likeplot}
-%\end{figure}
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+   \centering
+   \includegraphics[width=6in]{../plots/final/PMF.png} 
+   \caption{ }
+   \label{fig:t}
+\end{figure}
+
 
 
 %
@@ -138,9 +183,6 @@ Regardless, the best result achieved for PMF in the end was 0.0143, which was on
 %\label{fig:figure2}
 %\end{minipage}
 %\end{figure}
-
-%\subsection{Naked Kmeans }
-%\subsection{Non-Negative Matrix Factorization}
 
 \subsection{User Based and Item Based Collaborative Filtering}
 %\subsubsection{Intro to Memory-Based Collaborative Filtering}
@@ -183,7 +225,6 @@ After comparing the various algorithms, the simpler models gave us the best resu
 \begin{table}[h]
 \begin{center}
 \begin{tabular}{lc}
-
 \hline
 \bf{Algorithm} &  \bf{MAP score}\\ \hline
 Item Based  CF  &  0.0479 \\ 
