@@ -112,11 +112,11 @@ plotdata = []
 iter = 30
 for var in [100, 10, 1, 0.01, 0.001]:
     for d in [10, 20, 40, 80]:
-        plotdata.append([0,'Default',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test,d,iter)])
-        plotdata.append([1,'Row-norm',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test,d,iter)])
-        plotdata.append([2,'Col-norm',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test,d,iter)])
-        plotdata.append([3,'Binary',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test,d,iter)])
-        plotdata.append([4,'TF-IDF',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test,d,iter)])
+        plotdata.append([0,'Default',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test, d, iter)])
+        plotdata.append([1,'Row-norm',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test, d, iter)])
+        plotdata.append([2,'Col-norm',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test, d, iter)])
+        plotdata.append([3,'Binary',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test, d, iter)])
+        plotdata.append([4,'TF-IDF',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test, d, iter)])
             
 plotdata = pd.DataFrame(plotdata,columns=['method','methodname','variance','d','MAP'])
 
