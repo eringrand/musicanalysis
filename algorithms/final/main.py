@@ -116,7 +116,6 @@ plt.legend().set_visible(False)
 plt.title("Cumulative Sum of Number of Users for each Song")
 plt.ylabel("Perecentage of Users")
 plt.xlabel("Number of Songs")
-#plt.vlines(60000,0,1,linestyles='dotted')
 formatter = FuncFormatter(to_percent)
 plt.gca().yaxis.set_major_formatter(formatter)
 plt.legend().set_visible(False)
@@ -194,8 +193,7 @@ M_train_tfidf = M_train_rownorm*idf
 M_train_binary = M_train.copy()
 M_train_binary[M_train_binary != 0] = 1
 
-# Bunch of plotting stuff
-# First and Second PMF plot
+# First PMF plot
 MAP, L =  MF(M_train,M_test,1.0, omega, omega_test, omegau_train, omegau_test,80,100)
 
 plt.subplot(1,2,1)
@@ -210,7 +208,7 @@ plt.ylabel('Log joint likelihood')
 plt.title('Log joint likelihood across iterations for default PMF')
 plt.show()
 
-# Third PMF plot
+# Second PMF plot
 plotdata = []
 
 iter = 30
