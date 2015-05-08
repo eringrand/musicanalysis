@@ -49,21 +49,21 @@ For our project, we explored various song recommendation systems algorithms such
 % memory based collaborative filtering
 
 \subsection{Data and Statistics}
-The main source of data for this project was the Million Song Data Set (MSD)  \citep{Bertin-Mahieux2011}. We used the sample data set from the Kaggle competition which contains tuples of user id, song id, and play count.  
+The main source of data for this project was the Million Song Data Set (MSD)  \citep{Bertin-Mahieux2011}. We used the sample data set from the Kaggle competition which contains tuples of user id, song id, and play count. We also used data which links songs to artists through track ids. The links to these datasets can be found in the Appendix.
 
-The sample data set had $110000$ users, $163206$ songs, and the number of play counts for each user and song pair.
+The sample data set had $110000$ users, $163206$ songs, and the number of play counts for each user and song pair. The statistics are summarized below:
 
 \begin{table}[h]
 \begin{center}
 \begin{tabular}{lcc}
 \hline
-Measurement & Group-By Songs & Group-By Users \\
+Measurement & Plays Across Songs & Plays Across Users \\
 \hline
 Count &  163206 & 110000 \\
 Mean  &     8.890194 & 13.190300  \\
 Std      &    46.780258 & 8.070827 \\
 Min      &    1.0  & 5.0  \\
-Max     &   5043.000000 &  53 \\
+Max     &   5043 &  53 \\
 \end{tabular}
 \end{center}
 \end{table}
@@ -76,7 +76,7 @@ We choose to subset the data to users who have listened to more than 27 songs an
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
    \includegraphics[width=4in]{../plots/final/cumsum-songs.png} 
-   \caption{ }
+   \caption{Percentage of users accounted for versus songs with increasing number of plays.}
    \label{fig:t}
 \end{figure}
 
@@ -84,7 +84,7 @@ We choose to subset the data to users who have listened to more than 27 songs an
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
    \includegraphics[width=4in]{../plots/final/cumsum-users.png} 
-   \caption{ }
+   \caption{Percentage of songs accounted for versus users with increasing number of plays.}
    \label{fig:t}
 \end{figure}
 
