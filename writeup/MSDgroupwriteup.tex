@@ -71,7 +71,7 @@ Max     &   5043 &  53 \\
 
 It is also easy to see in Figure \ref{tab:csongs} that the majority of the songs are listened to by very few users so we can decrease the number of songs in our subset but not lose all of the play count. 
 
-\begin{figure}[h] %  figure placement: here, top, bottom, or page
+\begin{figure}[H] %  figure placement: here, top, bottom, or page
    \centering
    \includegraphics[width=4in]{../plots/final/cumsum-songs.png} 
    \caption{Percentage of users accounted for versus songs with increasing number of plays.}\label{fig:csongs}
@@ -145,7 +145,7 @@ There are several hyper-parameters that can be tweaked in order to achieve a bet
  
 After testing various values of the parameters, it was soon discovered that matrix factorization results were significantly below the popularity baseline and changing the hyper-parameters around did not help much. The best MAP value of 0.0039 was achieved using a high rank $d$ of 80 over 100 iterations with a variance of 1.0. The log joint likelihood chart can be used to verify that the probabilistic matrix factorization algorithm is running properly in that the values are monotonically increasing, which corresponds to a decreasing training error. The first graph in Figure \ref{defaultPMF} shows that the log joint likelihood is indeed monotonically increasing and slowed down significantly after the first twenty iterations. The second graph in the same figure shows the MAP values from the same run and it shows that the MAP values decreasing after the maximum at five iterations. It could be argued that emphasis should be placed on finding the right number of iterations to produce the best MAP values, but since the overall MAP results were poor and the differences were minimal, it was decided that this was not to be a priority for further experimentation. Due to this conclusion, further exploration of the probabilistic matrix factorization algorithm was limited to 30 iterations in order to reduce computational time.
 
-\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+\begin{figure}[H] %  figure placement: here, top, bottom, or page
    \centering
    \includegraphics[width=6in]{../plots/final/defaultPMF.png} 
    \caption{MAP values and log joint likelihood values for PMF using default play-count values with $\sigma^2 = 1.0$ and $d = 80$}
