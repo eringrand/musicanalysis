@@ -30,7 +30,7 @@
 \date{\today}             
 
 \begin{abstract}
-A recommendation system was attempted to recommend songs to users using data from the Million Song Dataset available on Kaggle. The main focus of this paper was using content-based collaborative filtering algorithms that only utilize user feedback in order to predict what songs users may like. For benchmarking the algorithms, the same Mean Average Precision truncated at 500 recommended songs used for the original Kaggle competition was utilized. It was discovered that probablistic matrix factorization did not improve results much from using a baseline of simply recommending popular songs with MAP values around 0.014, while artist-based popularity along with user-based and item-based collaborative filtering methods yielded much better results exceeding MAP of 0.04.
+A recommendation system was attempted to recommend songs to users using data from the Million Song Dataset available on Kaggle. The main focus of this paper was using content-based collaborative filtering algorithms that only utilize user feedback in order to predict what songs users may like. For benchmarking the algorithms, the same Mean Average Precision truncated at 500 recommended songs used for the original Kaggle competition was utilized. It was discovered that probabilistic matrix factorization did not improve results much from using a baseline of simply recommending popular songs with MAP values around 0.014, while artist-based popularity along with user-based and item-based collaborative filtering methods yielded much better results exceeding MAP of 0.04.
 
 %We attempt to build a recommendation system for a subset of the Million Song Dataset. We explore various algorithms including matrix factorization, user-based collaborative filtering, and item-based collaborative filtering. In each case we recommend the top 500 songs that our algorithm returns to each user and compare against the testing set of what the user actually listened to. Matrix factorization gives the worst results, only slightly above the popularity baseline, while artist-based popularity and user-based and item-based collaborative filtering methods yield better results.
 \end{abstract}
@@ -48,7 +48,6 @@ In building a recommendation system, we had to take into account various trade-o
 There is no set similarity measure between two songs, as evident by the fact that songs by the same artist are often very different. As such, there are many different types of algorithms to explore. 
 
 For our project, we explored various song recommendation systems algorithms such as popularity recommendations, artist based recommendations, matrix factorization, and user and item based similarity measures.  
-% memory based collaborative filtering
 
 \subsection{Data and Statistics}
 The main source of data for this project was the Million Song Data Set (MSD)  \citep{Bertin-Mahieux2011}. We used the sample data set from the Kaggle competition which contains tuples of user id, song id, and play count. We also used data which links songs to artists through track ids. The links to these datasets can be found in the Appendix.
