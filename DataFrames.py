@@ -155,7 +155,7 @@ uservalues = usercount['plays'].values
 plt.hist(uservalues,50)
 plt.title("Number of Users Who've played a Given Number of Songs")
 plt.xlabel("Number of Songs Played")
-plt.ylabel("Count")
+plt.ylabel("Count of Users")
 plt.show()
 
 
@@ -165,9 +165,9 @@ songcount = pd.DataFrame(songcount).reset_index()
 songvalues = songcount['plays'].values
 songvalues = np.log10(songvalues)
 plt.hist(songvalues,50)
-plt.title("Number of Songs with a Given Number of Users")
-plt.xlabel("Number of Users")
-plt.ylabel("Count")
+plt.title("Number of Songs that have a Given Number of Listeners")
+plt.xlabel("Number of Listeners (log scale)")
+plt.ylabel("Count of Songs")
 plt.show()
 
 #histogram of number of plays for users
@@ -198,6 +198,7 @@ plt.legend().set_visible(False)
 plt.show()
 
 
+#cumulative sum for plays vs songs
 songplaycsum = songhist.sort('plays')
 songplaycsum['plays'] = songplaycsum['plays'].cumsum()
 songplaycsum['plays'] = songplaycsum['plays']/songplaycsum['plays'].max()
@@ -236,16 +237,4 @@ plt.show()
 #songcsumlog['plays'] = np.log10(songcsumlog['plays'])
 #songcsumlog['sid'] = songcsumlog['sid']/songcsum['sid'].max()
 #songcsumlog.plot('plays','sid')
-#plt.show()
-
-# cumulative sum for plays vs songs
-#songplaycsum = songhist.sort('plays')
-#songplaycsum['plays'] = songplaycsum['plays'].cumsum()
-#songplaycsum['plays'] = songplaycsum['plays']/songplaycsum['plays'].max()
-#songplaycsum = songplaycsum.reset_index(drop=True).reset_index()
-#songplaycsum.plot('index', 'plays')
-#plt.legend().set_visible(False)
-#plt.title("Cumulative sum of plays for songs")
-#plt.ylabel("Perecentage of plays")
-#plt.xlabel("Amount of songs sorted with increasing amount of plays")
 #plt.show()
