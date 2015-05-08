@@ -69,7 +69,7 @@ Max     &   5043 &  53 \\
 \end{center}
 \end{table}
 
-It is also easy to see in Figure \ref{tab:csongs} that the majority of the songs are listened to by very few users so we can decrease the number of songs in our subset but not lose all of the play count. 
+It is also easy to see in Figure \ref{fig:csongs} that the majority of the songs are listened to by very few users so we can decrease the number of songs in our subset but not lose all of the play count. 
 
 \begin{figure}[H] %  figure placement: here, top, bottom, or page
    \centering
@@ -158,6 +158,7 @@ In order to tackle the issue of using implicit user feedback, we tried four diff
  
 The results from the experiments were plotted in Figure \ref{fig:PMF}. It was found that the rank $d$ did not contribute significantly to the MAP values especially in settings where the MAP values were close to the popularity baseline. Higher variance values were found to actually significantly increase the MAP values and it can be argued that the reason why the default PMF works best at variance of 10 instead of 1.0 for the others is that the empirical variance of play count values is at least an order of magnitude higher than the others. This also suggests that the variance used in PMF should scale with the empirical variance, but the exact relationship remains unclear.
 
+\newpage
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
    \includegraphics[width=6in]{../plots/final/PMF.png} 
