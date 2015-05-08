@@ -3,6 +3,9 @@ import pandas as pd
 import matplotlib as plt
 import matplotlib
 import random
+import pandas.io.sql as psql
+import sqlite3 as sqlite
+from collections import OrderedDict
 
 from matrix_factorization import MF
 from matrix_factorization import MF2
@@ -18,6 +21,7 @@ matplotlib.style.use('ggplot')
 
 ### Data Loading Section
 # load observation data
+# kaggle_visible_evaluation_triplets.txt is available at https://www.kaggle.com/c/msdchallenge/data
 f = open("kaggle_visible_evaluation_triplets.txt", 'rb')
 eval = pd.read_csv(f,sep='\t',header = None, names = ['user_id','sid','plays'])
 
@@ -85,15 +89,60 @@ for i in list(set(trainplays.song_index.values)):
 omega = [tuple(x) for x in trainsub[trainsub.plays>0][['user_index','song_index']].values]
 omega_test = [tuple(x) for x in testsub[trainsub.plays>0][['user_index','song_index']].values]
 
+
+
 ### Data Exploratory and Plotting Section
+
+
 
 
 
 ### Popularity Baseline Section
 popbase = popularity_baseline(trainsub,omegau_train,omegau_test)
-print "The popularity baseline based on counts is " + str(popbase[0]) + ' and based on plays is ' + str(popbase[1])
+print "The popularity baseline MAP based on counts is " + str(popbase[0]) + ' and based on plays is ' + str(popbase[1])
 
 ### Artist-based Popularity Baseline Section
+
+# Load track metadata to get artist_id
+# http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/track_metadata.db
+con = sqlite.connect("track_metadata.db")
+with con:
+    sql = "SELECT * FROM songs"
+    track_metadata = psql.read_sql(sql, con)
+con.close()
+
+# Renaming columns to match other dataframes
+track_metadata=track_metadata.rename(columns = {'track_id':'tid'})
+track_metadata=track_metadata.rename(columns = {'song_id':'sid'})
+# Subsetting track_metadata to only have songs on the song_index on the subset data
+track_metadata=pd.merge(track_metadata,song_index, on='sid')
+
+# Group by songs and sum the amount of plays, then sort in descending amount of plays
+eval_songs = eval.groupby('sid').sum().reset_index().sort('plays',ascending=False)[['sid','plays']]
+# Subset songs to subset while including track metadata
+eval_songmeta = pd.merge(eval_songs, track_metadata, on='sid')
+
+# Generate a list of songs for each artist_id in the order of decreasing popularity of songs
+artist_group = eval_songmeta.groupby('artist_id')
+artist_songdict = {}
+for i in list(set(eval_songmeta.artist_id.values)):
+    artist_songdict[i] = list(OrderedDict.fromkeys(artist_group.get_group(i)['song_index']))
+
+# As one song_id can map to multiple track_id, drop all the duplicate song_ids, this is an assumption but the mapping of song_id to artist_id should be unique
+track_sid = track_metadata.drop_duplicates('sid')
+# Subsetting the user information based on the training set
+eval_user = pd.merge(trainsub[trainsub.plays>0], track_sid, on='sid')
+# Generate a list of artist_id for each user_index in order of decreasing amount of plays
+user_songs = eval_user.groupby(['user_index','artist_id']).sum().reset_index()[['user_index','artist_id','plays']]
+user_songs = user_songs.sort(['user_index','plays'], ascending=False)[['user_index','artist_id','plays']]
+
+# Generate a list of song indexes in decreasing order of plays
+popularsonglist = list(eval_songmeta.song_index.values)
+
+# Run the algorithm and print the result
+artist_map = artist_based(user_songs, artist_songdict, popularsonglist, omegau_test, omegau_train)
+print "The MAP of artist-based popularity baseline is " + str(artist_map)
+
 
 
 ### PMF Section
@@ -169,7 +218,6 @@ plt.show()
 
 
 ### Item and user-based section
-
 #Call item-based recommendation function
 item_based_map = item_based_rec(omegau_train, omegav_train, np.shape(M_train)[1], omegau_test)
 print item_based_map
