@@ -1,6 +1,13 @@
 import numpy as np
 import pandas as pd
+import matplotlib as plt
+import matplotlib
 import random
+
+from UserAndSongBasedRec import user_based_rec
+from UserAndSongBasedRec import item_based_rec
+
+matplotlib.style.use('ggplot')
 
 ### Data Loading Section
 # load observation data
@@ -41,6 +48,14 @@ song_index.columns = [['song_index','sid']]
 trainsub = pd.merge(trainsub, song_index, on='sid')
 testsub = pd.merge(testsub, song_index, on='sid')
 
+# Generating the default M_train and M_test matrices
+M_train = trainpivot.as_matrix()
+M_train = np.nan_to_num(M_train)
+
+testpivot = testsub.pivot(index='user_id',columns='sid', values='plays')
+M_test = testpivot.as_matrix()
+M_test = np.nan_to_num(M_test)
+
 # creating omegau_test
 testplays = testsub[testsub.plays>0]
 test_usergroup = testsub[testsub.plays>0].groupby('user_index')
@@ -53,6 +68,14 @@ train_usergroup = trainplays.groupby('user_index')
 omegau_train = {}
 for i in list(set(trainplays.user_index.values)):
     omegau_train[i] = list(train_usergroup.get_group(i)['song_index'])
+    
+# creating omegav_train
+trainplay = trainsub[trainsub.plays>0] 
+train_songgroup = trainplay.groupby('song_index')
+omegav_train = {}
+
+for i in list(set(trainplay.song_index.values)):
+    omegav_train[i] = list(train_songgroup.get_group(i)['user_index'])   
     
 # creating tuple lists
 omega = [tuple(x) for x in trainsub[trainsub.plays>0][['user_index','song_index']].values]
@@ -120,7 +143,6 @@ for var in [100, 10, 1, 0.01, 0.001]:
             
 plotdata = pd.DataFrame(plotdata,columns=['method','methodname','variance','d','MAP'])
 
-plotdata = pd.merge(plotdata,method_index,on='method')
 plotdata['logvar'] = np.log10(plotdata['variance'])
 
 groups = plotdata.sort(['d','method']).groupby('d')
@@ -144,7 +166,13 @@ plt.show()
 
 ### Item and user-based section
 
+#Call item-based recommendation function
+item_based_map = item_based_rec(omegau_train, omegav_train, np.shape(M_train)[1], omegau_test)
+print item_based_map
 
+#Call user-based recommendation fucntion
+user_based_map = user_based_rec(omegau_train, omegav_train, np.shape(M_train)[0], omegau_test)
+print user_based_map
 
 
 ### K-Means section
