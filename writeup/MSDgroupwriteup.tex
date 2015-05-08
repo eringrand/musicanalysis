@@ -69,7 +69,7 @@ Max     &   5043 &  53 \\
 \end{center}
 \end{table}
 
-It is also easy to see in Figure \ref{fig:csongs} that the majority of the songs are listened to by very few users so we can decrease the number of songs in our subset but not lose all of the play count. 
+It is also easy to see in Figure \ref{fig:csongs} that the majority of the songs are listened to by very few users so we can decrease the number of songs in our subset without losing all of the play counts. 
 
 \begin{figure}[H] %  figure placement: here, top, bottom, or page
    \centering
@@ -79,7 +79,7 @@ It is also easy to see in Figure \ref{fig:csongs} that the majority of the songs
 
 The scale of the data was too large to explore on our computers, so we subset the data down to a size easily handled by an average laptop. 
 
-We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a dataset which was 10\% the size of the original. The sparsity of the data was .0016, meaning that we only had play counts for 0.16\% of the user, song pairs (i.e. not all users listen to all songs). Despite subsetting the data, though, we are still dealing with a matrix of $8130$ users by $11861$ songs, so some of our algorithms will take a fair amount of time to run.
+We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a dataset which was 10\% the size of the original. The sparsity of the data was .0016, meaning that we only had play counts for 0.16\% of the user-song pairs (i.e. not all users listen to all songs). Despite subsetting the data, though, we are still dealing with a matrix of $8130$ users by $11861$ songs, so some of our algorithms will take a fair amount of time to run.
 
 %\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
 %   \centering
@@ -88,14 +88,12 @@ We choose to subset the data to users who have listened to more than 27 songs an
 %   \label{fig:t}
 %\end{figure}
 
-
 %\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
 %   \centering
 %   \includegraphics[width=4in]{../plots/final/hist-song.png} 
 %   \caption{ }
 %   \label{fig:t}
 %\end{figure}
-%
 %
 %\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
 %   \centering
@@ -141,9 +139,9 @@ v_j = \left( \lambda\sigma^2 I + \sum_{i \in \Omega_{v_j}} u_i u_i^\TRANSPOSE  \
 
 \emph{Note: $\lambda = 10$ was used and $\Omega$ is the set of all indices in the matrix which have an observation.}
 
-There are several hyper-parameters that can be tweaked in order to achieve a better MAP result using matrix factorization. The main ones that we varied were the variance, the rank $d$ of the factorization, and the number of iterations. As the project was being done using Python and the main computational package (\emph{scikit-learn}) did not have probabilistic matrix factorization functions, we decided to apply the algorithm that we wrote ourselves for a different class \citep{koren2009matrix}. 
+There are several hyperparameters that can be tweaked in order to achieve a better MAP result using matrix factorization. The main ones that we varied were the variance, the rank $d$ of the factorization, and the number of iterations. As the project was being done using Python and the main computational package (\emph{scikit-learn}) did not have probabilistic matrix factorization functions, we decided to apply the algorithm that we wrote ourselves for a different class \citep{koren2009matrix}. 
  
-After testing various values of the parameters, it was soon discovered that matrix factorization results were significantly below the popularity baseline and changing the hyper-parameters around did not help much. The best MAP value of 0.0039 was achieved using a high rank $d$ of 80 over 100 iterations with a variance of 1.0. The log joint likelihood chart can be used to verify that the probabilistic matrix factorization algorithm is running properly in that the values are monotonically increasing, which corresponds to a decreasing training error. The first graph in Figure \ref{defaultPMF} shows that the log joint likelihood is indeed monotonically increasing and slowed down significantly after the first twenty iterations. The second graph in the same figure shows the MAP values from the same run and it shows that the MAP values decreasing after the maximum at five iterations. It could be argued that emphasis should be placed on finding the right number of iterations to produce the best MAP values, but since the overall MAP results were poor and the differences were minimal, it was decided that this was not to be a priority for further experimentation. Due to this conclusion, further exploration of the probabilistic matrix factorization algorithm was limited to 30 iterations in order to reduce computational time.
+After testing various values of the parameters, it was soon discovered that matrix factorization results were significantly below the popularity baseline and changing the hyperparameters around did not help much. The best MAP value of 0.0039 was achieved using a high rank $d$ of 80 over 100 iterations with a variance of 1.0. The log joint likelihood chart can be used to verify that the probabilistic matrix factorization algorithm is running properly in that the values are monotonically increasing, which corresponds to a decreasing training error. The first graph in Figure \ref{defaultPMF} shows that the log joint likelihood is indeed monotonically increasing and slowed down significantly after the first twenty iterations. The second graph in the same figure shows the MAP values from the same run and it shows that the MAP values decreasing after the maximum at five iterations. It could be argued that emphasis should be placed on finding the right number of iterations to produce the best MAP values, but since the overall MAP results were poor and the differences were minimal, it was decided that this was not to be a priority for further experimentation. Due to this conclusion, further exploration of the probabilistic matrix factorization algorithm was limited to 30 iterations in order to reduce computational time.
 
 \begin{figure}[H] %  figure placement: here, top, bottom, or page
    \centering
@@ -152,13 +150,13 @@ After testing various values of the parameters, it was soon discovered that matr
    \label{defaultPMF}
 \end{figure}
  
-One explanation for the very low MAP scores using PMF was that the number of plays that were used are different from what PMF is typically used for which is bounded ratings. Using implicit user feedback (number of plays) instead of explicit user feedback (ratings) has been found in literature \citep{hu2008collaborative} to create various issues. One of the main issues is that implicit feedback is inherently noisy and does not measure negative feedback. Users may have played a song to simply find out that they dislike the song. The other main issue is that the exact number of plays could have a significantly different meaning across different users. For example, an avid user who has played a song five times could have a different meaning as compared to a user that has at most only played songs five times.
+One explanation for the very low MAP scores using PMF was that the number of plays that were used are different from the typical bounded ratings PMF is typically used on. Using implicit user feedback (number of plays) instead of explicit user feedback (ratings) has been shown in literature, such as \citet{hu2008collaborative}, to create various issues. One of the main issues is that implicit feedback is inherently noisy and does not measure negative feedback. Listeners may have played a song and simply found out that they disliked the song. The other main issue is that the exact number of plays could have a significantly different meaning across different users. For example, an avid listener who has played a song five times could have a different meaning as compared to a listener that has played songs at most five times.
  
-In order to tackle the issue of using implicit user feedback, we tried four different scaling schemas independently. These included normalizing user play counts by the total number of plays for the user, normalizing song play counts by the total number of plays for the song, making the data binary (changing all non-zero play counts to 1), and  applying tf-idf. While testing out these schemas, we continued to vary the hyper-parameters (i.e. $d$ and variance) in order to determine if they changed the MAP results significantly. 
+In order to tackle the issue of using implicit user feedback, we tried four different scaling schemas independently. These included normalizing user play counts by the total number of plays for the user, normalizing song play counts by the total number of plays for the song, making the data binary (changing all non-zero play counts to 1), and applying tf-idf. While testing out these schemas, we continued to vary the hyperparameters (i.e. $d$ and variance) in order to determine if they changed the MAP results significantly. 
  
-The results from the experiments were plotted in Figure \ref{fig:PMF}. It was found that the rank $d$ did not contribute significantly to the MAP values especially in settings where the MAP values were close to the popularity baseline. Higher variance values were found to actually significantly increase the MAP values and it can be argued that the reason why the default PMF works best at variance of 10 instead of 1.0 for the others is that the empirical variance of play count values is at least an order of magnitude higher than the others. This also suggests that the variance used in PMF should scale with the empirical variance, but the exact relationship remains unclear.
+The results from the experiments are shown in Figure \ref{fig:PMF}. It was found that the rank, $d$, did not contribute significantly to the MAP values especially in settings where the MAP values were close to the popularity baseline. Higher variance values were found to significantly increase the MAP values and it can be argued that the reason why the default PMF works best at variance of 10 instead of 1.0 for the others is that the empirical variance of play count values is at least an order of magnitude higher than the others. This also suggests that the variance used in PMF should scale with the empirical variance, but the exact relationship remains unclear.
 
-\newpage
+%\newpage
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
    \includegraphics[width=6in]{../plots/final/PMF.png} 
@@ -166,26 +164,11 @@ The results from the experiments were plotted in Figure \ref{fig:PMF}. It was fo
    \label{fig:PMF}
 \end{figure}
 
-In terms of scaling schemas, making the data binary produced the best result, with the second best being normalizing the data against the total number of plays for each user. Perhaps it can be said that using number of plays introduces more noise than simply considering if the user has played the song or not. TF-IDF performed slightly worse than the two, so down-weighting the songs shared more often by users did not produce better recommendations. Interestingly enough, normalizing the data against total number of plays for each song performed the worst and this most likely relates to the fact that number of plays is more meaningful relative to each user rather than to each song. 
+In terms of scaling schemas, making the data binary produced the best result, with the second best being normalizing the data against the total number of plays for each user. Perhaps it can be said that using number of plays introduces more noise than simply considering if the user has played the song or not. Tf-idf performed slightly worse than the two, so down-weighting the songs shared more often by users did not produce better recommendations. Interestingly enough, normalizing the data against total number of plays for each song performed the worst and this most likely relates to the fact that number of plays is more meaningful relative to each user rather than to each song. 
  
 Regardless, the best result achieved for PMF in the end was 0.0143, which was only slightly above the popularity baseline. Based on literature review \citep{li2012million, McFee:2012:MSD:2187980.2188222}, we have found that this is better or in line with what others have achieved with using PMF on play counts. Nevertheless, this indicates that PMF is not suitable for the MSD dataset and this can be attributed to the implicit feedback issue or simply to the fact that the dataset is too sparse. However, it is still possible to apply matrix factorization techniques to this dataset through using metadata and this has been demonstrated to be viable by \citet{liangcodebook} which achieved MAP values exceeding 0.1.  
 
-%
-%\begin{figure}[ht]
-%\begin{minipage}[b]{0.45\linewidth}
-%\centering
-%\includegraphics[width=\textwidth]{h845BuzFO9CNgAAAABJRU5ErkJggg==.png}
-%\caption{default}
-%\label{fig:figure1}
-%\end{minipage}
-%\hspace{0.5cm}
-%\begin{minipage}[b]{0.45\linewidth}
-%\centering
-%\includegraphics[width=\textwidth]{C9LAAAAABJRU5ErkJggg==.png}
-%\caption{default}
-%\label{fig:figure2}
-%\end{minipage}
-%\end{figure}
+
 
 \subsection{User Based and Item Based Collaborative Filtering}
 %\subsubsection{Intro to Memory-Based Collaborative Filtering}
@@ -220,10 +203,6 @@ $$w_b = \sum_{a \in A} sim(a, b)$$
 Lastly, we sorted the songs by scores and recommended the user the top 500 songs which had the highest scores. This method led to a MAP value of 0.0479.
 
 
-%\subsection{Artist Based Recommendation}
-
-
-
 \section{Results}
 After comparing the various algorithms, the simpler models gave us the best results. Our most complicated model, matrix factorization, gave us results barely above the popularity baseline. On the other hand, simply recommending users songs by artists they have already listened to (the artist-based popularity baseline) resulted in a significantly better recommendation system. Our song-based collaborative filtering technique produced the best results despite being a relatively simple algorithm as compared to matrix factorization. Our final results for each technique employed are summarized in Table \ref{tab:map}. 
 
@@ -243,7 +222,7 @@ Top 500 Songs by Plays  Baseline &  0.0126  \\
 \end{center}
 \end{table}
 
-\section{Conclusion}
+\section{Future Work}
 Apart from the algorithms discussed above, we also explored building a recommendation system based on K-Means Clustering (by both user and song) and Non-Negative Matrix Factorization (NMF). In the end, both of these methods yielded worse results as compared to Probabilistic Matrix Factorization so we decided not to explore them further. Next steps include incorporating tags and metadata present in the dataset (e.g. year, genre, and audio metadata). It would also be useful to expand the size of the subset and distribute the workload to multiple machines so that more data could be analyzed.
 
 %To Reference a paper: 
