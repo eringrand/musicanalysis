@@ -170,16 +170,16 @@ M_train_binary[M_train_binary != 0] = 1
 # First and Second PMF plot
 MAP, L =  MF(M_train,M_test,1.0, omega, omega_test, omegau_train, omegau_test,80,100)
 
+plt.subplot(1,2,1)
 plt.plot([0] + range(4,100,5), MAP)
-plt.xlabel('Iteration')
+plt.xlabel('Iterations')
 plt.ylabel('MAP')
 plt.title('MAP across iterations for default PMF')
-plt.show()
-
+plt.subplot(1,2,2)
 plt.plot(L)
-plt.xlabel('Iteration')
-plt.ylabel('Log Joint Likelihood')
-plt.title('Log Joint Likelihood across iterations for default PMF')
+plt.xlabel('Iterations')
+plt.ylabel('Log joint likelihood')
+plt.title('Log joint likelihood across iterations for default PMF')
 plt.show()
 
 # Third PMF plot
