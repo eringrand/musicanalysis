@@ -73,12 +73,12 @@ merged['plays_x'] = merged['plays_x']/merged['plays_y']
 sub_norm = merged[['user_id_x', 'sid', 'plays_x']]
 sub_norm.columns = ['user_id', 'sid', 'plays']
 
-#sample = random.sample(sub_norm.index, int(sub_norm.shape[0]*0.2))
-#trainsub = sub_norm.copy()
-#trainsub.ix[trainsub.index.isin(sample),'plays'] = 0
+sample = random.sample(sub_norm.index, int(sub_norm.shape[0]*0.2))
+trainsub = sub_norm.copy()
+trainsub.ix[trainsub.index.isin(sample),'plays'] = 0
 
-#testsub = sub_norm.copy()
-#testsub.ix[~testsub.index.isin(sample),'plays'] = 0
+testsub = sub_norm.copy()
+testsub.ix[~testsub.index.isin(sample),'plays'] = 0
 
 #trainpivot = trainsub.pivot(index='user_id',columns='sid', values='plays')
 #user_index = trainpivot.index
@@ -205,7 +205,7 @@ songplaycsum = songplaycsum.reset_index(drop=True).reset_index()
 songplaycsum.plot('index', 'plays')
 plt.legend().set_visible(False)
 plt.title("Cumulative Sum of Number of Users for each Song")
-plt.ylabel("Perecentage of User")
+plt.ylabel("Perecentage of Users")
 plt.xlabel("Number of Songs")
 #plt.vlines(60000,0,1,linestyles='dotted')
 formatter = FuncFormatter(to_percent)
