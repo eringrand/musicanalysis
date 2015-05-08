@@ -45,7 +45,7 @@ In building a recommendation system, various trade-offs had to be accounted for 
 While songs are typically grouped into genres, it is harder to quantify exactly how similar a song is to another and what characteristics of songs a user actually prefers. Two songs by the same artist can produce very different feedback from the same user and thus, determining the exact similarity between two songs is no easy task. The benefit of collaborative filtering methods is that we assume that the tastes of a user can be estimated to be similar to another user and thus we can recommend the songs that the second user has enjoyed to the first user.
 
 \subsection{Data and Statistics}
-The main source of data for this project was the Million Song Data Set (MSD)  \citep{Bertin-Mahieux2011}. We used the sample data set from the Kaggle competition which contains tuples of user id, song id, and play count. We also used data which links songs to artists through track ids. The links to these datasets can be found in the Appendix.
+The main data source for this project is the Million Song Data Set (MSD)  \citep{Bertin-Mahieux2011}. We used the sample data set from the Kaggle competition which contains tuples of user id, song id, and play count. We also used data which links songs to artists through track ids to calculate the artist-based popularity baseline MAP score. The links to these datasets can be found in the Appendix.
 
 The sample data set had $110000$ users, $163206$ songs, and the number of play counts for each user and song pair. The statistics are summarized in Table \ref{tab:stats}:
 
@@ -53,9 +53,8 @@ The sample data set had $110000$ users, $163206$ songs, and the number of play c
 \begin{center}
 \begin{tabular}{lll}
 \hline
-Measurement & Plays Across Songs & Plays Across Users \\
+Measurement & # of Listeners Per Song & # of Songs Played Per User \\
 \hline
-Count &  163206 & 110000 \\
 Mean  &     8.890194 & 13.190300  \\
 Std      &    46.780258 & 8.070827 \\
 Min      &    1.0  & 5.0  \\
@@ -65,7 +64,9 @@ Max     &   5043 &  53 \\
 \end{center}
 \end{table}
 
-It is also easy to see in Figure \ref{fig:csongs} that the majority of the songs are listened to by very few users so we can decrease the number of songs in our subset without losing all of the play counts. 
+The scale of the data was too large to explore on our computers for the algorithms that we used, so we subset the data down to a size easily handled by an average laptop. 
+
+It can be seen in Figure \ref{fig:csongs} that the majority of the songs are listened to by very few users so we can decrease the number of songs in our subset without losing all of the play counts. 
 
 \begin{figure}[H] %  figure placement: here, top, bottom, or page
    \centering
@@ -73,9 +74,7 @@ It is also easy to see in Figure \ref{fig:csongs} that the majority of the songs
    \caption{Percentage of users accounted for versus songs with increasing number of plays.}\label{fig:csongs}
 \end{figure}
 
-The scale of the data was too large to explore on our computers, so we subset the data down to a size easily handled by an average laptop. 
-
-We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a dataset which was 10\% the size of the original. The sparsity of the data was .0016, meaning that we only had play counts for 0.16\% of the user-song pairs (i.e. not all users listen to all songs). Despite subsetting the data, though, we are still dealing with a matrix of $8130$ users by $11861$ songs, so some of our algorithms will take a fair amount of time to run.
+We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a dataset which was 10\% the size of the original. The sparsity of the data was .0016, meaning that we only had play counts for 0.16\% of the user-song pairs (i.e. not all users listen to all songs). Despite subsetting the data, though, we are still dealing with $8130$ users and $11861$ songs, so some of our algorithms will take a fair amount of time to run.
 
 %\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
 %   \centering
@@ -100,7 +99,7 @@ We choose to subset the data to users who have listened to more than 27 songs an
 
 
 \subsection{Data Analysis}
-In order to perform the analysis, we had to fill in training and testing matrices which contained play counts for user and song pairs. We did a random selection of data elements to split between the training (80\%) and testing (20\%) sets. Next, we implemented various algorithms on the dataset in order to recommend songs to users, including matrix factorization, user-based collaborative filtering, and item-based collaborative filtering.
+In order to perform the analysis, we had to fill in training and testing matrices which contained play counts for user and song pairs. We did a random sampling of 80\%/20\% to produce training and testing sets. Next, we implemented various algorithms on the dataset in order to recommend songs to users, including matrix factorization, user-based collaborative filtering, and item-based collaborative filtering.
 
 \subsection{Testing}
 We benchmarked our algorithms using a mean average precision score truncated at 500 (MAP@500) for each algorithm. This choice of benchmark was mainly due to MAP@500 also being used as the main method to evaluate algorithms submitted for the Kaggle MSD challenge \citep{McFee:2012:MSD:2187980.2188222}.
@@ -137,7 +136,9 @@ v_j = \left( \lambda\sigma^2 I + \sum_{i \in \Omega_{v_j}} u_i u_i^\TRANSPOSE  \
 
 There are several hyperparameters that can be tweaked in order to achieve a better MAP result using matrix factorization. The main ones that we varied were the variance, the rank $d$ of the factorization, and the number of iterations. As the project was being done using Python and the main computational package (\emph{scikit-learn}) did not have probabilistic matrix factorization functions, we decided to apply the algorithm that we wrote ourselves for a different class \citep{koren2009matrix}. 
  
-After testing various values of the parameters, it was soon discovered that matrix factorization results were significantly below the popularity baseline and changing the hyperparameters around did not help much. The best MAP value of 0.0039 was achieved using a high rank $d$ of 80 over 100 iterations with a variance of 1.0. The log joint likelihood chart can be used to verify that the probabilistic matrix factorization algorithm is running properly in that the values are monotonically increasing, which corresponds to a decreasing training error. The first graph in Figure \ref{defaultPMF} shows that the log joint likelihood is indeed monotonically increasing and slowed down significantly after the first twenty iterations. The second graph in the same figure shows the MAP values from the same run and it shows that the MAP values decreasing after the maximum at five iterations. It could be argued that emphasis should be placed on finding the right number of iterations to produce the best MAP values, but since the overall MAP results were poor and the differences were minimal, it was decided that this was not to be a priority for further experimentation. Due to this conclusion, further exploration of the probabilistic matrix factorization algorithm was limited to 30 iterations in order to reduce computational time.
+After testing various values of the parameters, it was soon discovered that matrix factorization results were significantly below the popularity baseline and changing the hyperparameters around did not help much. The best MAP value of 0.0039 was achieved using a high rank $d$ of 80 over 100 iterations with a variance of 1.0. The log joint likelihood chart can be used to verify that the probabilistic matrix factorization algorithm is running properly in that the values are monotonically increasing, which corresponds to a decreasing training error. 
+
+The first graph in Figure \ref{defaultPMF} shows that the log joint likelihood is indeed monotonically increasing and slowed down significantly after the first twenty iterations. The second graph in the same figure shows the MAP values from the same run and it shows that the MAP values decreasing after the maximum at five iterations. It could be argued that emphasis should be placed on finding the right number of iterations to produce the best MAP values, but since the overall MAP results were poor and the differences were minimal, it was decided that this was not to be a priority for further experimentation. Due to this conclusion, further exploration of the probabilistic matrix factorization algorithm was limited to 30 iterations in order to reduce computational time.
 
 \begin{figure}[H] %  figure placement: here, top, bottom, or page
    \centering
@@ -150,7 +151,7 @@ One explanation for the very low MAP scores using PMF was that the number of pla
  
 In order to tackle the issue of using implicit user feedback, we tried four different scaling schemas independently. These included normalizing user play counts by the total number of plays for the user, normalizing song play counts by the total number of plays for the song, making the data binary (changing all non-zero play counts to 1), and applying tf-idf. While testing out these schemas, we continued to vary the hyperparameters (i.e. $d$ and variance) in order to determine if they changed the MAP results significantly. 
  
-The results from the experiments are shown in Figure \ref{fig:PMF}. It was found that the rank, $d$, did not contribute significantly to the MAP values especially in settings where the MAP values were close to the popularity baseline. Higher variance values were found to significantly increase the MAP values and it can be argued that the reason why the default PMF works best at variance of 10 instead of 1.0 for the others is that the empirical variance of play count values is at least an order of magnitude higher than the others. This also suggests that the variance used in PMF should scale with the empirical variance, but the exact relationship remains unclear.
+The results from the experiments are shown in Figure \ref{fig:PMF}. It was found that the rank, $d$, did not contribute significantly to the MAP values especially in settings where the MAP values were close to the popularity baseline. Higher variance values were found to significantly increase the MAP values. It can be argued that the reason why the default PMF works best at variance of 10 instead of 1.0 for the others is that the empirical variance of play count values is at least an order of magnitude higher than the others. This also suggests that the variance used in PMF should scale with the empirical variance, but the exact relationship remains unclear.
 
 %\newpage
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
@@ -182,7 +183,7 @@ Then, for each user, we looked at each song in the dataset and found all other u
 
 $$w_i = \sum_{v \in V} sim(u, v)$$
 
-The sum is a proxy for how likely the user is to like that particular song. We went through that process for all songs and recommended the user the top 500 songs which had the highest scores. This method led to a MAP value of 0.0377.
+The sum is a proxy for how likely the user is to like that particular song. This was repeated for all songs and recommended the user the top 500 songs which had the highest scores. This method led to a MAP value of 0.0377.
 
 \subsubsection{Item-Based Collaborative Filtering}
 For item-based recommendation, which turned out to be our best algorithm in terms of a MAP value, we first calculated the similarity score between every pair of songs, $i$ and $j$, using equation \ref{eq:user} and saved the most similar songs to each song in the process:
@@ -192,7 +193,7 @@ sim(i,j) = \frac{\text{\# common users}(i, j)}{{\text{\# items}(i)}^{1/2} \times
 \label{eq:user}
 \end{equation}
 
-Then, for each user, we found all the songs listened to. Next, we got the most similar songs to each of those songs listened to by the user. If the same similar songs came up multiple times, we added the weights together. In other words, for each song, $b$, that was found to be similar to one of the songs, $a$, that the user listened to, we calculated the score for that song, $b$:
+Then, for each user, we found all the songs listened to. Next, we calculated the most similar songs to each of those songs listened to by the user. If the same similar songs came up multiple times, we added the weights together. In other words, for each song, $b$, that was found to be similar to one of the songs, $a$, that the user listened to, we calculated the score for that song, $b$:
 
 $$w_b = \sum_{a \in A} sim(a, b)$$
 
@@ -200,7 +201,7 @@ Lastly, we sorted the songs by scores and recommended the user the top 500 songs
 
 
 \section{Results}
-After comparing the various algorithms, the simpler models gave us the best results. Our most complicated model, matrix factorization, gave us results barely above the popularity baseline. On the other hand, simply recommending users songs by artists they have already listened to (the artist-based popularity baseline) resulted in a significantly better recommendation system. Our song-based collaborative filtering technique produced the best results despite being a relatively simple algorithm as compared to matrix factorization. Our final results for each technique employed are summarized in Table \ref{tab:map}. 
+After comparing the various algorithms, we found that item-based collaborative filtering gave us the best result. Our most complicated model, matrix factorization, gave us results barely above the popularity baseline. On the other hand, simply recommending users songs by artists they have already listened to (the artist-based popularity baseline) resulted in a significantly better recommendation system. Our song-based collaborative filtering technique produced the best results despite it being more naive as compared to matrix factorization. Our final results for each technique employed are summarized in Table \ref{tab:map}. 
 
 \begin{table}[h]
 \begin{center}
