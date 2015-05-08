@@ -76,14 +76,30 @@ M_train_binary[M_train_binary != 0] = 1
 plotdata = []
 
 # Bunch of plotting stuff
+# First and Second PMF plot
+MAP, L =  MF(M_train,M_test,1.0, omega, omega_test, omegau_train, omegau_test,80,100)
+
+plt.plot([0] + range(4,100,5), MAP)
+plt.xlabel('Iteration')
+plt.ylabel('MAP')
+plt.title('MAP across iterations for default PMF')
+plt.show()
+
+plt.plot(L)
+plt.xlabel('Iteration')
+plt.ylabel('Log Joint Likelihood')
+plt.title('Log Joint Likelihood across iterations for default PMF')
+plt.show()
+
+# Third PMF plot
 iter = 30
 for var in [100, 10, 1, 0.01, 0.001]:
     for d in [10, 20, 40, 80]:
-        plotdata.append([0,'Default',var,d,MF(M_train,M_test,var, omega, omega_test, omegau_train, omegau_test,d,iter)])
-        plotdata.append([1,'Row-norm',var,d,MF(M_train,M_test,var, omega, omega_test, omegau_train, omegau_test,d,iter)])
-        plotdata.append([2,'Col-norm',var,d,MF(M_train,M_test,var, omega, omega_test, omegau_train, omegau_test,d,iter)])
-        plotdata.append([3,'Binary',var,d,MF(M_train,M_test,var, omega, omega_test, omegau_train, omegau_test,d,iter)])
-        plotdata.append([4,'TF-IDF',var,d,MF(M_train,M_test,var, omega, omega_test, omegau_train, omegau_test,d,iter)])
+        plotdata.append([0,'Default',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test,d,iter)])
+        plotdata.append([1,'Row-norm',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test,d,iter)])
+        plotdata.append([2,'Col-norm',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test,d,iter)])
+        plotdata.append([3,'Binary',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test,d,iter)])
+        plotdata.append([4,'TF-IDF',var,d,MF2(M_train,M_test,var, omegau_train, omegau_test,d,iter)])
             
 plotdata = pd.DataFrame(plotdata,columns=['method','methodname','variance','d','MAP'])
 
