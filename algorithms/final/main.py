@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import random
 
+### Data Loading Section
 # load observation data
 f = open("kaggle_visible_evaluation_triplets.txt", 'rb')
 eval = pd.read_csv(f,sep='\t',header = None, names = ['user_id','sid','plays'])
@@ -52,7 +53,23 @@ train_usergroup = trainplays.groupby('user_index')
 omegau_train = {}
 for i in list(set(trainplays.user_index.values)):
     omegau_train[i] = list(train_usergroup.get_group(i)['song_index'])
+    
+# creating tuple lists
+omega = [tuple(x) for x in trainsub[trainsub.plays>0][['user_index','song_index']].values]
+omega_test = [tuple(x) for x in testsub[trainsub.plays>0][['user_index','song_index']].values]
 
+### Data Exploratory and Plotting Section
+
+
+
+### Popularity Baseline Section
+
+
+
+### Artist-based Popularity Baseline Section
+
+
+### PMF Section
 # Processing M_train, row normalization, column normalization, and tfidf
 rowsum = np.sum(M_train,axis=1).reshape((-1,1))
 rowsum[rowsum == 0] = 1E-16
@@ -123,3 +140,14 @@ for name, group in groups:
 plt.legend(bbox_to_anchor=[-0.1, 2.3], loc='center', ncol=5)
 plt.suptitle("PMF over different hyper-parameters and scaling methods", fontsize = 20)
 plt.show()
+
+
+### Item and user-based section
+
+
+
+
+### K-Means section
+
+
+### NMF section
