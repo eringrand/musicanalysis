@@ -73,8 +73,6 @@ M_train_tfidf = M_train_rownorm*idf
 M_train_binary = M_train.copy()
 M_train_binary[M_train_binary != 0] = 1
 
-plotdata = []
-
 # Bunch of plotting stuff
 # First and Second PMF plot
 MAP, L =  MF(M_train,M_test,1.0, omega, omega_test, omegau_train, omegau_test,80,100)
@@ -92,6 +90,8 @@ plt.title('Log Joint Likelihood across iterations for default PMF')
 plt.show()
 
 # Third PMF plot
+plotdata = []
+
 iter = 30
 for var in [100, 10, 1, 0.01, 0.001]:
     for d in [10, 20, 40, 80]:
