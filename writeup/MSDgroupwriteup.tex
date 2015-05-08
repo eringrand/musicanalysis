@@ -69,13 +69,12 @@ Max     &   5043 &  53 \\
 \end{center}
 \end{table}
 
-It is also easy to see in the below chart that the majority of the songs are listened to by very few users so we can decrease the number of songs in our subset but not lose all of the play count. 
+It is also easy to see in Figure \ref{tab:csongs} that the majority of the songs are listened to by very few users so we can decrease the number of songs in our subset but not lose all of the play count. 
 
 \begin{figure}[h] %  figure placement: here, top, bottom, or page
    \centering
    \includegraphics[width=4in]{../plots/final/cumsum-songs.png} 
-   \caption{Percentage of users accounted for versus songs with increasing number of plays.}
-   \label{fig:t}
+   \caption{Percentage of users accounted for versus songs with increasing number of plays.}\label{fig:csongs}
 \end{figure}
 
 The scale of the data was too large to explore on our computers, so we subset the data down to a size easily handled by an average laptop. 
@@ -159,14 +158,14 @@ In order to tackle the issue of using implicit user feedback, we tried four diff
  
 The results from the experiments were plotted in Figure \ref{fig:PMF}. It was found that the rank $d$ did not contribute significantly to the MAP values especially in settings where the MAP values were close to the popularity baseline. Higher variance values were found to actually significantly increase the MAP values and it can be argued that the reason why the default PMF works best at variance of 10 instead of 1.0 for the others is that the empirical variance of play count values is at least an order of magnitude higher than the others. This also suggests that the variance used in PMF should scale with the empirical variance, but the exact relationship remains unclear.
 
-In terms of scaling schemas, making the data binary produced the best result, with the second best being normalizing the data against the total number of plays for each user. Perhaps it can be said that using number of plays introduces more noise than simply considering if the user has played the song or not. TF-IDF performed slightly worse than the two, so down-weighting the songs shared more often by users did not produce better recommendations. Interestingly enough, normalizing the data against total number of plays for each song performed the worst and this most likely relates to the fact that number of plays is more meaningful relative to each user rather than to each song. 
- 
-\begin{figure}[hbt] %  figure placement: here, top, bottom, or page
+\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
    \includegraphics[width=6in]{../plots/final/PMF.png} 
    \caption{MAP values for different scaling methods and hyperparameters after 30 iterations}
    \label{fig:PMF}
 \end{figure}
+
+In terms of scaling schemas, making the data binary produced the best result, with the second best being normalizing the data against the total number of plays for each user. Perhaps it can be said that using number of plays introduces more noise than simply considering if the user has played the song or not. TF-IDF performed slightly worse than the two, so down-weighting the songs shared more often by users did not produce better recommendations. Interestingly enough, normalizing the data against total number of plays for each song performed the worst and this most likely relates to the fact that number of plays is more meaningful relative to each user rather than to each song. 
  
 Regardless, the best result achieved for PMF in the end was 0.0143, which was only slightly above the popularity baseline. Based on literature review \citep{li2012million, McFee:2012:MSD:2187980.2188222}, we have found that this is better or in line with what others have achieved with using PMF on play counts. Nevertheless, this indicates that PMF is not suitable for the MSD dataset and this can be attributed to the implicit feedback issue or simply to the fact that the dataset is too sparse. However, it is still possible to apply matrix factorization techniques to this dataset through using metadata and this has been demonstrated to be viable by \citet{liangcodebook} which achieved MAP values exceeding 0.1.  
 
