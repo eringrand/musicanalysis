@@ -1,3 +1,8 @@
+from apk import apk
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import normalize
+
 def NMF(Mtrain, omegau, omegau_test, iter=20, rank = 25):
     X = Mtrain.T
 

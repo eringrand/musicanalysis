@@ -1,4 +1,9 @@
-def rawkmeans(Mtrain, omegau, omegau_test, song_dict, p2, ncl=10):
+from apk import apk
+import numpy as np
+from collections import defaultdict
+from sklearn.cluster import KMeans
+
+def rawkmeans(Mtrain, omegau, omegau_test, omegav, ncl=10):
     kmeans_setup = KMeans(n_clusters=ncl)
     kmeans_model = kmeans_setup.fit_transform(Mtrain)
 
@@ -51,8 +56,7 @@ def rawkmeans(Mtrain, omegau, omegau_test, song_dict, p2, ncl=10):
     for cl, sindexLIST in flatsonglist.items():
         nplaycnt = []
         for sindex in sindexLIST:
-            songh = [key for key, value in song_dict.items() if value == sindex][0]
-            tupole = (sindex, len(p2[songh]))
+            tupole = (sindex, len(omegav[sindex]))
         nplaycnt.append(tupole) 
         sortsongs_t = sorted(nplaycnt, key=lambda x: x[1], reverse=True)
         sortsonsgs = [i[0] for i in sortsongs_t]

@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 import matplotlib
 import random
@@ -17,6 +17,9 @@ from artist_based import artist_based
 
 from UserAndSongBasedRec import user_based_rec
 from UserAndSongBasedRec import item_based_rec
+
+from NMF import NMF
+from k_means import rawkmeans
 
 matplotlib.style.use('ggplot')
 
@@ -253,6 +256,9 @@ print user_based_map
 
 
 ### K-Means section
-
+kmeans_map = rawkmeans(M_train, omegau_train, omegau_test, omegav_train, ncl=10):
+print kmeans_map
 
 ### NMF section
+nmf_map = NMF(M_train, omegau_train, omegau_test, iter=20, rank=25):
+print nmf_map
