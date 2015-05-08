@@ -65,15 +65,11 @@ Std      &    46.780258 & 8.070827 \\
 Min      &    1.0  & 5.0  \\
 Max     &   5043 &  53 \\
 \end{tabular}
-\caption{Basic summary statistics for the full data set.}
-\label{tab:stats}
+\caption{Basic summary statistics for the full data set.}\label{tab:stats}
 \end{center}
 \end{table}
 
-The scale of the data was too large to explore on our computers, so we subset the data down to a size easily handled by an average laptop. 
-
-
-We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a dataset which was 10\% the size of the original. The sparsity of the data was .0016, meaning that we only had play counts for 0.16\% of the user, song pairs (i.e. not all users listen to all songs). Despite subsetting the data, though, we are still dealing with a matrix of $8130$ users by $11861$ songs, so some of our algorithms will take a fair amount of time to run.
+It is also easy to see in the below chart that the majority of the songs are listened to by very few users so we can decrease the number of songs in our subset but not lose all of the play count. 
 
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
@@ -82,12 +78,16 @@ We choose to subset the data to users who have listened to more than 27 songs an
    \label{fig:t}
 \end{figure}
 
-\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
-   \centering
-   \includegraphics[width=4in]{../plots/final/cumsum-users.png} 
-   \caption{Percentage of songs accounted for versus users with increasing number of plays.}
-   \label{fig:t}
-\end{figure}
+The scale of the data was too large to explore on our computers, so we subset the data down to a size easily handled by an average laptop. 
+
+We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a dataset which was 10\% the size of the original. The sparsity of the data was .0016, meaning that we only had play counts for 0.16\% of the user, song pairs (i.e. not all users listen to all songs). Despite subsetting the data, though, we are still dealing with a matrix of $8130$ users by $11861$ songs, so some of our algorithms will take a fair amount of time to run.
+
+%\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+%   \centering
+%   \includegraphics[width=4in]{../plots/final/cumsum-users.png} 
+%   \caption{Percentage of songs accounted for versus users with increasing number of plays.}
+%   \label{fig:t}
+%\end{figure}
 
 
 %\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
