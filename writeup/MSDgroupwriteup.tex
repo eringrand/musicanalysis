@@ -52,7 +52,26 @@ For our project, we explored various song recommendation systems algorithms such
 The main source of data for this project was the Million Song Data Set (MSD)  \citep{Bertin-Mahieux2011}. We used the sample data set from the Kaggle competition which contains tuples of user id, song id, and play count.  
 
 The sample data set had $110000$ users, $163206$ songs, and the number of play counts for each user and song pair.
+
+
+
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{lc}
+\hline
+count &  1450933 \\
+\hline
+mean  &     3.187149 \\
+std      &    7.051664 \\
+min      &    1.0 \\
+max     &   923.0 \\
+\end{tabular}
+\end{center}
+\end{table}
+
 The scale of the data was too large to explore on our computers, so we subset the data down to a size easily handled by an average laptop. 
+
 
 We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a dataset which was 10\% the size of the original. The sparsity of the data was .0016, meaning that we only had play counts for 0.16\% of the user, song pairs (i.e. not all users listen to all songs). Despite subsetting the data, though, we are still dealing with a matrix of $8130$ users by $11861$ songs, so some of our algorithms will take a fair amount of time to run.
 
@@ -165,9 +184,6 @@ Regardless, the best result achieved for PMF in the end was 0.0143, which was on
 %\end{minipage}
 %\end{figure}
 
-%\subsection{Naked Kmeans }
-%\subsection{Non-Negative Matrix Factorization}
-
 \subsection{User Based and Item Based Collaborative Filtering}
 %\subsubsection{Intro to Memory-Based Collaborative Filtering}
 A simpler set of methods for determining which songs to recommend to individual users is by using user- or item/song- based similarity (both also considered collaborative filtering). These only consider whether or not a user listened to a song and does not take into account the play count. Similarity scores between users (i.e. user-based) and songs (i.e. item-based) were calculated using cosine similarity \citep{aiolli2013preliminary, li2012million}. Intuitively, they work by recommending users songs that other similar users like (user-based) or by recommending songs which are similar to the songs the user has already listened to (item-based). The downside to this method is the computational complexity. Given the quadratic runtime of these algorithms, they are more difficult to scale to a larger dataset. As for storage requirements, we will have to store all pairs of similarity scores for users in the case of user-based and songs in the case of item-based. The details are described below.
@@ -209,7 +225,6 @@ After comparing the various algorithms, the simpler models gave us the best resu
 \begin{table}[h]
 \begin{center}
 \begin{tabular}{lc}
-
 \hline
 \bf{Algorithm} &  \bf{MAP score}\\ \hline
 Item Based  CF  &  0.0479 \\ 
