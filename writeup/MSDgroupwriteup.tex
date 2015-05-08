@@ -30,7 +30,7 @@
 \date{\today}             
 
 \begin{abstract}
-We attempted to build a recommendation system to recommend songs to users using data from the Million Song Dataset available on Kaggle. The main focus of this paper was to use collaborative filtering algorithms that only utilize user feedback in order to predict what songs users may like. For benchmarking the algorithms, the same Mean Average Precision truncated at 500 recommended songs used for the original Kaggle competition was chosen. It was discovered that probablistic matrix factorization did not improve results much from using a baseline of simply recommending popular songs with MAP values around 0.014, while artist-based popularity along with user-based and item-based collaborative filtering methods yielded much better results exceeding a MAP value of 0.04.
+We attempted to build a recommendation system to recommend songs to users using data from the Million Song Dataset available on Kaggle. The main focus of this paper was to use collaborative filtering algorithms that only utilize user feedback in order to predict what songs users may like. For benchmarking the algorithms, the same Mean Average Precision truncated at 500 recommended songs used for the original Kaggle competition was chosen. It was discovered that probabilistic matrix factorization did not improve results much from using a baseline of simply recommending popular songs with MAP values around 0.014, while artist-based popularity along with user-based and item-based collaborative filtering methods yielded much better results exceeding a MAP value of 0.04.
 
 %We attempt to build a recommendation system for a subset of the Million Song Dataset. We explore various algorithms including matrix factorization, user-based collaborative filtering, and item-based collaborative filtering. In each case we recommend the top 500 songs that our algorithm returns to each user and compare against the testing set of what the user actually listened to. Matrix factorization gives the worst results, only slightly above the popularity baseline, while artist-based popularity and user-based and item-based collaborative filtering methods yield better results.
 \end{abstract}
@@ -45,7 +45,7 @@ In building a recommendation system, various trade-offs had to be accounted for 
 While songs are typically grouped into genres, it is harder to quantify exactly how similar a song is to another and what characteristics of songs a user actually prefers. Two songs by the same artist can produce very different feedback from the same user and thus, determining the exact similarity between two songs is no easy task. The benefit of collaborative filtering methods is that we assume that the tastes of a user can be estimated to be similar to another user and thus we can recommend the songs that the second user has enjoyed to the first user.
 
 \subsection{Data and Statistics}
-The main data source for this project is the Million Song Data Set (MSD)  \citep{Bertin-Mahieux2011}. We used the sample data set from the Kaggle competition which contains tuples of user id, song id, and play count. We also used data which links songs to artists through track ids to calculate the artist-based popularity baseline MAP score. The links to these datasets can be found in the Appendix.
+The main data source for this project is the Million Song Data Set (MSD)  \citep{Bertin-Mahieux2011}. We used the sample data set from the Kaggle competition which contains tuples of user id, song id, and play count. We also used data which links songs to artists through track ids to calculate the artist-based popularity baseline MAP score. The links to all these datasets can be found in the Appendix.
 
 The sample data set had $110000$ users, $163206$ songs, and the number of play counts for each user and song pair. The statistics are summarized in Table \ref{tab:stats}:
 
@@ -53,7 +53,7 @@ The sample data set had $110000$ users, $163206$ songs, and the number of play c
 \begin{center}
 \begin{tabular}{lll}
 \hline
-Measurement & # of Listeners Per Song & # of Songs Played Per User \\
+Measurement & \# of Listeners Per Song & \# of Songs Played Per User \\
 \hline
 Mean  &     8.890194 & 13.190300  \\
 Std      &    46.780258 & 8.070827 \\
@@ -65,8 +65,7 @@ Max     &   5043 &  53 \\
 \end{table}
 
 The scale of the data was too large to explore on our computers for the algorithms that we used, so we subset the data down to a size easily handled by an average laptop. 
-
-It can be seen in Figure \ref{fig:csongs} that the majority of the songs are listened to by very few users so we can decrease the number of songs in our subset without losing all of the play counts. 
+It can be seen in Figure \ref{fig:csongs} that the majority of the songs are listened to by very few users we were able to decrease the number of songs in our subset without losing all of the play counts. 
 
 \begin{figure}[H] %  figure placement: here, top, bottom, or page
    \centering
