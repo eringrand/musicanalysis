@@ -51,7 +51,7 @@ For our project, we explored various song recommendation systems algorithms such
 \subsection{Data and Statistics}
 The main source of data for this project was the Million Song Data Set (MSD)  \citep{Bertin-Mahieux2011}. We used the sample data set from the Kaggle competition which contains tuples of user id, song id, and play count. We also used data which links songs to artists through track ids. The links to these datasets can be found in the Appendix.
 
-The sample data set had $110000$ users, $163206$ songs, and the number of play counts for each user and song pair. The statistics are summarized below:
+The sample data set had $110000$ users, $163206$ songs, and the number of play counts for each user and song pair. The statistics are summarized in Table \ref{tab:stats}:
 
 \begin{table}[h]
 \begin{center}
@@ -65,6 +65,8 @@ Std      &    46.780258 & 8.070827 \\
 Min      &    1.0  & 5.0  \\
 Max     &   5043 &  53 \\
 \end{tabular}
+\caption{Basic summary statistics for the full data set.}
+\label{tab:stats}
 \end{center}
 \end{table}
 
@@ -80,7 +82,6 @@ We choose to subset the data to users who have listened to more than 27 songs an
    \label{fig:t}
 \end{figure}
 
-
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
    \includegraphics[width=4in]{../plots/final/cumsum-users.png} 
@@ -89,20 +90,20 @@ We choose to subset the data to users who have listened to more than 27 songs an
 \end{figure}
 
 
-\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
-   \centering
-   \includegraphics[width=4in]{../plots/final/hist-song.png} 
-   \caption{ }
-   \label{fig:t}
-\end{figure}
-
-
-\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
-   \centering
-   \includegraphics[width=4in]{../plots/final/hist_user_song_count.png} 
-   \caption{ }
-   \label{fig:t}
-\end{figure}
+%\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+%   \centering
+%   \includegraphics[width=4in]{../plots/final/hist-song.png} 
+%   \caption{ }
+%   \label{fig:t}
+%\end{figure}
+%
+%
+%\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+%   \centering
+%   \includegraphics[width=4in]{../plots/final/hist_user_song_count.png} 
+%   \caption{ }
+%   \label{fig:t}
+%\end{figure}
 
 
 \subsection{Data Analysis}
@@ -195,10 +196,11 @@ Regardless, the best result achieved for PMF in the end was 0.0143, which was on
 A simpler set of methods for determining which songs to recommend to individual users is by using user- or item/song- based similarity (both also considered collaborative filtering). These only consider whether or not a user listened to a song and does not take into account the play count. Similarity scores between users (i.e. user-based) and songs (i.e. item-based) were calculated using cosine similarity \citep{aiolli2013preliminary, li2012million}. Intuitively, they work by recommending users songs that other similar users like (user-based) or by recommending songs which are similar to the songs the user has already listened to (item-based). The downside to this method is the computational complexity. Given the quadratic runtime of these algorithms, they are more difficult to scale to a larger dataset. As for storage requirements, we will have to store all pairs of similarity scores for users in the case of user-based and songs in the case of item-based. The details are described below.
 
 \subsubsection{User-Based Collaborative Filtering}
-For user-based recommendation, we first calculated the similarity score between every pair of users, $u$ and $v$, using the equation below:
+For user-based recommendation, we first calculated the similarity score between every pair of users, $u$ and $v$, using equation \ref{eq:item}:
 
 \begin{equation}
 sim(u,v) = \frac{\text{\# common items}(u, v)}{{\text{\# items}(u)}^{1/2} \times {\text{\# items}(v)}^{1/2}}
+\label{eq:item}
 \end{equation}
 
 Then, for each user, we looked at each song in the dataset and found all other users who have listened to that song. Next, we added up the similarity score of each of those users, $v$, with the original user, $u$, and got the weight for a particular song, $i$:  
@@ -208,10 +210,11 @@ $$w_i = \sum_{v \in V} sim(u, v)$$
 The sum is a proxy for how likely the user is to like that particular song. We went through that process for all songs and recommended the user the top 500 songs which had the highest scores. This method led to a MAP value of 0.0377.
 
 \subsubsection{Item-Based Collaborative Filtering}
-For item-based recommendation, which turned out to be our best algorithm in terms of a MAP value, we first calculated the similarity score between every pair of songs, $i$ and $j$, using the equation below and saved the most similar songs to each song in the process:
+For item-based recommendation, which turned out to be our best algorithm in terms of a MAP value, we first calculated the similarity score between every pair of songs, $i$ and $j$, using equation \ref{eq:user} and saved the most similar songs to each song in the process:
 
 \begin{equation}
 sim(i,j) = \frac{\text{\# common users}(i, j)}{{\text{\# items}(i)}^{1/2} \times {\text{\# items}(j)}^{1/2}}
+\label{eq:user}
 \end{equation}
 
 Then, for each user, we found all the songs listened to. Next, we got the most similar songs to each of those songs listened to by the user. If the same similar songs came up multiple times, we added the weights together. In other words, for each song, $b$, that was found to be similar to one of the songs, $a$, that the user listened to, we calculated the score for that song, $b$:
