@@ -56,20 +56,6 @@ The scale of the data was too large to explore on our computers, so we subset th
 
 We choose to subset the data to users who have listened to more than 27 songs and songs which were listened to by more than 22 users. This resulted in a dataset which was 10\% the size of the original. The sparsity of the data was .0016, meaning that we only had play counts for 0.16\% of the user, song pairs (i.e. not all users listen to all songs). Despite subsetting the data, though, we are still dealing with a matrix of $8130$ users by $11861$ songs, so some of our algorithms will take a fair amount of time to run.
 
-
-SONG PLAY COUNT  \\
-mean = 28 \\
-max = 35432 \\
-min = 1 \\
-std = 215.826789\\
-
-USER PLAY COUNT\\
-mean = 42\\
-max = 1305\\
-min = 5\\
-std = 53.31547\\
-
-
 \subsection{Data Analysis}
 In order to perform the analysis, we had to fill in training and testing matrices which contained play counts for user and song pairs. We did a random selection of data elements to split between the training (80\%) and testing (20\%) sets. Next, we implemented various algorithms on the dataset in order to recommend songs to users, including matrix factorization, user-based collaborative filtering, and item-based collaborative filtering.
 
@@ -82,23 +68,23 @@ We then averaged the score over all users. Intuitively, the score looks at the p
 
 We used two different baseline benchmarks \citep{McFee:2012:MSD:2187980.2188222} to compare our MAP scores against. The first was to simply recommend the top 500 most popular songs to every user. This naive method resulted in a MAP score of 0.0138 (top 500 songs based on number of users who listened to the song) or 0.0126 (top 500 songs based on number of plays the song had). The second method was to first recommend a user the most popular songs of artists the user already had already played (but different songs from that artist). If this did not result in enough recommendations, we would then recommend the overall most popular songs as well at the end (similar to baseline method 1). Although this method is conservative in that it does not go beyond the tastes the user already has in the training set, it resulted in a significant improvement in the MAP score to 0.0448.
 
-
-
-
 \section{Algorithms}
 
 \subsection{Probabilistic Matrix Factorization}
 Matrix factorization is a type of collaborative filtering algorithm that can be used to build a recommendation system for users based on user feedback of objects (in this case songs). This allows us to recommend songs to users based on their listening history without the need for content based approaches. 
 Training and testing matrices were constructed, of which both have $N_1$ users (rows denoted by $u_i$) and $N_2$ songs (columns denoted by $v_j$). As users have only listened to a fraction of all the songs available, the matrices are sparse, containing zeros in all entries except for those in which a user (a user representing a single row) has listened to. The goal of matrix factorization is to factor the training matrix into the product of two matrices $U$ and $V$.  The matrix $U$ is $N_1 \times d$ and the matrix $V$ is $d \times N_2$. Another goal of matrix factorization is typically to learn a low-rank factorization of the original matrix while restricting the patterns that are generated in the product of the factorized matrices (e.g. if a user likes a song in a specific group of songs, the user may also like other songs in that group of songs). The choice of $d$ can be subjective but $20$ is a common value to start with. In the factorized matrices, the predicted rating will be $\hat{M}_{ij} = u_i^\TRANSPOSE  v_j$
 Using a coordinate ascent algorithm over 100 iterations, each row ($u_i$) and column ($v_j$) of the training matrix is then updated (equations \ref{eq1} and \ref{eq2}) in order to maximize the log joint likelihood (equation \ref{eq3}).
+
 \begin{equation}
 u_i = \left( \lambda\sigma^2 I + \sum_{j \in \Omega_{u_i}} v_j v_j^\TRANSPOSE \right)^{-1}\left(\sum_{j \in \Omega_{u_i}} M_{ij} v_{j} \right)
 \label{eq1}
 \end{equation}
+
 \begin{equation}
 v_j = \left( \lambda\sigma^2 I + \sum_{i \in \Omega_{v_j}} u_i u_i^\TRANSPOSE  \right)^{-1}\left(\sum_{i \in \Omega_{v_j}} M_{ij} u_{i} \right)
 \label{eq2}
 \end{equation}
+
 \begin{equation}
 \mathcal{L} = \sum_{(i,j) \in \Omega} \frac{1}{2\sigma^2} {|| M_{ij} - u_i^\TRANSPOSE  v_j||}^2 - \sum_{i=1}^{N_1} \frac{\lambda}{2} ||u_i^2 || - \sum_{i=1}^{N_2} \frac{\lambda}{2} ||v_j^2 || + \text{constant}
 \label{eq3} 
@@ -121,21 +107,19 @@ Regardless, the best result achieved for PMF in the end was 0.0143, which was on
 
 \citep{hu2008collaborative}
 
-
-
-\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
-   \centering
-   \includegraphics[width=4in]{h845BuzFO9CNgAAAABJRU5ErkJggg==.png} 
-   \caption{how close our prediction is as compared to the actual normalized play count in the testing set }
-   \label{fig:rmseplot}
-\end{figure}
-
-\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
-   \centering
-   \includegraphics[width=4in]{C9LAAAAABJRU5ErkJggg==.png} 
-   \caption{log joint likelihood of the training set as a function of iteration }
-   \label{fig:likeplot}
-\end{figure}
+%\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+%   \centering
+%   \includegraphics[width=4in]{h845BuzFO9CNgAAAABJRU5ErkJggg==.png} 
+%   \caption{how close our prediction is as compared to the actual normalized play count in the testing set }
+%   \label{fig:rmseplot}
+%\end{figure}
+%
+%\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
+%   \centering
+%   \includegraphics[width=4in]{C9LAAAAABJRU5ErkJggg==.png} 
+%   \caption{log joint likelihood of the training set as a function of iteration }
+%   \label{fig:likeplot}
+%\end{figure}
 
 
 %
