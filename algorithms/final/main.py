@@ -1,6 +1,10 @@
 import numpy as np
 import pandas as pd
+import matplotlib as plt
+import matplotlib
 import random
+
+matplotlib.style.use('ggplot')
 
 ### Data Loading Section
 # load observation data
@@ -40,6 +44,14 @@ song_index = pd.DataFrame(trainpivot.columns).reset_index()
 song_index.columns = [['song_index','sid']]
 trainsub = pd.merge(trainsub, song_index, on='sid')
 testsub = pd.merge(testsub, song_index, on='sid')
+
+# Generating the default M_train and M_test matrices
+M_train = trainpivot.as_matrix()
+M_train = np.nan_to_num(M_train)
+
+testpivot = testsub.pivot(index='user_id',columns='sid', values='plays')
+M_test = testpivot.as_matrix()
+M_test = np.nan_to_num(M_test)
 
 # creating omegau_test
 testplays = testsub[testsub.plays>0]
