@@ -149,7 +149,7 @@ After testing various values of the parameters, it was soon discovered that matr
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
    \includegraphics[width=6in]{../plots/final/defaultPMF.png} 
-   \caption{MAP values and log joint likelihood values for PMF using default playcount values with $\sigma^2 = 1.0$ and $d = 80$}
+   \caption{MAP values and log joint likelihood values for PMF using default play-count values with $\sigma^2 = 1.0$ and $d = 80$}
    \label{defaultPMF}
 \end{figure}
  
@@ -168,7 +168,7 @@ In terms of scaling schemas, making the data binary produced the best result, wi
    \label{PMF}
 \end{figure}
  
-Regardless, the best result achieved for PMF in the end was 0.0143, which was only slightly above the popularity baseline. Based on literature review \citep{li20122million, McFee:2012:MSD:2187980.2188222}, we have found that this is better or in line with what others have achieved with using PMF on play counts. Nevertheless, this indicates that PMF is not suitable for the MSD dataset and this can be attributed to the implicit feedback issue or simply to the fact that the dataset is too sparse. However, it is still possible to apply matrix factorization techniques to this dataset through using metadata and this has been demonstrated to be viable by \citet{liangcodebook} which achieved MAP values exceeding 0.1.  
+Regardless, the best result achieved for PMF in the end was 0.0143, which was only slightly above the popularity baseline. Based on literature review \citep{li2012million, McFee:2012:MSD:2187980.2188222}, we have found that this is better or in line with what others have achieved with using PMF on play counts. Nevertheless, this indicates that PMF is not suitable for the MSD dataset and this can be attributed to the implicit feedback issue or simply to the fact that the dataset is too sparse. However, it is still possible to apply matrix factorization techniques to this dataset through using metadata and this has been demonstrated to be viable by \citet{liangcodebook} which achieved MAP values exceeding 0.1.  
 
 
 

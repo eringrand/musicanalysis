@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib as plt
+from matplotlib.ticker import FuncFormatter
 import matplotlib
 import random
 import pandas.io.sql as psql
@@ -90,12 +91,36 @@ omega = [tuple(x) for x in trainsub[trainsub.plays>0][['user_index','song_index'
 omega_test = [tuple(x) for x in testsub[trainsub.plays>0][['user_index','song_index']].values]
 
 
-
 ### Data Exploratory and Plotting Section
+def to_percent(y, position):
+    # Ignore the passed in position. This has the effect of scaling the default
+    # tick locations.
+    s = str(100 * y)
 
+    # The percent symbol needs escaping in latex
+    if matplotlib.rcParams['text.usetex'] == True:
+        return s + r'$\%$'
+    else:
+        return s + '%'
 
+#cumulative sum for plays vs songs
+songplaycsum = songhist.sort('plays')
+songplaycsum['plays'] = songplaycsum['plays'].cumsum()
+songplaycsum['plays'] = songplaycsum['plays']/songplaycsum['plays'].max()
+songplaycsum = songplaycsum.reset_index(drop=True).reset_index()
+songplaycsum.plot('index', 'plays')
+plt.legend().set_visible(False)
+plt.title("Cumulative Sum of Number of Users for each Song")
+plt.ylabel("Perecentage of Users")
+plt.xlabel("Number of Songs")
+#plt.vlines(60000,0,1,linestyles='dotted')
+formatter = FuncFormatter(to_percent)
+plt.gca().yaxis.set_major_formatter(formatter)
+plt.legend().set_visible(False)
+plt.show()
 
-
+print eval.groupby('user_id').count().describe()['plays']
+print eval.groupby('sid').count().describe()['plays']
 
 ### Popularity Baseline Section
 popbase = popularity_baseline(trainsub,omegau_train,omegau_test)
