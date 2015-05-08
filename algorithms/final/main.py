@@ -4,6 +4,13 @@ import matplotlib as plt
 import matplotlib
 import random
 
+from matrix_factorization import MF
+from matrix_factorization import MF2
+
+from popularity_baseline import popularity_baseline
+
+from artist_based import artist_based
+
 from UserAndSongBasedRec import user_based_rec
 from UserAndSongBasedRec import item_based_rec
 
@@ -68,13 +75,10 @@ train_usergroup = trainplays.groupby('user_index')
 omegau_train = {}
 for i in list(set(trainplays.user_index.values)):
     omegau_train[i] = list(train_usergroup.get_group(i)['song_index'])
-    
 # creating omegav_train
-trainplay = trainsub[trainsub.plays>0] 
-train_songgroup = trainplay.groupby('song_index')
+train_songgroup = trainplays.groupby('song_index')
 omegav_train = {}
-
-for i in list(set(trainplay.song_index.values)):
+for i in list(set(trainplays.song_index.values)):
     omegav_train[i] = list(train_songgroup.get_group(i)['user_index'])   
     
 # creating tuple lists
@@ -86,8 +90,8 @@ omega_test = [tuple(x) for x in testsub[trainsub.plays>0][['user_index','song_in
 
 
 ### Popularity Baseline Section
-
-
+popbase = popularity_baseline(trainsub,omegau_train,omegau_test)
+print "The popularity baseline based on counts is " + str(popbase[0]) + ' and based on plays is ' + str(popbase[1])
 
 ### Artist-based Popularity Baseline Section
 
