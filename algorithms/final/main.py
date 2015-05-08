@@ -254,9 +254,9 @@ print user_based_map
 
 
 ### K-Means section
-kmeans_map = rawkmeans(M_train, omegau_train, omegau_test, omegav_train, ncl=10):
+kmeans_map = rawkmeans(M_train, omegau_train, omegau_test, omegav_train, ncl=10)
 print kmeans_map
 
 ### NMF section
-nmf_map = NMF(M_train, omegau_train, omegau_test, iter=20, rank=25):
+nmf_map = NMF(M_train, omegau_train, omegau_test, iter=20, rank=25)
 print nmf_map
