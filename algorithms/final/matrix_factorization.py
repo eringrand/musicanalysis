@@ -73,6 +73,7 @@ def MF(Mtrain, var, omega, omega_test, omegau, omegau_test, d, iter):
 
     return MAP, loglik
 
+# MF without calculating log likelihood to reduce compute time
 def MF2(Mtrain, var, omegau, omegau_test, d, iter):
     
     N1 = np.shape(Mtrain)[0]
