@@ -3,7 +3,7 @@ import pandas as pd
 import random
 from apk import apk
 
-def MF(Mtrain, Mtest, var, omega, omega_test, omegau, omegau_test, d=20, iter=20):
+def MF(Mtrain, var, omega, omega_test, omegau, omegau_test, d, iter):
     
     N1 = np.shape(Mtrain)[0]
     N2 = np.shape(Mtrain)[1]
@@ -73,7 +73,7 @@ def MF(Mtrain, Mtest, var, omega, omega_test, omegau, omegau_test, d=20, iter=20
 
     return MAP, loglik
 
-def MF2(Mtrain, Mtest, var, omegau, omegau_test, d, iter):
+def MF2(Mtrain, var, omegau, omegau_test, d, iter):
     
     N1 = np.shape(Mtrain)[0]
     N2 = np.shape(Mtrain)[1]
